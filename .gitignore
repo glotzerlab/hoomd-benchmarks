@@ -1,0 +1,5 @@
+*.sublime-workspace
+*.DS_Store
+*.kdev4
+__pycache__
+.ipynb_checkpoints
