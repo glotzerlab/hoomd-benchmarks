@@ -1,0 +1,101 @@
+[
+    {
+        "user": {
+            "tps": [
+                392.0435791015625, 
+                394.5291748046875, 
+                394.7911376953125, 
+                394.4379577636719
+            ], 
+            "mps": 39395046.234130859
+        }, 
+        "timestamp": "2015-12-14 11:23:15", 
+        "context": {
+            "hostname": "collins", 
+            "gpu": "GeForce GTX 680", 
+            "mode": "gpu", 
+            "num_ranks": 1, 
+            "username": "joaander", 
+            "wallclocktime": 163.25504326820374, 
+            "cputime": 163.337919, 
+            "job_id": "", 
+            "job_name": ""
+        }, 
+        "hoomd": {
+            "hoomd_version": [
+                1, 
+                1, 
+                1
+            ], 
+            "hoomd_git_sha1": "unknown", 
+            "hoomd_git_refspec": "unknown", 
+            "hoomd_compile_flags": "CUDA (7.5) SINGLE MPI SSE SSE2 SSE3 SSE4_1 SSE4_2 AVX ", 
+            "cuda_version": [
+                7, 
+                5
+            ], 
+            "compiler_version": "gcc 4.9.3"
+        }, 
+        "data.system_data": {
+            "box": {
+                "d": 3, 
+                "Lx": 120.3998031616211, 
+                "Ly": 120.3998031616211, 
+                "Lz": 120.3998031616211, 
+                "xy": 0.0, 
+                "xz": 0.0, 
+                "yz": 0.0, 
+                "V": 1745329.125
+            }, 
+            "particles": {
+                "N": 100000, 
+                "types": [
+                    "A"
+                ]
+            }, 
+            "number_density": 0.05729578368206054, 
+            "bonds": {
+                "N": 0, 
+                "types": []
+            }, 
+            "angles": {
+                "N": 0, 
+                "types": []
+            }, 
+            "dihedrals": {
+                "N": 0, 
+                "types": []
+            }, 
+            "impropers": {
+                "N": 0, 
+                "types": []
+            }, 
+            "bodies": {
+                "nbodies": 0
+            }, 
+            "timestep": 61520
+        }, 
+        "pair.table": {
+            "enabled": true, 
+            "log": true
+        }, 
+        "integrate.mode_standard": {
+            "dt": 0.01
+        }, 
+        "integrate.nvt": {
+            "group": {
+                "name": "all"
+            }, 
+            "T": 0.18, 
+            "tau": 1.0, 
+            "enabled": true
+        }, 
+        "update.sort": {
+            "enabled": true
+        }, 
+        "update.zero_momentum": {
+            "period": 1000, 
+            "enabled": true
+        }
+    }
+]

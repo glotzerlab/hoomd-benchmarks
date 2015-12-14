@@ -1,0 +1,7 @@
+{
+  "name": "gpu2-18959", 
+  "cpu": " Intel(R) Xeon(R) CPU E5-2680 v2 @ 2.80GHz", 
+  "benchmark": "triblock-copolymer", 
+  "system": "collins", 
+  "date": "2015/12/14"
+}

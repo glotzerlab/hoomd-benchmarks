@@ -1,0 +1,140 @@
+[
+    {
+        "user": {
+            "mps": 39407331.029416293, 
+            "tps": [
+                614.1271237646397, 
+                615.6786667341977, 
+                617.6009933611767, 
+                614.8973559413694
+            ]
+        }, 
+        "timestamp": "2015-12-14 09:45:00", 
+        "context": {
+            "hostname": "collins", 
+            "gpu": "Tesla K40c", 
+            "mode": "gpu", 
+            "num_ranks": 1, 
+            "username": "joaander", 
+            "wallclocktime": 133.358553647995, 
+            "cputime": 133.377714, 
+            "job_id": "", 
+            "job_name": ""
+        }, 
+        "hoomd": {
+            "hoomd_version": [
+                1, 
+                3, 
+                0
+            ], 
+            "hoomd_git_sha1": "unknown", 
+            "hoomd_git_refspec": "unknown", 
+            "hoomd_compile_flags": "CUDA (7.5) DOUBLE MPI SSE SSE2 SSE3 SSE4_1 SSE4_2 AVX ", 
+            "cuda_version": [
+                7, 
+                5
+            ], 
+            "compiler_version": "gcc 4.9.3"
+        }, 
+        "data.system_data": {
+            "box": {
+                "d": 3, 
+                "Lx": 55.13423156738, 
+                "Ly": 55.13423156738, 
+                "Lz": 55.13423156738, 
+                "xy": 0.0, 
+                "xz": 0.0, 
+                "yz": 0.0, 
+                "V": 167596.12688133054
+            }, 
+            "particles": {
+                "N": 64017, 
+                "types": [
+                    "A", 
+                    "B"
+                ]
+            }, 
+            "number_density": 0.38197183426159004, 
+            "bonds": {
+                "N": 61646, 
+                "types": [
+                    "polymer"
+                ]
+            }, 
+            "angles": {
+                "N": 0, 
+                "types": []
+            }, 
+            "dihedrals": {
+                "N": 0, 
+                "types": []
+            }, 
+            "impropers": {
+                "N": 0, 
+                "types": []
+            }, 
+            "bodies": {
+                "nbodies": 0
+            }, 
+            "timestep": 279248
+        }, 
+        "bond.harmonic": {
+            "enabled": true, 
+            "log": true, 
+            "bond_coeff": {
+                "polymer": {
+                    "k": 330.0, 
+                    "r0": 0.84
+                }
+            }
+        }, 
+        "pair.lj": {
+            "enabled": true, 
+            "log": true, 
+            "pair_coeff": [
+                {
+                    "typei": "A", 
+                    "typej": "B", 
+                    "epsilon": 1.0, 
+                    "sigma": 1.0, 
+                    "r_cut": 3.0, 
+                    "alpha": 0.0, 
+                    "r_on": 3.0
+                }, 
+                {
+                    "typei": "A", 
+                    "typej": "A", 
+                    "epsilon": 1.0, 
+                    "sigma": 1.0, 
+                    "r_cut": 3.0, 
+                    "alpha": 0.0, 
+                    "r_on": 3.0
+                }, 
+                {
+                    "typei": "B", 
+                    "typej": "B", 
+                    "epsilon": 1.0, 
+                    "sigma": 1.0, 
+                    "r_cut": 3.0, 
+                    "alpha": 1.0, 
+                    "r_on": 3.0
+                }
+            ]
+        }, 
+        "integrate.mode_standard": {
+            "dt": 0.005, 
+            "aniso": null
+        }, 
+        "integrate.nvt": {
+            "group": {
+                "name": "all"
+            }, 
+            "T": 1.2, 
+            "tau": 0.5, 
+            "enabled": true
+        }, 
+        "update.sort": {
+            "enabled": true
+        }
+    }
+]
