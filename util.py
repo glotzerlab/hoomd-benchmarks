@@ -22,7 +22,12 @@ def read_rows(benchmark):
     rows = []
     for job in project.find_jobs(dict(benchmark=benchmark)):
             row = job.statepoint();
-            meta = json.load(open(os.path.join(job.workspace(), 'metadata.json')))[0]
+            try:
+                meta = json.load(open(os.path.join(job.workspace(), 'metadata.json')))[0]
+            except IOError:
+                # skip missing files
+                continue
+
             row['mps'] = meta['user']['mps'];
             row['N'] = meta['data.system_data']['particles']['N'];
             row['num_ranks'] = meta['context']['num_ranks'];
@@ -47,7 +52,7 @@ def make_table(rows):
     table =  "| Date | System | Compiler | CUDA | HOOMD | Precision | N | CPU | GPU | Ranks | MPS (millions) |\n";
     table += "|------|--------|----------|------|-------|-----------|---|-----|-----|-------|---------------:|\n";
 
-    rows.sort(key=lambda v: v['mps'], reverse=True);
+    rows.sort(key=lambda v: (v['hoomd_version'], v['mps']), reverse=True);
 
     for row in rows:
         cpu = row['cpu'];

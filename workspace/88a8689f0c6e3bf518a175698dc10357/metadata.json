@@ -1,0 +1,109 @@
+[
+    {
+        "user": {
+            "mps": 17849602.096182939, 
+            "tps": [
+                287.796920817817, 
+                282.3380853327989, 
+                278.7252491978712, 
+                266.73987566294653
+            ]
+        }, 
+        "timestamp": "2015-12-14 09:31:34", 
+        "context": {
+            "hostname": "collins", 
+            "gpu": "Quadro M6000", 
+            "mode": "gpu", 
+            "num_ranks": 1, 
+            "username": "joaander", 
+            "wallclocktime": 182.94964456558228, 
+            "cputime": 182.880086, 
+            "job_id": "", 
+            "job_name": ""
+        }, 
+        "hoomd": {
+            "hoomd_version": [
+                1, 
+                3, 
+                0
+            ], 
+            "hoomd_git_sha1": "unknown", 
+            "hoomd_git_refspec": "unknown", 
+            "hoomd_compile_flags": "CUDA (7.5) DOUBLE MPI SSE SSE2 SSE3 SSE4_1 SSE4_2 AVX ", 
+            "cuda_version": [
+                7, 
+                5
+            ], 
+            "compiler_version": "gcc 4.9.3"
+        }, 
+        "data.system_data": {
+            "box": {
+                "d": 3, 
+                "Lx": 55.12934875488, 
+                "Ly": 55.12934875488, 
+                "Lz": 55.12934875488, 
+                "xy": 0.0, 
+                "xz": 0.0, 
+                "yz": 0.0, 
+                "V": 167551.6027462472
+            }, 
+            "particles": {
+                "N": 64000, 
+                "types": [
+                    "A"
+                ]
+            }, 
+            "number_density": 0.3819718758341359, 
+            "bonds": {
+                "N": 0, 
+                "types": []
+            }, 
+            "angles": {
+                "N": 0, 
+                "types": []
+            }, 
+            "dihedrals": {
+                "N": 0, 
+                "types": []
+            }, 
+            "impropers": {
+                "N": 0, 
+                "types": []
+            }, 
+            "bodies": {
+                "nbodies": 0
+            }, 
+            "timestep": 252320
+        }, 
+        "pair.lj": {
+            "enabled": true, 
+            "log": true, 
+            "pair_coeff": [
+                {
+                    "typei": "A", 
+                    "typej": "A", 
+                    "epsilon": 1.0, 
+                    "sigma": 1.0, 
+                    "r_cut": 3.0, 
+                    "alpha": 1.0, 
+                    "r_on": 3.0
+                }
+            ]
+        }, 
+        "integrate.mode_standard": {
+            "dt": 0.005, 
+            "aniso": null
+        }, 
+        "integrate.nvt": {
+            "group": {
+                "name": "all"
+            }, 
+            "T": 1.2, 
+            "tau": 0.5, 
+            "enabled": true
+        }, 
+        "update.sort": {
+            "enabled": true
+        }
+    }
+]
