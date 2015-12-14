@@ -10,8 +10,11 @@ Parameters:
 
 * $N = 64000$
 * $\rho = 0.382$
-* $r_\mathrm{cut} = 3.0$
-* $\epsilon = 1.0$
-* $\sigma = 1.0$
-* $\delta t = 0.005$
-* Integration: Nose-hoover NVT $T=1.2$, $\tau=0.5$
+* Lennard-Jones pair force
+    * $r_\mathrm{cut} = 3.0$
+    * $\epsilon = 1.0$
+    * $\sigma = 1.0$
+    * $\delta t = 0.005$
+* Integration: Nos&eacute;-Hoover NVT
+    * $T=1.2$
+    * $\tau=0.5$

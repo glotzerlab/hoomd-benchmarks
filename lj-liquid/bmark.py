@@ -1,4 +1,3 @@
-#! /usr/bin/env hoomd
 from __future__ import print_function, division
 from hoomd_script import *
 import numpy
