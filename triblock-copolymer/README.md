@@ -10,7 +10,6 @@ Parameters:
 
 * $N = 64017$
 * $\rho = 0.382$
-* $r_\mathrm{cut} = 3.0$
 * Lennard-Jones pair force
     * $r_\mathrm{cut} = 3.0$
     * $\epsilon = 1.0$
