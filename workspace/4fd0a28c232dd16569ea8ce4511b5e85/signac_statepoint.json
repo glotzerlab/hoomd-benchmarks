@@ -1,0 +1,7 @@
+{
+  "system": "collins", 
+  "date": "2015/12/15", 
+  "name": "gpu0-18113", 
+  "cpu": " Intel(R) Xeon(R) CPU E5-2680 v2 @ 2.80GHz", 
+  "benchmark": "microsphere"
+}
