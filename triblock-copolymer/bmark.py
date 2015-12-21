@@ -41,5 +41,5 @@ ptps = numpy.average(tps) * len(system.particles);
 
 # print out millions of particle time steps per second
 if comm.get_rank() == 0:
-    print("Average particle timesteps per second: {0:.2f} million".format(ptps/1e6));
+    print("Hours to complete 10e6 steps: {0}".format(10e6/(ptps/len(system.particles))/3600));
     meta.dump_metadata(filename = workspace+"/metadata.json", overwrite = True, user = {'mps': ptps, 'tps': tps});

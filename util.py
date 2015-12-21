@@ -49,7 +49,7 @@ def read_rows(benchmark):
     return rows
 
 def make_table(rows):
-    table =  "| Date | System | Compiler | CUDA | HOOMD | Precision | N | CPU | GPU | Ranks | MPS (millions) |\n";
+    table =  "| Date | System | Compiler | CUDA | HOOMD | Precision | N | CPU | GPU | Ranks | Time for 10e6 steps (hours)|\n";
     table += "|------|--------|----------|------|-------|-----------|---|-----|-----|-------|---------------:|\n";
 
     rows.sort(key=lambda v: (v['hoomd_version'], v['mps']), reverse=True);
@@ -64,6 +64,8 @@ def make_table(rows):
         if row['mode'] == 'gpu':
             gpu = '**' + gpu + '**';
 
+        hours = 10e6 / (row['mps'] / row['N']) / 3600;
+
         table += "| {0} | {1} | {2} | {3} | {4} | {5} | {6} | {7} | {8} | {9} | {10:4.2f} |\n".format(row['date'],
                                                                                                row['system'],
                                                                                                row['compiler_version'],
@@ -74,6 +76,6 @@ def make_table(rows):
                                                                                                cpu,
                                                                                                gpu,
                                                                                                row['num_ranks'],
-                                                                                               row['mps'] / 1e6)
+                                                                                               hours)
 
     return table;
