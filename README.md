@@ -3,18 +3,18 @@
 This repository contains a number of performance benchmarks for HOOMD-blue. These are run on a variety of hardware
 and execution configurations and the results are stored in the repository. Jupyter notebooks summarize the results
 and the rendered notebook is checked in to the repository so that it can be viewed at nbviewer.org. Links to these
-benchmark results are posted on https://codeblue.umich.edu/hoomd-blue/benchmarks.html
+benchmark results are posted on https://glotzerlab.engin.umich.edu/hoomd-blue/benchmarks.html
 
-## Running benchmarks standaline
+## Running benchmarks standalone
 
-`cd` into a benchmark directory and run the `bmark.py` file with hoomd. It will print out performance information
+`cd` into a benchmark directory and run `python bmark.py`. It will print out performance information
 and overwrite a `metadata.json` file with the performance numbers and execution configuration metadata. Each benchmark
 should run in serial and MPI, though some may be too big for a single GPU's memory.
 
 ```
 cd microsphere
-hoomd bmark.py
-mpirun -n 4 bmark.py
+python bmark.py
+mpirun -n 4 python bmark.py
 ```
 
 ## Recording results in the database
