@@ -34,9 +34,9 @@ gsd_restart = dump.gsd(filename=fname_base+"-restart.gsd", period=100000, group=
 
 # warm up and autotune
 if c.on_gpu():
-    run(30000)
+    run(1000)
 else:
-    run(30000, limit_hours=20.0/3600.0)
+    run(1000, limit_hours=20.0/3600.0)
 
 # full benchmark
 tps = benchmark.series(warmup=0, repeat=4, steps=50000, limit_hours=20.0/3600.0)

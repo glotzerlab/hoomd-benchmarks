@@ -57,7 +57,7 @@ gsd_restart = dump.gsd(filename=fname+"-restart.gsd", period=100000, group=group
 
 # warm up and autotune
 if c.on_gpu():
-    run(2000, limit_hours=20.0/3600.0)
+    run(2000)
 else:
     run(2000, limit_hours=20.0/3600.0)
 

@@ -1,6 +1,7 @@
 # depletion benchmark
 
-The depletion benchmark runs a system of $1000$ cuboctahedra, with depletants at a size ratio $q=0.25$ and a reservoir density of $\phi_{dep}^r0.80$.
+The depletion benchmark runs a system of $1000$ cuboctahedra, with depletants at a size ratio $q=0.25$ and a reservoir density of $\phi_{dep}^r=0.80$.
+
 Under these conditions, the cuboctahedra forms a dense sheared BCC crystal. The depletion method was described in:
 [Glaser, J et al. A parallel algorithm for implicit depletant simulations. Journal of Chemical Physics, 2015.](http://scitation.aip.org/content/aip/journal/jcp/143/18/10.1063/1.4935175)
 The cuboctahedra with depletion system was studied in the research article:
