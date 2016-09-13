@@ -23,13 +23,17 @@ def read_rows(benchmark):
     for job in project.find_jobs(dict(benchmark=benchmark)):
             row = job.statepoint();
             try:
-                meta = json.load(open(os.path.join(job.workspace(), 'metadata.json')))[0]
+                meta = json.load(open(os.path.join(job.workspace(), 'metadata.json')))
+                # convert from hoomd1 to hoomd2 style metadata
+                if type(meta) is list:
+                    meta = meta[0];
+                    meta['hoomd.data.system_data'] = meta['data.system_data'];
             except IOError:
                 # skip missing files
                 continue
 
             row['mps'] = meta['user']['mps'];
-            row['N'] = meta['data.system_data']['particles']['N'];
+            row['N'] = meta['hoomd.data.system_data']['particles']['N'];
             row['num_ranks'] = meta['context']['num_ranks'];
             row['compiler_version'] = meta['hoomd']['compiler_version'];
             row['cuda_version'] = meta['hoomd']['cuda_version'];
