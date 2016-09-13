@@ -1,0 +1,7 @@
+{
+  "date": "2016/09/13",
+  "system": "collins",
+  "cpu": " Intel(R) Xeon(R) CPU E5-2680 v2 @ 2.80GHz",
+  "name": "gpu0-15610",
+  "benchmark": "depletion"
+}

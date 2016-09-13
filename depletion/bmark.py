@@ -70,5 +70,5 @@ mps = mc.get_mps() / tps[-1] * numpy.mean(tps);
 # print out millions of particle time steps per second
 if comm.get_rank() == 0:
     print("Hours to complete 10e6 steps: {0}".format(10e6/(mps/len(system.particles))/3600));
-#    meta.dump_metadata(filename = workspace+"/metadata.json", user = {'mps': mps, 'tps': tps});
+    meta.dump_metadata(filename = workspace+"/metadata.json", user = {'mps': mps, 'tps': tps});
 

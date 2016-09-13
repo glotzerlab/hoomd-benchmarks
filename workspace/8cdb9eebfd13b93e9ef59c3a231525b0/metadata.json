@@ -1,0 +1,183 @@
+{
+    "context": {
+        "cputime": 182.530575,
+        "gpu": "GeForce GTX 680",
+        "hostname": "collins",
+        "job_id": "",
+        "job_name": "",
+        "mode": "gpu",
+        "num_ranks": 1,
+        "username": "joaander",
+        "wallclocktime": 182.49513602256775
+    },
+    "hoomd": {
+        "compiler_version": "gcc 4.8.5",
+        "cuda_version": [
+            7,
+            5
+        ],
+        "hoomd_compile_flags": "CUDA (7.5) DOUBLE HPMC_MIXED MPI SSE SSE2 SSE3 ",
+        "hoomd_git_refspec": "unknown",
+        "hoomd_git_sha1": "e1645414a537233923e809643ae17e148530bfdb",
+        "hoomd_version": [
+            2,
+            0,
+            3
+        ]
+    },
+    "hoomd.analyze.log": [
+        {
+            "enabled": true,
+            "filename": "polyhedra_depletion_test.log",
+            "period": 1000
+        }
+    ],
+    "hoomd.data.system_data": {
+        "angles": {
+            "N": 0,
+            "types": []
+        },
+        "bonds": {
+            "N": 0,
+            "types": []
+        },
+        "box": {
+            "Lx": 12.600667953491211,
+            "Ly": 12.600667953491211,
+            "Lz": 12.600667953491211,
+            "V": 2000.6941497540106,
+            "d": 3,
+            "xy": 0.0,
+            "xz": 0.0,
+            "yz": 0.0
+        },
+        "constraints": {
+            "N": 0
+        },
+        "dihedrals": {
+            "N": 0,
+            "types": []
+        },
+        "impropers": {
+            "N": 0,
+            "types": []
+        },
+        "number_density": 0.49982652277108525,
+        "particles": {
+            "N": 1000,
+            "types": [
+                "Poly",
+                "Depletant"
+            ]
+        },
+        "timestep": 7055822
+    },
+    "hoomd.dump.gsd": [
+        {
+            "enabled": true,
+            "filename": "polyhedra_depletion_test-restart.gsd",
+            "group": {
+                "name": "all"
+            },
+            "period": 100000,
+            "phase": 0
+        }
+    ],
+    "hoomd.hpmc.integrate.convex_spheropolyhedron": {
+        "a": 0.0544,
+        "d": 0.0351,
+        "max_verts": 12,
+        "move_ratio": 0.5,
+        "nselect": 4,
+        "shape_param": {
+            "Depletant": {
+                "ignore_overlaps": false,
+                "ignore_statistics": false,
+                "sweep_radius": 0.18787500262260437,
+                "vertices": []
+            },
+            "Poly": {
+                "ignore_overlaps": false,
+                "ignore_statistics": false,
+                "sweep_radius": 0.0,
+                "vertices": [
+                    [
+                        -0.5313907265663147,
+                        -0.5313907265663147,
+                        0.0
+                    ],
+                    [
+                        -0.5313907265663147,
+                        0.5313907265663147,
+                        0.0
+                    ],
+                    [
+                        0.5313907265663147,
+                        -0.5313907265663147,
+                        0.0
+                    ],
+                    [
+                        0.5313907265663147,
+                        0.5313907265663147,
+                        0.0
+                    ],
+                    [
+                        0.0,
+                        -0.5313907265663147,
+                        -0.5313907265663147
+                    ],
+                    [
+                        0.0,
+                        -0.5313907265663147,
+                        0.5313907265663147
+                    ],
+                    [
+                        0.0,
+                        0.5313907265663147,
+                        -0.5313907265663147
+                    ],
+                    [
+                        0.0,
+                        0.5313907265663147,
+                        0.5313907265663147
+                    ],
+                    [
+                        -0.5313907265663147,
+                        0.0,
+                        -0.5313907265663147
+                    ],
+                    [
+                        -0.5313907265663147,
+                        0.0,
+                        0.5313907265663147
+                    ],
+                    [
+                        0.5313907265663147,
+                        0.0,
+                        -0.5313907265663147
+                    ],
+                    [
+                        0.5313907265663147,
+                        0.0,
+                        0.5313907265663147
+                    ]
+                ]
+            }
+        }
+    },
+    "hoomd.update.sort": [
+        {
+            "enabled": true
+        }
+    ],
+    "timestamp": "2016-09-13 13:08:50",
+    "user": {
+        "mps": 74504.48659088535,
+        "tps": [
+            19.629072464392088,
+            19.67482114763631,
+            19.726730348880462,
+            19.640563691174574
+        ]
+    }
+}
