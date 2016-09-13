@@ -1,0 +1,7 @@
+{
+  "date": "2016/09/13", 
+  "cpu": " 6-Core AMD Opteron(tm) Processor 23 (D0)", 
+  "benchmark": "hexagon", 
+  "system": "flux", 
+  "name": "gpu64-24331"
+}
