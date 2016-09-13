@@ -1,0 +1,200 @@
+{
+    "context": {
+        "cputime": 669.027958,
+        "gpu": "Quadro M6000",
+        "hostname": "collins",
+        "job_id": "",
+        "job_name": "",
+        "mode": "gpu",
+        "num_ranks": 1,
+        "username": "joaander",
+        "wallclocktime": 668.7395017147064
+    },
+    "hoomd": {
+        "compiler_version": "gcc 4.8.5",
+        "cuda_version": [
+            7,
+            5
+        ],
+        "hoomd_compile_flags": "CUDA (7.5) DOUBLE HPMC_MIXED MPI SSE SSE2 SSE3 ",
+        "hoomd_git_refspec": "unknown",
+        "hoomd_git_sha1": "e1645414a537233923e809643ae17e148530bfdb",
+        "hoomd_version": [
+            2,
+            0,
+            3
+        ]
+    },
+    "hoomd.data.system_data": {
+        "angles": {
+            "N": 0,
+            "types": []
+        },
+        "bonds": {
+            "N": 427712,
+            "types": [
+                "tether"
+            ]
+        },
+        "box": {
+            "Lx": 86.82328796386719,
+            "Ly": 86.82328796386719,
+            "Lz": 86.82328796386719,
+            "V": 654498.5445618295,
+            "d": 3,
+            "xy": 0.0,
+            "xz": 0.0,
+            "yz": 0.0
+        },
+        "constraints": {
+            "N": 0
+        },
+        "dihedrals": {
+            "N": 0,
+            "types": []
+        },
+        "impropers": {
+            "N": 0,
+            "types": []
+        },
+        "number_density": 2.1823791845958254,
+        "particles": {
+            "N": 1428364,
+            "types": [
+                "glycerol",
+                "core",
+                "polymer",
+                "hydroxyl"
+            ]
+        },
+        "timestep": 31433
+    },
+    "hoomd.md.bond.harmonic": [
+        {
+            "bond_coeff": {
+                "tether": {
+                    "k": 4.0,
+                    "r0": 0.0
+                }
+            },
+            "enabled": true,
+            "log": true
+        }
+    ],
+    "hoomd.md.integrate.mode_standard": {
+        "aniso": null,
+        "dt": 0.01
+    },
+    "hoomd.md.integrate.nve": [
+        {
+            "enabled": true,
+            "group": {
+                "name": "all"
+            },
+            "limit": null
+        }
+    ],
+    "hoomd.md.pair.dpd": [
+        {
+            "enabled": true,
+            "log": true,
+            "pair_coeff": [
+                {
+                    "A": 40.0,
+                    "gamma": 1.0,
+                    "r_cut": 1.0,
+                    "r_on": 1.0,
+                    "typei": "glycerol",
+                    "typej": "core"
+                },
+                {
+                    "A": 80.0,
+                    "gamma": 1.0,
+                    "r_cut": 1.0,
+                    "r_on": 1.0,
+                    "typei": "core",
+                    "typej": "hydroxyl"
+                },
+                {
+                    "A": 20.0,
+                    "gamma": 1.0,
+                    "r_cut": 1.0,
+                    "r_on": 1.0,
+                    "typei": "hydroxyl",
+                    "typej": "hydroxyl"
+                },
+                {
+                    "A": 20.0,
+                    "gamma": 1.0,
+                    "r_cut": 1.0,
+                    "r_on": 1.0,
+                    "typei": "glycerol",
+                    "typej": "hydroxyl"
+                },
+                {
+                    "A": 40.0,
+                    "gamma": 1.0,
+                    "r_cut": 1.0,
+                    "r_on": 1.0,
+                    "typei": "core",
+                    "typej": "core"
+                },
+                {
+                    "A": 80.0,
+                    "gamma": 1.0,
+                    "r_cut": 1.0,
+                    "r_on": 1.0,
+                    "typei": "polymer",
+                    "typej": "hydroxyl"
+                },
+                {
+                    "A": 80.0,
+                    "gamma": 1.0,
+                    "r_cut": 1.0,
+                    "r_on": 1.0,
+                    "typei": "glycerol",
+                    "typej": "polymer"
+                },
+                {
+                    "A": 40.0,
+                    "gamma": 1.0,
+                    "r_cut": 1.0,
+                    "r_on": 1.0,
+                    "typei": "core",
+                    "typej": "polymer"
+                },
+                {
+                    "A": 40.0,
+                    "gamma": 1.0,
+                    "r_cut": 1.0,
+                    "r_on": 1.0,
+                    "typei": "polymer",
+                    "typej": "polymer"
+                },
+                {
+                    "A": 40.0,
+                    "gamma": 1.0,
+                    "r_cut": 1.0,
+                    "r_on": 1.0,
+                    "typei": "glycerol",
+                    "typej": "glycerol"
+                }
+            ]
+        }
+    ],
+    "hoomd.update.sort": [
+        {
+            "enabled": true
+        }
+    ],
+    "timestamp": "2016-09-13 11:28:43",
+    "user": {
+        "mps": 25547369.65218074,
+        "tps": [
+            18.147317826425255,
+            17.95613341476763,
+            17.741911462564218,
+            17.69766036929918
+        ]
+    }
+}

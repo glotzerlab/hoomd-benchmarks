@@ -1,0 +1,159 @@
+{
+    "context": {
+        "cputime": 235.65771,
+        "gpu": "Tesla K40c",
+        "hostname": "collins",
+        "job_id": "",
+        "job_name": "",
+        "mode": "gpu",
+        "num_ranks": 1,
+        "username": "joaander",
+        "wallclocktime": 235.771470785141
+    },
+    "hoomd": {
+        "compiler_version": "gcc 4.8.5",
+        "cuda_version": [
+            7,
+            5
+        ],
+        "hoomd_compile_flags": "CUDA (7.5) DOUBLE HPMC_MIXED MPI SSE SSE2 SSE3 ",
+        "hoomd_git_refspec": "unknown",
+        "hoomd_git_sha1": "e1645414a537233923e809643ae17e148530bfdb",
+        "hoomd_version": [
+            2,
+            0,
+            3
+        ]
+    },
+    "hoomd.analyze.log": [
+        {
+            "enabled": true,
+            "filename": "phi-0.7000.log",
+            "period": 10000
+        }
+    ],
+    "hoomd.data.system_data": {
+        "angles": {
+            "N": 0,
+            "types": []
+        },
+        "bonds": {
+            "N": 0,
+            "types": []
+        },
+        "box": {
+            "Lx": 986.385986328125,
+            "Ly": 986.385986328125,
+            "Lz": 1.0,
+            "V": 972957.314024508,
+            "d": 2,
+            "xy": 0.0,
+            "xz": 0.0,
+            "yz": 0.0
+        },
+        "constraints": {
+            "N": 0
+        },
+        "dihedrals": {
+            "N": 0,
+            "types": []
+        },
+        "impropers": {
+            "N": 0,
+            "types": []
+        },
+        "number_density": 1.0777204558571079,
+        "particles": {
+            "N": 1048576,
+            "types": [
+                "A"
+            ]
+        },
+        "timestep": 67201586
+    },
+    "hoomd.dump.dcd": [
+        {
+            "enabled": true,
+            "filename": "phi-0.7000.dcd",
+            "group": {
+                "name": "all"
+            },
+            "period": 500000
+        }
+    ],
+    "hoomd.dump.gsd": [
+        {
+            "enabled": true,
+            "filename": "phi-0.7000-restart.gsd",
+            "group": {
+                "name": "all"
+            },
+            "period": 100000,
+            "phase": 0
+        }
+    ],
+    "hoomd.hpmc.analyze.sdf": [
+        {
+            "dx": 0.0001,
+            "enabled": true,
+            "filename": "phi-0.7000-sdf.dat",
+            "navg": 2000,
+            "overwrite": false,
+            "period": 50,
+            "xmax": 0.02
+        }
+    ],
+    "hoomd.hpmc.integrate.convex_polygon": {
+        "a": 1.0471975511965976,
+        "d": 0.17010672166874857,
+        "move_ratio": 0.5,
+        "nselect": 4,
+        "shape_param": {
+            "A": {
+                "ignore_overlaps": false,
+                "ignore_statistics": false,
+                "vertices": [
+                    [
+                        0.5,
+                        0.0
+                    ],
+                    [
+                        0.25,
+                        0.4330126941204071
+                    ],
+                    [
+                        -0.25,
+                        0.4330126941204071
+                    ],
+                    [
+                        -0.5,
+                        0.0
+                    ],
+                    [
+                        -0.25,
+                        -0.4330126941204071
+                    ],
+                    [
+                        0.25,
+                        -0.4330126941204071
+                    ]
+                ]
+            }
+        }
+    },
+    "hoomd.update.sort": [
+        {
+            "enabled": true
+        }
+    ],
+    "timestamp": "2016-09-13 11:04:45",
+    "user": {
+        "mps": 53324137.937136464,
+        "tps": [
+            7.339165556846705,
+            7.286009404741017,
+            7.331759681675942,
+            7.2895311398535
+        ]
+    }
+}

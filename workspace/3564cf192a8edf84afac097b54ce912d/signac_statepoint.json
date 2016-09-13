@@ -1,0 +1,7 @@
+{
+  "system": "collins",
+  "cpu": " Intel(R) Xeon(R) CPU E5-2680 v2 @ 2.80GHz",
+  "name": "gpu1-11381",
+  "benchmark": "hexagon",
+  "date": "2016/09/13"
+}

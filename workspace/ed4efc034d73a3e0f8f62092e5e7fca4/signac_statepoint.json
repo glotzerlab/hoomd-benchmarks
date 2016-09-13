@@ -1,0 +1,7 @@
+{
+  "cpu": " Intel(R) Xeon(R) CPU E5-2680 v2 @ 2.80GHz",
+  "system": "collins",
+  "benchmark": "lj-liquid",
+  "name": "gpu3-11381",
+  "date": "2016/09/13"
+}

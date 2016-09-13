@@ -1,0 +1,113 @@
+{
+    "context": {
+        "cputime": 240.423559,
+        "gpu": "Quadro M6000",
+        "hostname": "collins",
+        "job_id": "",
+        "job_name": "",
+        "mode": "gpu",
+        "num_ranks": 1,
+        "username": "joaander",
+        "wallclocktime": 240.51463651657104
+    },
+    "hoomd": {
+        "compiler_version": "gcc 4.8.5",
+        "cuda_version": [
+            7,
+            5
+        ],
+        "hoomd_compile_flags": "CUDA (7.5) DOUBLE HPMC_MIXED MPI SSE SSE2 SSE3 ",
+        "hoomd_git_refspec": "unknown",
+        "hoomd_git_sha1": "e1645414a537233923e809643ae17e148530bfdb",
+        "hoomd_version": [
+            2,
+            0,
+            3
+        ]
+    },
+    "hoomd.data.system_data": {
+        "angles": {
+            "N": 0,
+            "types": []
+        },
+        "bonds": {
+            "N": 0,
+            "types": []
+        },
+        "box": {
+            "Lx": 55.12934875488281,
+            "Ly": 55.12934875488281,
+            "Lz": 55.12934875488281,
+            "V": 167551.60274627284,
+            "d": 3,
+            "xy": 0.0,
+            "xz": 0.0,
+            "yz": 0.0
+        },
+        "constraints": {
+            "N": 0
+        },
+        "dihedrals": {
+            "N": 0,
+            "types": []
+        },
+        "impropers": {
+            "N": 0,
+            "types": []
+        },
+        "number_density": 0.38197187583407743,
+        "particles": {
+            "N": 64000,
+            "types": [
+                "A"
+            ]
+        },
+        "timestep": 251446
+    },
+    "hoomd.md.integrate.mode_standard": {
+        "aniso": null,
+        "dt": 0.005
+    },
+    "hoomd.md.integrate.nvt": [
+        {
+            "enabled": true,
+            "group": {
+                "name": "all"
+            },
+            "kT": 1.2,
+            "tau": 0.5
+        }
+    ],
+    "hoomd.md.pair.lj": [
+        {
+            "enabled": true,
+            "log": true,
+            "pair_coeff": [
+                {
+                    "alpha": 1.0,
+                    "epsilon": 1.0,
+                    "r_cut": 3.0,
+                    "r_on": 3.0,
+                    "sigma": 1.0,
+                    "typei": "A",
+                    "typej": "A"
+                }
+            ]
+        }
+    ],
+    "hoomd.update.sort": [
+        {
+            "enabled": true
+        }
+    ],
+    "timestamp": "2016-09-13 11:08:49",
+    "user": {
+        "mps": 17150367.209367026,
+        "tps": [
+            261.13045447794,
+            270.417306227834,
+            269.96351994249306,
+            270.3866699371721
+        ]
+    }
+}
