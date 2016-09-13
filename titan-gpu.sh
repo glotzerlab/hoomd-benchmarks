@@ -10,4 +10,4 @@ cd ${PBS_O_WORKDIR}
 source /ccs/proj/mat110/software/joaander/titan-env1/env.sh
 
 export BENCHMARKS="microsphere hexagon"
-./run-all.sh "flux" "gpu64-$$" "aprun -n 64 -N 1 -b python" "--mode=gpu" "0"
+./run-all.sh "titan" "gpu64-$$" "aprun -n 64 -N 1 -b python" "--mode=gpu" "0"
