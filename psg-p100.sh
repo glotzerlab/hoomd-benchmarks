@@ -10,4 +10,4 @@ source $HOME/software/env.sh
 
 export BENCHMARKS="microsphere hexagon"
 
-./run-all.sh "psg" "p100-$$" "mpirun -n 4 python" "--mode=gpu" "0"
+./run-all.sh "psg" "p100-$$-4" "mpirun -n 4 python" "--mode=gpu" "0"

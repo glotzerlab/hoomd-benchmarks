@@ -1,0 +1,112 @@
+{
+    "context": {
+        "cputime": 217.35999999999999, 
+        "gpu": "Tesla K40m", 
+        "hostname": "hsw216", 
+        "job_id": "31563", 
+        "job_name": "hoomd-p100", 
+        "mode": "gpu", 
+        "num_ranks": 1, 
+        "username": "joaander", 
+        "wallclocktime": 217.79390001296997
+    }, 
+    "hoomd": {
+        "compiler_version": "gcc 4.8.5", 
+        "cuda_version": [
+            7, 
+            5
+        ], 
+        "hoomd_compile_flags": "CUDA (7.5) DOUBLE HPMC_MIXED MPI SSE SSE2 SSE3 SSE4_1 SSE4_2 AVX ", 
+        "hoomd_git_refspec": "refs/heads/master", 
+        "hoomd_git_sha1": "35b3b5babd5e94ed98f1831be0df20e331044273", 
+        "hoomd_version": [
+            2, 
+            1, 
+            0
+        ]
+    }, 
+    "hoomd.data.system_data": {
+        "angles": {
+            "N": 0, 
+            "types": []
+        }, 
+        "bonds": {
+            "N": 0, 
+            "types": []
+        }, 
+        "box": {
+            "Lx": 120.3998031616211, 
+            "Ly": 120.3998031616211, 
+            "Lz": 120.3998031616211, 
+            "V": 1745329.1038120906, 
+            "d": 3, 
+            "xy": 0.0, 
+            "xz": 0.0, 
+            "yz": 0.0
+        }, 
+        "constraints": {
+            "N": 0
+        }, 
+        "dihedrals": {
+            "N": 0, 
+            "types": []
+        }, 
+        "impropers": {
+            "N": 0, 
+            "types": []
+        }, 
+        "number_density": 0.05729578437761868, 
+        "pairs": {
+            "N": 0, 
+            "types": []
+        }, 
+        "particles": {
+            "N": 100000, 
+            "types": [
+                "A"
+            ]
+        }, 
+        "timestep": 49088
+    }, 
+    "hoomd.md.integrate.mode_standard": {
+        "aniso": null, 
+        "dt": 0.01
+    }, 
+    "hoomd.md.integrate.nvt": [
+        {
+            "enabled": true, 
+            "group": {
+                "name": "all"
+            }, 
+            "kT": 0.18, 
+            "tau": 1.0
+        }
+    ], 
+    "hoomd.md.pair.table": [
+        {
+            "enabled": true, 
+            "log": true
+        }
+    ], 
+    "hoomd.md.update.zero_momentum": [
+        {
+            "enabled": true, 
+            "period": 1000
+        }
+    ], 
+    "hoomd.update.sort": [
+        {
+            "enabled": true
+        }
+    ], 
+    "timestamp": "2016-10-13 05:38:49", 
+    "user": {
+        "mps": 23857672.825157896, 
+        "tps": [
+            235.74928096469307, 
+            238.36792759534202, 
+            239.6721021673077, 
+            240.51760227897302
+        ]
+    }
+}

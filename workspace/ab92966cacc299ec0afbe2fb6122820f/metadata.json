@@ -1,0 +1,150 @@
+{
+    "context": {
+        "cputime": 189.13, 
+        "gpu": "Tesla M40 24GB", 
+        "hostname": "hsw211", 
+        "job_id": "31670", 
+        "job_name": "hoomd-m40", 
+        "mode": "gpu", 
+        "num_ranks": 1, 
+        "username": "joaander", 
+        "wallclocktime": 189.34115409851074
+    }, 
+    "hoomd": {
+        "compiler_version": "gcc 4.8.5", 
+        "cuda_version": [
+            7, 
+            5
+        ], 
+        "hoomd_compile_flags": "CUDA (7.5) DOUBLE HPMC_MIXED MPI SSE SSE2 SSE3 SSE4_1 SSE4_2 AVX ", 
+        "hoomd_git_refspec": "refs/heads/master", 
+        "hoomd_git_sha1": "35b3b5babd5e94ed98f1831be0df20e331044273", 
+        "hoomd_version": [
+            2, 
+            1, 
+            0
+        ]
+    }, 
+    "hoomd.data.system_data": {
+        "angles": {
+            "N": 0, 
+            "types": []
+        }, 
+        "bonds": {
+            "N": 61646, 
+            "types": [
+                "polymer"
+            ]
+        }, 
+        "box": {
+            "Lx": 55.13423156738281, 
+            "Ly": 55.13423156738281, 
+            "Lz": 55.13423156738281, 
+            "V": 167596.1268813562, 
+            "d": 3, 
+            "xy": 0.0, 
+            "xz": 0.0, 
+            "yz": 0.0
+        }, 
+        "constraints": {
+            "N": 0
+        }, 
+        "dihedrals": {
+            "N": 0, 
+            "types": []
+        }, 
+        "impropers": {
+            "N": 0, 
+            "types": []
+        }, 
+        "number_density": 0.38197183426153153, 
+        "pairs": {
+            "N": 0, 
+            "types": []
+        }, 
+        "particles": {
+            "N": 64017, 
+            "types": [
+                "A", 
+                "B"
+            ]
+        }, 
+        "timestep": 252589
+    }, 
+    "hoomd.md.bond.harmonic": [
+        {
+            "bond_coeff": {
+                "polymer": {
+                    "k": 330.0, 
+                    "r0": 0.84
+                }
+            }, 
+            "enabled": true, 
+            "log": true
+        }
+    ], 
+    "hoomd.md.integrate.mode_standard": {
+        "aniso": null, 
+        "dt": 0.005
+    }, 
+    "hoomd.md.integrate.nvt": [
+        {
+            "enabled": true, 
+            "group": {
+                "name": "all"
+            }, 
+            "kT": 1.2, 
+            "tau": 0.5
+        }
+    ], 
+    "hoomd.md.pair.lj": [
+        {
+            "enabled": true, 
+            "log": true, 
+            "pair_coeff": [
+                {
+                    "alpha": 0.0, 
+                    "epsilon": 1.0, 
+                    "r_cut": 3.0, 
+                    "r_on": 3.0, 
+                    "sigma": 1.0, 
+                    "typei": "A", 
+                    "typej": "B"
+                }, 
+                {
+                    "alpha": 0.0, 
+                    "epsilon": 1.0, 
+                    "r_cut": 3.0, 
+                    "r_on": 3.0, 
+                    "sigma": 1.0, 
+                    "typei": "A", 
+                    "typej": "A"
+                }, 
+                {
+                    "alpha": 1.0, 
+                    "epsilon": 1.0, 
+                    "r_cut": 3.0, 
+                    "r_on": 3.0, 
+                    "sigma": 1.0, 
+                    "typei": "B", 
+                    "typej": "B"
+                }
+            ]
+        }
+    ], 
+    "hoomd.update.sort": [
+        {
+            "enabled": true
+        }
+    ], 
+    "timestamp": "2016-10-13 14:27:12", 
+    "user": {
+        "mps": 18073230.917032845, 
+        "tps": [
+            282.25277911005486, 
+            282.83580164275753, 
+            282.10092615473445, 
+            282.0874612123491
+        ]
+    }
+}
