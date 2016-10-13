@@ -7,3 +7,6 @@
 source $HOME/software/env.sh
 
 ./run-all.sh "psg" "k80-$$" "mpirun -n 1 python" "--mode=gpu" "0"
+
+export BENCHMARKS="microsphere hexagon"
+./run-all.sh "psg" "k80-$$" "mpirun -n 8 python" "--mode=gpu" "0"
