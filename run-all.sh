@@ -23,7 +23,7 @@ echo "CPU=${CPU}"
 
 root_directory=$(pwd)
 
-: ${BENCHMARKS:="lj-liquid triblock-copolymer quasicrystal microsphere depletion hexagon"}
+: ${BENCHMARKS:="lj-liquid triblock-copolymer quasicrystal microsphere depletion hexagon dodecahedron"}
 
 for benchmark in ${BENCHMARKS}
 do
