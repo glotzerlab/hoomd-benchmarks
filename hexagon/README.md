@@ -2,7 +2,7 @@
 
 The hexagon benchmark runs a system of $1024^2$ hexagons using hard particle Monte Carlo.
 At this density, the system is in the middle of the hexatic phase. This model is used in the research article:
-[Anderson, JA et. al. Fluid-to-solid transition of hard regular polygons. Submitted, 2016](http://arxiv.org/abs/1606.00687)
+[J. A. Anderson, J. Antonaglia, J. A. Millan, M. Engel, and S. C. Glotzer, Phys. Rev. X, vol. 7, no. 2, p. 21001, Apr. 2017.](http://dx.doi.org/10.1103/PhysRevX.7.021001)
 
 <img src="hexagon/hexagon.png" style="width: 280px;"/>
 
