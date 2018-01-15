@@ -3,7 +3,7 @@ import json
 import os
 import locale
 
-locale.setlocale(locale.LC_ALL, 'en_US')
+locale.setlocale(locale.LC_ALL, 'en_US.utf8')
 
 project = signac.contrib.get_project()
 
