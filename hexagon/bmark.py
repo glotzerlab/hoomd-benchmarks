@@ -3,6 +3,9 @@ from __future__ import division
 from hoomd import *
 from hoomd import hpmc
 import numpy
+import os
+import sys
+
 c = context.initialize();
 
 # Get the workspace output dir for storing benchmark metadata
@@ -16,7 +19,8 @@ phi = 0.7000;
 fname_base = 'phi-{0:5.4f}'.format(phi);
 
 # read the initial config or restart file
-system = init.read_gsd(filename='init.gsd')
+d = os.path.dirname(sys.argv[0])
+system = init.read_gsd(filename=os.path.join(d,'init.gsd'))
 
 # setup the MC integration
 mc = hpmc.integrate.convex_polygon(seed=20, d=0.17010672166874857, a=1.0471975511965976, nselect=4);

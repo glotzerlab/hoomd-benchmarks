@@ -4,6 +4,9 @@ from hoomd import *
 from hoomd import hpmc
 import math
 import numpy
+import os
+import sys
+
 c = context.initialize();
 
 # dodecahedron shape
@@ -39,7 +42,8 @@ else:
     workspace = option.get_user()[0]
 
 # read the initial config or restart file
-system = init.read_gsd(filename='init.gsd')
+d = os.path.dirname(sys.argv[0])
+system = init.read_gsd(filename=os.path.join(d,'init.gsd'))
 
 # setup the MC integration
 mc = hpmc.integrate.convex_polyhedron(seed=10, d=0.3, a=0.26, max_verts=20);

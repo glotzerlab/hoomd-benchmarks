@@ -3,6 +3,9 @@ from __future__ import print_function, division
 from hoomd import *
 from hoomd import md
 import numpy
+import os
+import sys
+
 c = context.initialize()
 
 # Get the workspace output dir for storing benchmark metadata
@@ -11,7 +14,8 @@ if len(option.get_user()) == 0:
 else:
     workspace = option.get_user()[0]
 
-system = init.read_gsd('init.gsd')
+d = os.path.dirname(sys.argv[0])
+system = init.read_gsd(filename=os.path.join(d,'init.gsd'))
 
 # force field setup
 harmonic = md.bond.harmonic()

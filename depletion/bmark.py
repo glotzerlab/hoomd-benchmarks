@@ -3,6 +3,8 @@ from __future__ import division
 from hoomd import *
 from hoomd import hpmc
 import numpy, math
+import os
+import sys
 
 c = context.initialize();
 
@@ -37,7 +39,8 @@ depletant_V = (4.0/3) * math.pi * math.pow(depletant_rad, 3)
 nR = pf_R / depletant_V #Number density of depletants in system free volume
 
 # read the initial config or restart file
-system = init.read_gsd(filename='init.gsd')
+d = os.path.dirname(sys.argv[0])
+system = init.read_gsd(filename=os.path.join(d,'init.gsd'))
 
 # setup the MC integration
 mc = hpmc.integrate.convex_spheropolyhedron(seed=20, d=0.0351, a=.0544, nselect=4, implicit=True, max_verts = len(verts));

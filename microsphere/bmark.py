@@ -2,6 +2,8 @@ from __future__ import print_function, division
 from hoomd import *
 from hoomd import md
 import numpy
+import os
+import sys
 c = context.initialize()
 
 # Get the workspace output dir for storing benchmark metadata
@@ -10,7 +12,8 @@ if len(option.get_user()) == 0:
 else:
     workspace = option.get_user()[0]
 
-system = init.read_gsd(filename='init.gsd')
+d = os.path.dirname(sys.argv[0])
+system = init.read_gsd(filename=os.path.join(d,'init.gsd'))
 
 harmonic = md.bond.harmonic(name="tether")
 harmonic.bond_coeff.set('tether', k=4., r0=0.)

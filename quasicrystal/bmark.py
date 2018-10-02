@@ -2,6 +2,8 @@ from hoomd import *
 from hoomd import md
 import math
 import numpy
+import os
+import sys
 c = context.initialize()
 
 # Get the workspace output dir for storing benchmark metadata
@@ -35,7 +37,8 @@ def determineCutoff(k, phi):
         force1 = force2
     return r
 
-system = init.read_gsd(filename = 'init.gsd')
+d = os.path.dirname(sys.argv[0])
+system = init.read_gsd(filename=os.path.join(d,'init.gsd'))
 
 # generate the pair interaction table
 cutoff = determineCutoff(potential_k, potential_phi)
