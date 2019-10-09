@@ -1,0 +1,1 @@
+{"exec_confs": [{"mode": "cpu", "gpu_ids": [], "nranks": 8}, {"mode": "gpu", "gpu_ids": [], "nranks": 1}]}

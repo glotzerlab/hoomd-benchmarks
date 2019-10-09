@@ -1,0 +1,1 @@
+{"gpu_nranks1": {"N": 1048576, "num_ranks": 1, "compiler_version": "gcc 8.3.0", "cuda_version": [10, 1], "hoomd_version": [2, 6, 0], "gpu": ["Quadro GV100"], "mode": "gpu", "precision": "double", "mps": 236787900.4169075, "tps": [57.83491376274499, 55.7656567203088, 56.3682787511328, 55.86799322668043]}}

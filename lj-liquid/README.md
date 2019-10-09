@@ -42,7 +42,7 @@ python init.py <n>
 3. Equilibrate, if necessary, and execute benchmark on a workstation or compute node, or submit cluster job
 
     ```
-    python project.py run # executes all pending operations
+    mpirun -np <number of ranks> python project.py run # executes all pending operations
     ```
 
     or
