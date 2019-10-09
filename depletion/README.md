@@ -58,7 +58,7 @@ python init.py 10
     ```
 
     The output is stored in the [signac job document](https://docs.signac.io/en/latest/projects.html), in a `dict` entry with
-    the name of the execution configuration as key (e.g., `gpu_nranks1`). Inspect with
+    the name of the execution configuration as key (e.g., `gpu_np1`). Inspect with
 
     ```
     signac document
