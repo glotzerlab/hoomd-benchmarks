@@ -25,8 +25,11 @@ python init.py 50
 ```
 
 2. Add your execution configuration to the list in `init_exec_confs.py`:
+
     **mode** (str): either **gpu** or **cpu**
+
     **gpu_ids** (list): list of GPUs per MPI rank to execute on, e.g. `0` or `0,1,2`
+
     **nranks** (int): Number of MPI ranks for domain decomposition
 
     Then, execute
