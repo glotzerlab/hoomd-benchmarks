@@ -5,8 +5,92 @@ import signac
 import numpy as np
 import math
 
+# dodecahedron shape
+phi = (1. + math.sqrt(5.))/2.
+inv = 2./(1. + math.sqrt(5.))
+points = [
+          (-1,-1,-1),
+          (-1,-1, 1),
+          (-1, 1,-1),
+          (-1, 1, 1),
+          ( 1,-1,-1),
+          ( 1,-1, 1),
+          ( 1, 1,-1),
+          ( 1, 1, 1),
+          ( 0,-inv,-phi),
+          ( 0,-inv, phi),
+          ( 0, inv,-phi),
+          ( 0, inv, phi),
+          (-inv,-phi, 0),
+          (-inv, phi, 0),
+          ( inv,-phi, 0),
+          ( inv, phi, 0),
+          (-phi, 0,-inv),
+          (-phi, 0, inv),
+          ( phi, 0,-inv),
+          ( phi, 0, inv)
+         ]
+
+V = 14.4721 # Mathematica
+circ_r = np.max(np.linalg.norm(np.array(points), axis=1))
+
+
 class Project(FlowProject):
     pass
+
+@FlowProject.label
+def compressed(job):
+    return job.isfile('init.gsd')
+
+@Project.operation
+@Project.post(compressed)
+def compress(job):
+    sp = job.statepoint()
+
+    with job:
+        import hoomd
+        from hoomd import hpmc
+
+        c = hoomd.context.initialize()
+        phi_p_ini = 0.2
+        phi_p_target = 0.5
+        n = sp['n']
+        L_target = n*(V/phi_p_target)**(1./3.)
+
+        system = hoomd.init.create_lattice(n=n, unitcell=hoomd.lattice.sc(a=(V/phi_p_ini)**(1./3.)))
+
+        # setup the MC integration
+        mc = hpmc.integrate.convex_polyhedron(seed=10, d=0.3, a=0.26);
+        mc.shape_param.set("A", vertices=points);
+
+        hoomd.run(1,quiet=True)
+
+        # shrink the box to the target
+        scale = 0.99
+        L = system.box.Lx
+        while L_target < L:
+            # shrink the box
+            L = max(L*scale, L_target);
+
+            hoomd.update.box_resize(Lx=L, Ly=L, Lz=L, period=None);
+            overlaps = mc.count_overlaps();
+            if c.device.comm.rank == 0:
+                print("phi = {:.3f}: overlaps = {} ".format(((n*n*n*V) / (L*L*L)), overlaps), end = '');
+
+            # run until all overlaps are removed
+            while overlaps > 0:
+                #mc_tune.update()
+                hoomd.run(100, quiet=True);
+                overlaps = mc.count_overlaps();
+                if c.device.comm.rank == 0:
+                    print('{}'.format(overlaps),end='')
+
+            if c.device.comm.rank == 0:
+                print('')
+
+        # thermalize
+        hoomd.run(10000)
+        hoomd.dump.gsd('init.gsd', period=None, overwrite=True,group=hoomd.group.all())
 
 def add_benchmark(mode, nranks, gpu_ids=[]):
     name = ''
@@ -24,24 +108,24 @@ def add_benchmark(mode, nranks, gpu_ids=[]):
     name += '_nranks{}'.format(nranks)
 
     @Project.operation('bmark-{}'.format(name))
+    @Project.pre(compressed)
     @flow.directives(nranks=nranks)
     @flow.directives(np=nranks)
     @flow.directives(ngpu=ngpu)
     def benchmark(job):
         sp = job.statepoint()
+
         with job:
             import hoomd
             from hoomd import hpmc
 
             device = hoomd.device.GPU(gpu_ids=gpu_ids) if mode == 'gpu' else hoomd.device.CPU()
             c = hoomd.context.initialize(device)
-
-            # read the initial config or restart file
-            system = hoomd.init.read_gsd(filename=signac.get_project().fn('init.gsd'))
+            system = hoomd.init.read_gsd(filename=job.fn('init.gsd'))
 
             # setup the MC integration
-            mc = hpmc.integrate.convex_polygon(seed=20, d=0.17010672166874857, a=1.0471975511965976, nselect=4);
-            mc.shape_param.set('A', vertices=[[0.5,0],[0.25,0.433012701892219],[-0.25,0.433012701892219],[-0.5,0],[-0.25,-0.433012701892219],[0.25,-0.433012701892219]]);
+            mc = hpmc.integrate.convex_polyhedron(seed=10, d=0.3, a=0.26);
+            mc.shape_param.set("A", vertices=points);
 
             # warm up and autotune
             if c.device.mode == 'gpu':
