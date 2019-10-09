@@ -4,7 +4,7 @@ The quasicrystal benchmark runs a system of particles with an oscillatory pair p
 quasicrystal. This model is used in the research article:
 [Engel M, et. al. (2015) Computational self-assembly of a one-component icosahedral quasicrystal, Nature materials 14(January), p. 109-116,](http://dx.doi.org/10.1038/NMAT4152)
 
-<img src="quasicrystal/quasicrystal.jpeg" style="width: 280px;"/>
+<img src="quasicrystal.jpeg" style="width: 280px;"/>
 
 Parameters:
 

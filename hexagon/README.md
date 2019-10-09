@@ -4,7 +4,7 @@ The hexagon benchmark runs a system of $1024^2$ hexagons using hard particle Mon
 At this density, the system is in the middle of the hexatic phase. This model is used in the research article:
 [J. A. Anderson, J. Antonaglia, J. A. Millan, M. Engel, and S. C. Glotzer, Phys. Rev. X, vol. 7, no. 2, p. 21001, Apr. 2017.](http://dx.doi.org/10.1103/PhysRevX.7.021001)
 
-<img src="hexagon/hexagon.png" style="width: 280px;"/>
+<img src="hexagon.png" style="width: 280px;"/>
 
 Parameters:
 

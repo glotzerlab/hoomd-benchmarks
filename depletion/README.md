@@ -7,7 +7,7 @@ Under these conditions, the cuboctahedra forms a dense sheared BCC crystal. The 
 The cuboctahedra with depletion system was studied in the research article:
 [Karas AS et al. Using depletion to control colloidal crystal assemblies of hard cuboctahedra. Soft Matter, 2015](http://pubs.rsc.org/en/content/articlelanding/2016/sm/c6sm00620e)
 
-<img src="depletion/depletion.png" style="width: 280px;"/>
+<img src="depletion.png" style="width: 280px;"/>
 
 Parameters:
 

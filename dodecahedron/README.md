@@ -3,7 +3,7 @@
 The dodecahedron benchmark runs a fluid of dodecahedra using hard particle Monte Carlo.
 This is a synthetic benchmark of 3D convex polyhedra performance.
 
-<img src="dodecahedron/dodecahedron.png" style="width: 280px;"/>
+<img src="dodecahedron.png" style="width: 280px;"/>
 
 Parameters:
 
