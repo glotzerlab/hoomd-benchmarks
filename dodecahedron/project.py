@@ -105,7 +105,7 @@ def add_benchmark(mode, nranks, gpu_ids=[]):
         raise ValueError('Unknown execution mode')
 
     name += '_'.join([str(g) for g in gpu_ids])
-    name += '_nranks{}'.format(nranks)
+    name += '_np{}'.format(nranks)
 
     @Project.operation('bmark-{}'.format(name))
     @Project.pre(compressed)
