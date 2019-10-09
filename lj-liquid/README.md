@@ -4,7 +4,7 @@ The Lennard-Jones liquid benchmark is a classic benchmark for general-purpose
 MD simulations. It is representative of the performance HOOMD-blue achieves
 with straight pair potential simulations.
 
-<img src="lj-liquid/lj-liquid.png" style="width: 280px;"/>
+<img src="lj-liquid.png" style="width: 280px;"/>
 
 Parameters:
 
