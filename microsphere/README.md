@@ -27,7 +27,7 @@ How to run:
     Then, execute
 
     ```
-    init_exec_confs.py
+    python init_exec_confs.py
     ```
 
 2. Equilibrate, if necessary, and execute benchmark on a workstation or compute node, or submit cluster job
