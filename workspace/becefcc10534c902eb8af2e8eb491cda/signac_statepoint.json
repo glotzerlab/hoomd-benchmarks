@@ -1,7 +1,0 @@
-{
-  "date": "2018/01/15", 
-  "benchmark": "hexagon", 
-  "system": "comet", 
-  "name": "p100-76118-16", 
-  "cpu": " Intel(R) Xeon(R) CPU E5-2680 v4 @ 2.40GHz"
-}

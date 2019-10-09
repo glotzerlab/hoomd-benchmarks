@@ -1,7 +1,0 @@
-{
-  "date": "2016/10/23", 
-  "cpu": " Intel(R) Xeon(R) CPU E5-2698 v3 @ 2.30GHz", 
-  "benchmark": "hexagon", 
-  "system": "psg", 
-  "name": "p100-31612-4"
-}

@@ -1,7 +1,0 @@
-{
-  "benchmark": "microsphere", 
-  "cpu": " Intel(R) Xeon(R) CPU E5-2680 v2 @ 2.80GHz", 
-  "name": "gpu3-22222", 
-  "date": "2015/12/15", 
-  "system": "collins"
-}

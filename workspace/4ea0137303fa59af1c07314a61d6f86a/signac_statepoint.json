@@ -1,7 +1,0 @@
-{
-  "date": "2015/12/14", 
-  "system": "collins", 
-  "name": "gpu0-31495", 
-  "benchmark": "lj-liquid", 
-  "cpu": " Intel(R) Xeon(R) CPU E5-2680 v2 @ 2.80GHz"
-}

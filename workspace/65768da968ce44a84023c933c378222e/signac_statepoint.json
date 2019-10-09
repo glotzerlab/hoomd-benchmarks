@@ -1,7 +1,0 @@
-{
-  "system": "collins", 
-  "date": "2015/12/14", 
-  "cpu": " Intel(R) Xeon(R) CPU E5-2680 v2 @ 2.80GHz", 
-  "name": "gpu3-13620", 
-  "benchmark": "quasicrystal"
-}
