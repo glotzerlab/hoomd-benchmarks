@@ -1,35 +1,40 @@
 # HOOMD-blue benchmarks
 
 This repository contains a number of performance benchmarks for HOOMD-blue. These are run on a variety of hardware
-and execution configurations and the results are stored in the repository. Jupyter notebooks summarize the results
-and the rendered notebook is checked in to the repository so that it can be viewed at nbviewer.org. Links to these
-benchmark results are posted on https://glotzerlab.engin.umich.edu/hoomd-blue/benchmarks.html
+and execution configurations and the results are stored as [signac](http://signac.io) job documents.
+
+## Prerequistes
+
+* [signac and signac-flow](http://signac.io)
+* [HOOMD-blue (next branch)](http://glotzerlab.engin.umich.edu/hoomd-blue)
 
 ## Running benchmarks standalone
 
-`cd` into a benchmark directory and run `python bmark.py`. It will print out performance information
-and overwrite a `metadata.json` file with the performance numbers and execution configuration metadata. Each benchmark
-should run in serial and MPI, though some may be too big for a single GPU's memory.
+`cd` into a benchmark directory and follow the steps in `README.md`. Some tests can be configured with variable
+number of particles, others assume a fixed number. Example for LJ liquid benchmark:
 
 ```
-cd microsphere
-python bmark.py
-mpirun -n 4 python bmark.py
+cd lj-liquid
+mpirun -n 8 python project.py exec bmark-cpu_np8 # run on 8 cores
+python project.py exec bmark-gpu_np1 # run on 1 GPU
 ```
 
-## Recording results in the database
+## Querying the results in the signac database
 
-These scripts use `signac` to store benchmark runs in a database. See the job script files for various clusters
-and run configurations in the root of this repository for examples of how such runs are set up.
+These scripts use `signac` to store benchmark runs in a database, with the job document holding the performance
+results for a specific system size and execution configuration. Once in a project directory, query the results with
+
+```
+signac document
+```
 
 # Benchmark setup
 
 Each benchmark directory **requires**:
 
-1. An initial condition in a file
-2. A `bmark.py` file that executes the benchmark.
-3. A `README.md` file that describes the benchmark and cites the relevant research paper.
-4. An image showing off the research.
+1. A `project.py` file that executes the benchmark
+2. A `README.md` file that describes the benchmark and cites the relevant research paper.
+3. An image showing off the research.
 
 The initial condition should be an equilibrated state so that a short benchmark run is representative of typical
 steps performed in the research. The benchmark should also be at a system size studied in the research to represent
@@ -39,8 +44,7 @@ identical to a published image, to avoid copyright issues.
 
 *Optionally*, each benchmark may include:
 
-* Scripts that generate the image
-* Scripts that generate the initial condition
+* job operations that generate the initial condition
 * Other related files...
 
 Each benchmark script should be a *minimal* and *short* as possible. Users will look at and possibly use items from these
@@ -49,9 +53,9 @@ and all associated parameters, so that the run may be reproduced with other soft
 
 ## System size
 
-Each benchmark is at a fixed system size which was relevant to the research performed. This means that all benchmarks
-in this repository are strong-scaling benchmarks. Weak scaling benchmarks are also of interest, but those will be
-stored in another repository with a different database format as they require a much different setup.
+Each benchmark is either at a fixed system size relevant to the research performed. This means that all benchmarks
+in with fixed system size are strong-scaling benchmarks. Some benchmarks allow initializing state points with different
+system sizes through `init.py` and are therefore suitable for weak scaling.
 
 ## Run length and configuration
 
@@ -61,18 +65,7 @@ properly autotune kernel launch parameters before sampling performance and shoul
 
 ## Database
 
-Each benchmark run is stored in a separate directory created and managed by `signac`. Each script should write out
-a `metadata.json` file with additional information, including the performance in particle-steps-per-second.
-
-The state points variables for `signac` are:
-
-* `benchmark`: benchmark name (directory name).
-* `cpu`: name of the CPU processor the benchmark is executed on.
-* `system`: name of the system this benchmark is run on. Host name if it is an individual system, or the name of the
-            cluster.
-* `date`: date the benchmark is executed `date +%Y/%m/%d`
-* `name`: an additional name to delineate multiple runs on the same cluster on the same day, not read or interpreted for
-          analysis. For example, `cpu16`, `gpu0`, `gpu1`.
-
+Each benchmark run is stored in a separate directory created and managed by `signac`. Each script should generate an entry
+in the `signac_job_document.json` file with additional information, including the performance in particle-steps-per-second.
 Additional information of interest, such as the GPU name, number of ranks, code version, etc... will be extracted from
 the metadata dump during analysis.
