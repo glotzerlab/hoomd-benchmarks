@@ -21,7 +21,7 @@ How to run:
 $n=50$, which initializes $N=n^3=125000$ particles.
 
 ```
-python init.py <n>
+python init.py 50
 ```
 
 2. Add your execution configuration to the list in `init_exec_confs.py`:
