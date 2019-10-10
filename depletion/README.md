@@ -20,9 +20,8 @@ Parameters:
     * $d = 0.0351 $
     * $a = 0.0544 $
     * $nR = 28.8 $
-    * ntrial = 0
 
-How to run:
+## How to add a new statepoint to the database:
 
 1. Choose a number of particles along one edge of the simple cubic lattice for initialization, e.g.
 $n=10$, which initializes $N=n^3=1000$ particles.
@@ -31,35 +30,8 @@ $n=10$, which initializes $N=n^3=1000$ particles.
 python init.py 10
 ```
 
-2. Add your execution configuration to the list in `init_exec_confs.py`:
-
-    **mode** (str): either **gpu** or **cpu**
-
-    **gpu_ids** (list): list of GPUs per MPI rank to execute on, e.g. `0` or `0,1,2`
-
-    **nranks** (int): Number of MPI ranks for domain decomposition
-
-    Then, execute
+2. Compress to the target density. Login to the compute node, then
 
     ```
-    python init_exec_confs.py
-    ```
-
-3. Equilibrate, if necessary, and execute benchmark on a workstation or compute node, or submit cluster job
-
-    ```
-    mpirun -np <number of ranks> python project.py run # executes all pending operations
-    ```
-
-    or
-
-    ```
-    python project.py submit # submit pending operations to cluster
-    ```
-
-    The output is stored in the [signac job document](https://docs.signac.io/en/latest/projects.html), in a `dict` entry with
-    the name of the execution configuration as key (e.g., `gpu_np1`). Inspect with
-
-    ```
-    signac document
+    python ../project.py run -o depletion-compress
     ```

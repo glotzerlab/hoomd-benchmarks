@@ -6,7 +6,7 @@ if len(sys.argv) != 2:
 n = int(sys.argv[1])
 project = signac.get_project()
 
-sp = {'n': n}
+sp = {'benchmark': 'depletion', 'n': n}
 job = project.open_job(sp).init()
 
 print(job)
