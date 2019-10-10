@@ -81,8 +81,9 @@ def equilibrate(job):
         rigid.create_bodies()
 
         my_nlist = md.nlist.cell()
-        my_nlist.set_params(r_buff=0.1)
-        lj = md.pair.lj(r_cut=0.8, nlist=my_nlist)
+
+        # long cut off so that no long-range correction is needed
+        lj = md.pair.lj(r_cut=1.5, nlist=my_nlist)
         lj.pair_coeff.set(['H2O','H'],system.particles.types,epsilon=0,sigma=0,r_cut=False)
         lj.pair_coeff.set('OW','OW',epsilon=eps_spce,sigma=sigma_spce)
 
@@ -154,7 +155,9 @@ def add_benchmark(mode, nranks, gpu_ids=[]):
             rigid.create_bodies()
 
             my_nlist = md.nlist.cell()
-            lj = md.pair.lj(r_cut=0.8, nlist=my_nlist)
+
+            # long cut off so that no long-range correction is needed
+            lj = md.pair.lj(r_cut=1.5, nlist=my_nlist)
             lj.pair_coeff.set(['H2O','H'],system.particles.types,epsilon=0,sigma=0,r_cut=False)
             lj.pair_coeff.set('OW','OW',epsilon=eps_spce,sigma=sigma_spce)
 
