@@ -89,10 +89,3 @@ def add_benchmark(project, mode, nranks, gpu_ids=[]):
 
                 job.doc[name] = row
 
-if __name__ == '__main__':
-    project = signac.get_project()
-
-    for conf in project.doc['exec_confs']:
-        add_benchmark(mode=conf['mode'], gpu_ids=conf['gpu_ids'], nranks=conf['nranks'])
-    Project().main()
-
