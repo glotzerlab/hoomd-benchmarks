@@ -1,0 +1,5 @@
+{
+  "benchmark": "hexagon",
+  "phi": 0.7,
+  "N": 1048576
+}
