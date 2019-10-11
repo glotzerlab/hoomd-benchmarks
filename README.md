@@ -16,11 +16,11 @@ To submit all benchmarks as cluster jobs,
 python project.py submit --exec
 ```
 
-or, to extract the command lines of the individual operations
+or, to run interactively, extract the command lines of the individual operations
 ```
 python project.py submit --exec --test
 ```
-and then execute those operations interactively.
+and then execute the individual lines corresponding to all operations.
 
 You can modify the list of requested hardware configurations in the file `exec_confs.py`.
 
