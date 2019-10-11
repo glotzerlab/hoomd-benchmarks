@@ -5,24 +5,39 @@ and execution configurations and the results are stored as [signac](http://signa
 
 ## Prerequistes
 
-* [signac and signac-flow](http://signac.io)
+* [signac and signac-flow (groups branch)](http://signac.io)
 * [HOOMD-blue (next branch)](http://glotzerlab.engin.umich.edu/hoomd-blue)
 
 ## Running benchmarks standalone
 
-`cd` into a benchmark directory and follow the steps in `README.md`. Some tests can be configured with variable
-number of particles, others assume a fixed number. Example for LJ liquid benchmark:
+To submit all benchmarks as cluster jobs,
+
+```
+python project.py submit --exec
+```
+
+or, to extract the command lines of the individual operations
+```
+python project.py submit --exec --test
+```
+and then execute those operations interactively.
+
+You can modify the list of requested hardware configurations in the file `exec_confs.py`.
+
+To run a benchmark with a different system size than the default, `cd` into a benchmark directory and follow the steps in `README.md`.
+Some tests can be configured with variable number of particles, others assume a fixed number. Example for LJ liquid benchmark:
 
 ```
 cd lj-liquid
-mpirun -n 8 python project.py exec bmark-cpu_np8 # run on 8 cores
-python project.py exec bmark-gpu_np1 # run on 1 GPU
+python init.py 64 # generate a state point with 64**3 = 262144 particles.
 ```
+
+Then follow the above steps to execute the operations on the new state point.
 
 ## Querying the results in the signac database
 
 These scripts use `signac` to store benchmark runs in a database, with the job document holding the performance
-results for a specific system size and execution configuration. Once in a project directory, query the results with
+results for a specific system size and execution configuration. Query the results with
 
 ```
 signac document
@@ -32,7 +47,7 @@ signac document
 
 Each benchmark directory **requires**:
 
-1. A `project.py` file that executes the benchmark
+1. An `operations.py` file that defines the operations for that benchmark
 2. A `README.md` file that describes the benchmark and cites the relevant research paper.
 3. An image showing off the research.
 
