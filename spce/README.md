@@ -12,7 +12,7 @@ Parameters:
 
 * $N = $ *variable*
 * $\rho = 994$ kg m^-3
-* $\delta t = 0.002$ fs
+* $\delta t = 2$ fs
 * PPPM fourier spacing $\delta l = 0.08$ nm
 * Integration: Nos&eacute;-Hoover NVT
     * $\T = 300$ K
