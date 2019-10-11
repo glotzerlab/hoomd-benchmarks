@@ -43,7 +43,7 @@ def add_benchmark(project, mode, nranks, gpu_ids=[]):
             c = hoomd.context.initialize(device)
 
             # read the initial config or restart file
-            system = hoomd.init.read_gsd(filename=signac.get_project().fn('init.gsd'))
+            system = hoomd.init.read_gsd(filename=signac.get_project().fn('hexagon/init.gsd'))
 
             # setup the MC integration
             mc = hpmc.integrate.convex_polygon(seed=20, d=0.17010672166874857, a=1.0471975511965976, nselect=4);

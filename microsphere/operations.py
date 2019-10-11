@@ -43,7 +43,7 @@ def add_benchmark(project, mode, nranks, gpu_ids=[]):
             c = hoomd.context.initialize(device)
 
             # read the initial config or restart file
-            system = hoomd.init.read_gsd(filename=signac.get_project().fn('init.gsd'))
+            system = hoomd.init.read_gsd(filename=signac.get_project().fn('microsphere/init.gsd'))
 
             harmonic = md.bond.harmonic(name="tether")
             harmonic.bond_coeff.set('tether', k=4., r0=0.)
