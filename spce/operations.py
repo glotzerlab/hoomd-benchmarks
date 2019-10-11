@@ -149,9 +149,6 @@ def add_benchmark(project, mode, nranks, gpu_ids=[]):
             c = hoomd.context.initialize()
             system = hoomd.init.read_gsd('init.gsd')
 
-            system.particles.types.add('OW')
-            system.particles.types.add('H')
-
             pos_spce, types_spce, charges_spce, _, _ = create_molecule()
 
             reduced_P_unit = 0.0602214
