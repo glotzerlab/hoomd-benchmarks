@@ -4,6 +4,8 @@ The SPC/E water tests performance of the extended simple point charge model for 
 and PPPM electrostatics. PPPM is not comparable in performance to more optimized methods not yet implemented
 in HOOMD-blue such as PME (used by GROMACS), therefore absolute performance of this benchmark could be improved.
 
+The SPC/e model has been defined in [H. J. C. Berendsen, J. R. Grigera, T. P. Straatsma, J. Phys. Chem. 1987](https://doi.org/10.1021/j100308a038)
+
 <img src="spce_4096.png" style="width: 280px;"/>
 
 Parameters:
