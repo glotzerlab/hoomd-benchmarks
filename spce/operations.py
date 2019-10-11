@@ -44,9 +44,6 @@ def create_molecule():
 def power_log(x):
     return 2**(math.ceil(math.log(x, 2)))
 
-class Project(FlowProject):
-    pass
-
 @FlowProject.label
 def equilibrated(job):
     return job.isfile('init.gsd')

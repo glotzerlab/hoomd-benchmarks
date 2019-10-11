@@ -37,9 +37,6 @@ points = [
 V = 14.4721 # Mathematica
 circ_r = np.max(np.linalg.norm(np.array(points), axis=1))
 
-class Project(FlowProject):
-    pass
-
 @FlowProject.label
 def pertains(job):
     global benchmark_name
