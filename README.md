@@ -13,7 +13,7 @@ and execution configurations and the results are stored as [signac](http://signa
 To submit all benchmarks as cluster jobs,
 
 ```
-python project.py submit --exec
+python project.py submit -w 2 --exec
 ```
 
 or, to run interactively, extract the command lines of the individual operations
