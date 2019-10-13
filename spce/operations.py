@@ -146,7 +146,8 @@ def add_benchmark(project, mode, nranks, gpu_ids=[]):
             import hoomd
             from hoomd import md
 
-            c = hoomd.context.initialize()
+            device = hoomd.device.GPU(gpu_ids=gpu_ids) if mode == 'gpu' else hoomd.device.CPU()
+            c = hoomd.context.initialize(device)
             system = hoomd.init.read_gsd('init.gsd')
 
             pos_spce, types_spce, charges_spce, _, _ = create_molecule()
@@ -210,7 +211,7 @@ def add_benchmark(project, mode, nranks, gpu_ids=[]):
 
                 # meta data
                 meta = hoomd.meta.dump_metadata()
-                row['N'] = meta['hoomd.data.system_data']['particles']['N'];
+                row['N'] = len(center)
                 row['num_ranks'] = meta['device']['num_ranks'];
                 row['compiler_version'] = meta['hoomd']['compiler_version'];
                 row['cuda_version'] = meta['hoomd']['cuda_version'];
