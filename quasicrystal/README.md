@@ -22,10 +22,10 @@ Parameters:
 ## How to add a new statepoint to the database:
 
 1. Choose a number of particles along one edge of the simple cubic lattice for initialization, e.g.
-$n=50$, which initializes $N=n^3=125000$ particles.
+$n=100$, which initializes $N=n^3=1,000,000$ particles.
 
 ```
-python init.py 50
+python init.py 100
 ```
 
 2. Equilibrate. Login to the compute node, then

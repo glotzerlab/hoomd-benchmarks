@@ -11,7 +11,8 @@ benchmarks = [
              'quasicrystal',
              'depletion',
              'dodecahedron',
-             'spce'
+             'spce',
+             'patchy_protein'
              ]
 
 from exec_confs import exec_confs

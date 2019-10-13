@@ -6,3 +6,5 @@ __pycache__
 *.swp
 *.log
 *.out
+signac_job_document.json
+signac_project_document.json

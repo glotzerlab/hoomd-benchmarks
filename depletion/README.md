@@ -24,10 +24,10 @@ Parameters:
 ## How to add a new statepoint to the database:
 
 1. Choose a number of particles along one edge of the simple cubic lattice for initialization, e.g.
-$n=10$, which initializes $N=n^3=1000$ particles.
+$n=32$, which initializes $N=n^3=32768$ particles.
 
 ```
-python init.py 10
+python init.py 32
 ```
 
 2. Compress to the target density. Login to the compute node, then
