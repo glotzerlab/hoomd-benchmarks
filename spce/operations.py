@@ -99,7 +99,6 @@ def add_equilibration(project):
             else:
                 nx,ny,nz = [int(l/grid_spacing) for l in (system.box.Lx, system.box.Ly, system.box.Lz)]
 
-            print(system.box.Lx)
             if c.device.comm.rank == 0:
                 print('PPPM grid dimensions [{},{},{}]'.format(nx,ny,nz))
                 print('Max RMS for 1e-4 rel err (reference RMS) {}'.format(1e-4*f/0.1))
@@ -192,7 +191,6 @@ def add_benchmark(project, mode, nranks, gpu_ids=[]):
             log.register_callback('P_bar', P_bar)
 
             nvt = md.integrate.nvt(kT=T,group=center,tau=1.0)
-            #nl.set_params(r_buff=0.6, check_period=7)
 
             # warm up and autotune
             if c.device.mode == 'gpu':
