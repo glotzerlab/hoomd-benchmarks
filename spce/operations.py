@@ -146,7 +146,7 @@ def add_benchmark(project, mode, nranks, gpu_ids=[]):
             from hoomd import md
 
             device = hoomd.device.GPU(gpu_ids=gpu_ids) if mode == 'gpu' else hoomd.device.CPU()
-            c = hoomd.context.initialize(device)
+            c = hoomd.context.initialize(device=device)
             system = hoomd.init.read_gsd('init.gsd')
 
             pos_spce, types_spce, charges_spce, _, _ = create_molecule()

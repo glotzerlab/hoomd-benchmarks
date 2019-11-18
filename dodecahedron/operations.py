@@ -128,7 +128,7 @@ def add_benchmark(project, mode, nranks, gpu_ids=[]):
             from hoomd import hpmc
 
             device = hoomd.device.GPU(gpu_ids=gpu_ids) if mode == 'gpu' else hoomd.device.CPU()
-            c = hoomd.context.initialize(device)
+            c = hoomd.context.initialize(device=device)
             system = hoomd.init.read_gsd(filename=job.fn('init.gsd'))
 
             # setup the MC integration
