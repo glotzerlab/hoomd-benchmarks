@@ -53,7 +53,7 @@ def add_equilibration(project):
             import hoomd
             from hoomd import md
 
-            hoomd.context.initialize()
+            hoomd.context.initialize(args='')
             rho = 0.03
             system = hoomd.init.create_lattice(n=sp['n'], unitcell=hoomd.lattice.sc(a=rho**(-1./3.)))
 
@@ -100,7 +100,7 @@ def add_benchmark(project, mode, nranks, gpu_ids=[]):
             from hoomd import md
 
             device = hoomd.device.GPU(gpu_ids=gpu_ids) if mode == 'gpu' else hoomd.device.CPU()
-            c = hoomd.context.initialize(device=device)
+            c = hoomd.context.initialize(args='',device=device)
             system = hoomd.init.read_gsd(filename=job.fn('init.gsd'))
 
             # generate the pair interaction table

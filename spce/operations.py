@@ -65,7 +65,7 @@ def add_equilibration(project):
             import hoomd
             from hoomd import md
 
-            c = hoomd.context.initialize()
+            c = hoomd.context.initialize(args='')
             a = (18.0/(6.022*10**23)*(10**24)/density)**(1./3.)
 
             system = hoomd.init.create_lattice(n=sp['n'], unitcell=hoomd.lattice.sc(a=a,type_name='H2O'))
@@ -146,7 +146,7 @@ def add_benchmark(project, mode, nranks, gpu_ids=[]):
             from hoomd import md
 
             device = hoomd.device.GPU(gpu_ids=gpu_ids) if mode == 'gpu' else hoomd.device.CPU()
-            c = hoomd.context.initialize(device=device)
+            c = hoomd.context.initialize(args='',device=device)
             system = hoomd.init.read_gsd('init.gsd')
 
             pos_spce, types_spce, charges_spce, _, _ = create_molecule()

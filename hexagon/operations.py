@@ -40,7 +40,7 @@ def add_benchmark(project, mode, nranks, gpu_ids=[]):
             from hoomd import hpmc
 
             device = hoomd.device.GPU(gpu_ids=gpu_ids) if mode == 'gpu' else hoomd.device.CPU()
-            c = hoomd.context.initialize(device=device)
+            c = hoomd.context.initialize(args='',device=device)
 
             # read the initial config or restart file
             system = hoomd.init.read_gsd(filename=signac.get_project().fn('hexagon/init.gsd'))

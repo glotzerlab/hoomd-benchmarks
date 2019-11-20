@@ -51,7 +51,7 @@ def add_compression(project):
             import hoomd
             from hoomd import hpmc
 
-            c = hoomd.context.initialize()
+            c = hoomd.context.initialize(args='')
             phi_p_ini = 0.2
             n = sp['n']
             L_target = n*(1.0/phi)**(1./3.)
@@ -124,7 +124,7 @@ def add_benchmark(project, mode, nranks, gpu_ids=[]):
             from hoomd import hpmc
 
             device = hoomd.device.GPU(gpu_ids=gpu_ids) if mode == 'gpu' else hoomd.device.CPU()
-            c = hoomd.context.initialize(device=device)
+            c = hoomd.context.initialize(args='',device=device)
             system = hoomd.init.read_gsd(filename=job.fn('init.gsd'))
 
             mc = hpmc.integrate.convex_spheropolyhedron(seed=20, d=0.0351, a=.0544, nselect=4)
