@@ -87,7 +87,7 @@ def add_equilibration(project):
             rigid.set_param('H2O',positions=pos_spce, types=types_spce, charges=math.sqrt(f)*np.array(charges_spce))
             rigid.create_bodies()
 
-            my_nlist = md.nlist.cell()
+            my_nlist = md.nlist.tree()
 
             # long cut off so that no long-range correction is needed
             lj = md.pair.lj(r_cut=1.5, nlist=my_nlist)
@@ -159,7 +159,7 @@ def add_benchmark(project, mode, nranks, gpu_ids=[]):
             rigid.set_param('H2O',positions=pos_spce, types=types_spce, charges=math.sqrt(f)*np.array(charges_spce))
             rigid.create_bodies()
 
-            my_nlist = md.nlist.cell()
+            my_nlist = md.nlist.tree()
 
             # long cut off so that no long-range correction is needed
             lj = md.pair.lj(r_cut=1.5, nlist=my_nlist)
