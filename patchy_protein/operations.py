@@ -230,7 +230,7 @@ def add_benchmark(project, mode, nranks, gpu_ids=[]):
             rigid.set_param('A', positions=list(atoms), types = my_types,diameters=[d-sigma+1 for d in diameters])
             rigid.create_bodies()
 
-            my_nlist = md.nlist.cell()
+            my_nlist = md.nlist.tree()
             slj = md.pair.slj(nlist=my_nlist,name='repulsive',r_cut=False)
             slj.pair_coeff.set(system.particles.types, system.particles.types, epsilon=0,sigma=0,r_cut=False)
             slj.pair_coeff.set('sphere','sphere',epsilon=1.0,sigma=sigma,r_cut=sigma*2**(1./6.))
