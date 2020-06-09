@@ -99,6 +99,52 @@ def add_compression(project):
             hoomd.run(10000)
             hoomd.dump.gsd('init.gsd', period=None, overwrite=True,group=hoomd.group.all())
 
+def add_profile(project, mode, nranks, gpu_ids=[]):
+    name = ''
+    ngpu = 0
+    if mode == 'cpu':
+        name += 'cpu'
+    elif mode == 'gpu':
+        name += 'gpu'
+        ngpu = max(1,len(gpu_ids))
+        ngpu *= nranks
+    else:
+        raise ValueError('Unknown execution mode')
+
+    name += '_'.join([str(g) for g in gpu_ids])
+    name += '_np{}'.format(nranks)
+
+    @project.operation('{}-profile-{}'.format(benchmark_name,name))
+    @project.pre(pertains)
+    @project.pre(compressed)
+    @flow.directives(nranks=nranks)
+    @flow.directives(np=nranks)
+    @flow.directives(ngpu=ngpu)
+    def profile(job):
+        sp = job.statepoint()
+
+        with job:
+            import hoomd
+            from hoomd import hpmc
+
+            device = hoomd.device.GPU(gpu_ids=gpu_ids) if mode == 'gpu' else hoomd.device.CPU()
+            c = hoomd.context.initialize(args='',device=device)
+            system = hoomd.init.read_gsd(filename=job.fn('init.gsd'))
+
+            # setup the MC integration
+            mc = hpmc.integrate.convex_polyhedron(seed=10, d=0.3, a=0.26);
+            mc.shape_param.set("A", vertices=points);
+
+            # warm up and autotune
+            if c.device.mode == 'gpu':
+                hoomd.run(1000)
+            else:
+                hoomd.run(1000, limit_hours=30.0/3600.0)
+
+            hoomd.util.cuda_profile_start()
+            hoomd.run(10,profile=True)
+            hoomd.util.cuda_profile_stop()
+
 def add_benchmark(project, mode, nranks, gpu_ids=[]):
     name = ''
     ngpu = 0
@@ -128,6 +174,8 @@ def add_benchmark(project, mode, nranks, gpu_ids=[]):
             from hoomd import hpmc
 
             device = hoomd.device.GPU(gpu_ids=gpu_ids) if mode == 'gpu' else hoomd.device.CPU()
+            #device.notice_level = 9
+            #device.gpu_error_checking = True
             c = hoomd.context.initialize(args='',device=device)
             system = hoomd.init.read_gsd(filename=job.fn('init.gsd'))
 
