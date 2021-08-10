@@ -7,7 +7,7 @@ simulation performance between different versions, build configurations, or syst
 ## Usage
 
 1. Clone this repository:
-  * `git clone https://github.com/glotzerlab/hoomd-benchmarks.git`
+  * `git clone --branch trunk --depth 1 https://github.com/glotzerlab/hoomd-benchmarks.git`
   * `cd hoomd-benchmarks`
 2. Run a specific benchmark with options:
   * `python3 -m hoomd_benchmarks.md_pair_lj --device GPU`
