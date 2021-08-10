@@ -1,3 +1,6 @@
+# Copyright (c) 2021 The Regents of the University of Michigan
+# Part of HOOMD-blue, released under the BSD 3-Clause License.
+
 """Hard sphere Monte Carlo benchmark."""
 
 import hoomd
