@@ -1,0 +1,18 @@
+{
+    "folders": [
+        {
+            "path": "."
+        }
+    ],
+    "settings": {
+        "cSpell.words": [
+            "CPUs",
+            "hoomd",
+            "hpmc",
+            "itertools",
+            "mpirun",
+            "nlist",
+            "numpy"
+        ]
+    }
+}

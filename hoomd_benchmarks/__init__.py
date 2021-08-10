@@ -1,0 +1,1 @@
+"""HOOMD benchmarks main package."""
