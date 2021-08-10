@@ -1,7 +1,16 @@
 """Command line entrypoint for the package."""
 
-from . import benchmark_classes, common
+from . import common
 import numpy
+from .hpmc_sphere import HPMCSphere
+from .md_pair_lj import MDPairLJ
+from .md_pair_wca import MDPairWCA
+
+benchmark_classes = [
+    HPMCSphere,
+    MDPairLJ,
+    MDPairWCA,
+]
 
 parser = common.Benchmark.make_argument_parser()
 args = parser.parse_args()
