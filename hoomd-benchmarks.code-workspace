@@ -12,6 +12,7 @@
             "itertools",
             "mpirun",
             "nlist",
+            "noqa",
             "numpy"
         ]
     }

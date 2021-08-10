@@ -65,8 +65,8 @@ def make_hard_sphere_configuration(N, rho, dimensions, device, verbose):
     if print_messages:
         print('.. randomizing positions')
 
-    for i in range(5):
-        sim.run(1000)
+    for i in range(10):
+        sim.run(100)
         if print_messages:
             print(f'.. step {sim.timestep} at {sim.tps:0.4g} TPS')
 
@@ -87,8 +87,8 @@ def make_hard_sphere_configuration(N, rho, dimensions, device, verbose):
 
     if print_messages:
         print('.. compressing')
-    while not compress.complete and sim.timestep < 1e6:
-        sim.run(500)
+    while not compress.complete and sim.timestep < 1e5:
+        sim.run(100)
         if print_messages:
             print(f'.. step {sim.timestep} at {sim.tps:0.4g} TPS')
 
