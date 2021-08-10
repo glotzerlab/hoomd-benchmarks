@@ -33,10 +33,29 @@ See their docstrings for details.
 
 ## Benchmarks
 
+Run any of these benchmarks individually with: `python3 -m hoomd_benchmarks.<benchmark_name>`:
+
 * `hpmc_sphere` - Hard particle Monte Carlo simulation of spheres (diameter=1.0, d=0.1)
 * `md_pair_lj` - Molecular dynamics simulation with the Lennard-Jones pair potential with the NVT
   integration method (epsilon=1, sigma=1, r_cut=2.5, kT=1.2, tau=0.5).
 * `md_pair_wca` - Molecular dynamics simulation with the WCA pair potential with the NVT
   integration method (epsilon=1, sigma=1, r_cut=2**(1/6), kT=1.2, tau=0.5).
 
+## Change log
+
+`hoomd_benchmarks` does not have a formal release cycle. Examine the git commit history to see the
+changes.
+
+## Contributing to HOOMD-blue
+
+Contributions are welcome via [pull requests][pulls]. Please report bugs and suggest feature
+enhancements via the [issue tracker][issues]. See [CONTRIBUTING.md](CONTRIBUTING.md) and
+[ARCHITECTURE.md](ARCHITECTURE.md) for more information.
+
+## License
+
+**HOOMD-blue** is available under the [3-clause BSD license](LICENSE).
+
+[pulls]: https://github.com/glotzerlab/hoomd-benchmarks/pulls
+[issues]: https://github.com/glotzerlab/hoomd-benchmarks/issues
 [hoomd]: http://glotzerlab.engin.umich.edu/hoomd-blue/
