@@ -11,7 +11,7 @@ assist you in designing flexible interfaces.
 
 ## Base your work off the correct branch
 
-All new work should be based off the `master` branch.
+All new work should be based on `trunk`.
 
 ## Propose a minimal set of related changes
 
