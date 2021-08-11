@@ -37,4 +37,4 @@ jobs:
         path: initial_configuration_cache
         key: N-4000-rho-default
     - name: Execute benchmarks
-      run: python3 -m hoomd_benchmarks --device CPU -N 4000 -v
+      run: python3 -u -m hoomd_benchmarks --device CPU -N 4000 -v
