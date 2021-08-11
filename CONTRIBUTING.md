@@ -38,8 +38,7 @@ Document public-facing API with Python docstrings in Google style.
 
 ## Add developer to the credits
 
-Update the credits documentation to reference what each developer contributed to
-the code.
+List contributing developers in [CONTRIBUTORS.md](CONTRIBUTORS.md).
 
 [pulls]: https://github.com/glotzerlab/hoomd-benchmarks/pulls
 [style_guide]: https://hoomd-blue.readthedocs.io/en/latest/style.html
