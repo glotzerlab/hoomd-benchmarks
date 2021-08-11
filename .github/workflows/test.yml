@@ -24,23 +24,28 @@ jobs:
     container:
       image: glotzerlab/software:beta-nompi
       options: -u 0
-    steps:
-    # clone the benchmarks and run them
-    - uses: actions/checkout@v2.3.4
-    - name: List benchmarks
-      run: ls **/*.py
-    # Cache the generated initial configurations. The cache key must reflect the command line
-    # options provided to the benchmarks below.
-    - name: Cache configurations
-      uses: actions/cache@v2.1.6
-      with:
-        path: initial_configuration_cache
-        key: N-4000-rho-default
-    - name: Execute benchmarks
-      run: >
-        python3 -u -m hoomd_benchmarks
+    env:
+      benchmark_options: >
         --device CPU
         -N 4000
         -v
         --warmup_steps 1000
         --benchmark_steps 1000
+    steps:
+    - uses: actions/checkout@v2.3.4
+    - name: List benchmarks
+      run: ls **/*.py
+    - name: Cache configurations
+      uses: actions/cache@v2.1.6
+      with:
+        path: initial_configuration_cache
+        key: ${{ env.benchmark_options }}
+    - name: Execute all benchmarks
+      run: >
+        python3 -u -m hoomd_benchmarks ${benchmark_options}
+    - name: Execute hpmc_sphere
+      run: python3 -u -m hoomd_benchmarks.hpmc_sphere ${benchmark_options}
+    - name: Execute md_pair_lj
+      run: python3 -u -m hoomd_benchmarks.md_pair_lj ${benchmark_options}
+    - name: Execute md_pair_wca
+      run: python3 -u -m hoomd_benchmarks.md_pair_wca ${benchmark_options}
