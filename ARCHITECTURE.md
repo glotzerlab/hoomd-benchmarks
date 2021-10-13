@@ -28,7 +28,7 @@ code, such as initialization and command line option parsing. Individual benchma
 `main` method that can be called by Python scripts and a `if __name__ == '__main__'` section to
 execute the benchmark with `python3 -m hoomd_benchmarks.benchmark_name`.
 
-To meat goal 5, `hoomd_benchmarks` defines a suite of tests that runs each benchmark with default
+To meet goal 5, `hoomd_benchmarks` defines a suite of tests that runs each benchmark with default
 parameters and provides a report. Users that wish to perform specific studies (such as system size
 performance scaling) are welcome to implement their own protocols in their preferred language.
 
