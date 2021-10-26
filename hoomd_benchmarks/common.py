@@ -226,3 +226,6 @@ class ComparativeBenchmark(Benchmark):
         t0 = 1 / self.reference_sim.tps / 1e-9
         t1 = 1 / self.compare_sim.tps / 1e-9
         return t1 - t0
+
+    # TODO: add disable-comparison command line option to work with profiling
+    # tools
