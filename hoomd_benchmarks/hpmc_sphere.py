@@ -36,11 +36,9 @@ class HPMCSphere(common.Benchmark):
 
     def get_performance(self):
         """Get the benchmark performance."""
-        sim = self.simulations[0]
-
-        mc = sim.operations.integrator
-        return ((sum(mc.translate_moves) + sum(mc.rotate_moves)) / sim.walltime
-                / sim.state.N_particles)
+        mc = self.sim.operations.integrator
+        return ((sum(mc.translate_moves) + sum(mc.rotate_moves))
+                / self.sim.walltime / self.sim.state.N_particles)
 
 
 if __name__ == '__main__':

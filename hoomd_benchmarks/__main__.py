@@ -28,7 +28,7 @@ args.device = common.make_hoomd_device(args)
 for benchmark_class in benchmark_classes:
     benchmark = benchmark_class(**vars(args))
     name = benchmark_class.__name__
-    performance = benchmark.run()
+    performance = benchmark.execute()
 
     if args.device.communicator.rank == 0:
         print(f'{name}: {numpy.mean(performance)}')

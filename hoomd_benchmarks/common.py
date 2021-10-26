@@ -64,7 +64,9 @@ class Benchmark:
         by `Benchmark`.
 
     Attributes:
-        simulations (hoomd.Simulation): Simulations to execute.
+        simulations list[hoomd.Simulation]: Simulations to execute.
+
+        sim (hoomd.Simulation): First simulation in the list.
 
         units (str): Name of the units to report on the performance (only
           shown when verbose=True.
@@ -89,6 +91,7 @@ class Benchmark:
         self.verbose = verbose
         self.units = 'time steps per second'
         self.simulations = self.make_simulations()
+        self.sim = self.simulations[0]
 
     def make_simulations(self):
         """Override this method to initialize the simulation."""
@@ -96,10 +99,10 @@ class Benchmark:
 
     def get_performance(self):
         """Get the performance of the benchmark during the last ``sim.run``."""
-        return self.simulations[0].tps
+        return self.sim.tps
 
-    def run(self):
-        """Run the simulation and report the performance.
+    def execute(self):
+        """Execute the benchmark and report the performance.
 
         Returns:
             list[float]: The performance measured at each benchmark stage.
@@ -196,7 +199,7 @@ class Benchmark:
         args = parser.parse_args()
         args.device = make_hoomd_device(args)
         benchmark = cls(**vars(args))
-        performance = benchmark.run()
+        performance = benchmark.execute()
 
         if args.device.communicator.rank == 0:
             print(f'{numpy.mean(performance)}')

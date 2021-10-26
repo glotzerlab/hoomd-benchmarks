@@ -36,8 +36,7 @@ class MicrobenchmarkEmptySimulation(common.Benchmark):
 
     def get_performance(self):
         """Get the benchmark performance."""
-        sim = self.simulations[0]
-        return 1 / sim.tps / 1e-9
+        return 1 / self.sim.tps / 1e-9
 
 
 if __name__ == '__main__':
