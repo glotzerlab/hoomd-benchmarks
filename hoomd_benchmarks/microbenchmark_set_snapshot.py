@@ -9,21 +9,24 @@ from .configuration.hard_sphere import make_hard_sphere_configuration
 from .microbenchmark_custom_updater import EmptyAction
 
 
-class GetSnapshotAction(hoomd.custom.Action):
-    """Action that gets the system snapshot."""
+class SetSnapshotAction(hoomd.custom.Action):
+    """Action that sets the system snapshot."""
+
+    def __init__(self, snapshot):
+        self.snap = snapshot
 
     def act(self, timestep):
         """Get the system snapshot."""
-        snap = self._state.get_snapshot()  # noqa: F841
+        self._state.set_snapshot(self.snap)
         return
 
 
-class MicrobenchmarkGetSnapshot(common.ComparativeBenchmark):
-    """Measure the overhead of getting a global snapshot.
+class MicrobenchmarkSetSnapshot(common.ComparativeBenchmark):
+    """Measure the overhead of setting a global snapshot.
 
     This benchmark performs an MD integration with no forces and dt=0 to ensure
     that the particle data is moved to the GPU every timestep before it calls
-    get_snapshot.
+    set_snapshot.
 
     See Also:
         `common.ComparativeBenchmark`
@@ -61,10 +64,10 @@ class MicrobenchmarkGetSnapshot(common.ComparativeBenchmark):
         sim1.operations.integrator = hoomd.md.Integrator(
             dt=0.0, methods=[hoomd.md.methods.NVE(filter=hoomd.filter.All())])
 
-        get_snapshot_updater = hoomd.update.CustomUpdater(
-            action=GetSnapshotAction(),
+        set_snapshot_updater = hoomd.update.CustomUpdater(
+            action=SetSnapshotAction(sim1.state.get_snapshot()),
             trigger=hoomd.trigger.Periodic(period=1))
-        sim1.operations.updaters.append(get_snapshot_updater)
+        sim1.operations.updaters.append(set_snapshot_updater)
 
         return sim0, sim1
 
@@ -76,4 +79,4 @@ class MicrobenchmarkGetSnapshot(common.ComparativeBenchmark):
 
 
 if __name__ == '__main__':
-    MicrobenchmarkGetSnapshot.main()
+    MicrobenchmarkSetSnapshot.main()

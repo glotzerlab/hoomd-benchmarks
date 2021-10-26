@@ -12,6 +12,7 @@ from .microbenchmark_empty_simulation import MicrobenchmarkEmptySimulation
 from .microbenchmark_custom_trigger import MicrobenchmarkCustomTrigger
 from .microbenchmark_custom_updater import MicrobenchmarkCustomUpdater
 from .microbenchmark_get_snapshot import MicrobenchmarkGetSnapshot
+from .microbenchmark_set_snapshot import MicrobenchmarkSetSnapshot
 
 benchmark_classes = [
     HPMCSphere,
@@ -21,6 +22,7 @@ benchmark_classes = [
     MicrobenchmarkCustomTrigger,
     MicrobenchmarkCustomUpdater,
     MicrobenchmarkGetSnapshot,
+    MicrobenchmarkSetSnapshot,
 ]
 
 parser = common.Benchmark.make_argument_parser()

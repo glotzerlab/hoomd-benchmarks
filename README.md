@@ -55,6 +55,7 @@ microbenchmark.
 * `microbenchmark_custom_trigger` - Measure the time taken per step to evaluate a custom trigger.
 * `microbenchmark_custom_updater` - Measure the time taken per step to call a custom updater.
 * `microbenchmark_get_snapshot` - Measure the time taken to call State.get_snapshot.
+* `microbenchmark_set_snapshot` - Measure the time taken to call State.set_snapshot.
 
 ## Change log
 
