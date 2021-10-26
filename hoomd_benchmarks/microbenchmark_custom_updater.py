@@ -8,19 +8,16 @@ from . import common
 from .configuration.hard_sphere import make_hard_sphere_configuration
 
 
-class NeverTrigger(hoomd.trigger.Trigger):
-    """A trigger that always returns False."""
+class EmptyAction(hoomd.custom.Action):
+    """Action that does nothing."""
 
-    def __init__(self):
-        hoomd.trigger.Trigger.__init__(self)
-
-    def compute(self, timestep):
-        """Compute the value of the trigger."""
-        return False
+    def act(self, timestep):
+        """Do nothing."""
+        return
 
 
-class MicrobenchmarkCustomTrigger(common.Benchmark):
-    """Measure the overhead of evaluating a custom trigger.
+class MicrobenchmarkCustomUpdater(common.Benchmark):
+    """Measure the overhead of evaluating a custom updater.
 
     See Also:
         `common.Benchmark`
@@ -34,23 +31,12 @@ class MicrobenchmarkCustomTrigger(common.Benchmark):
                                               device=self.device,
                                               verbose=self.verbose)
 
-        variant = hoomd.variant.Ramp(A=0, B=1, t_start=0, t_ramp=100)
-
         sim0 = hoomd.Simulation(device=self.device, seed=100)
         sim0.create_state_from_gsd(filename=str(path))
         sim0.operations.updaters.clear()
         sim0.operations.computes.clear()
         sim0.operations.writers.clear()
         sim0.operations.tuners.clear()
-
-        trigger0 = hoomd.trigger.Periodic(phase=1000000000, period=1000000000)
-        box = sim0.state.box
-        box_resize1 = hoomd.update.BoxResize(trigger=trigger0,
-                                             box1=box,
-                                             box2=box,
-                                             variant=variant,
-                                             filter=hoomd.filter.All())
-        sim0.operations.updaters.append(box_resize1)
 
         sim1 = hoomd.Simulation(device=self.device, seed=100)
         sim1.create_state_from_gsd(filename=str(path))
@@ -59,14 +45,9 @@ class MicrobenchmarkCustomTrigger(common.Benchmark):
         sim1.operations.writers.clear()
         sim1.operations.tuners.clear()
 
-        trigger1 = NeverTrigger()
-        box = sim1.state.box
-        box_resize1 = hoomd.update.BoxResize(trigger=trigger1,
-                                             box1=box,
-                                             box2=box,
-                                             variant=variant,
-                                             filter=hoomd.filter.All())
-        sim1.operations.updaters.append(box_resize1)
+        custom_updater = hoomd.update.CustomUpdater(
+            action=EmptyAction(), trigger=hoomd.trigger.Periodic(period=1))
+        sim1.operations.updaters.append(custom_updater)
 
         self.units = 'nanoseconds per step'
 
@@ -80,4 +61,4 @@ class MicrobenchmarkCustomTrigger(common.Benchmark):
 
 
 if __name__ == '__main__':
-    MicrobenchmarkCustomTrigger.main()
+    MicrobenchmarkCustomUpdater.main()
