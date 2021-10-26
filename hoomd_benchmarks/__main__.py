@@ -8,11 +8,15 @@ import numpy
 from .hpmc_sphere import HPMCSphere
 from .md_pair_lj import MDPairLJ
 from .md_pair_wca import MDPairWCA
+from .microbenchmark_empty_simulation import MicrobenchmarkEmptySimulation
+from .microbenchmark_custom_trigger import MicrobenchmarkCustomTrigger
 
 benchmark_classes = [
     HPMCSphere,
     MDPairLJ,
     MDPairWCA,
+    MicrobenchmarkEmptySimulation,
+    MicrobenchmarkCustomTrigger,
 ]
 
 parser = common.Benchmark.make_argument_parser()
