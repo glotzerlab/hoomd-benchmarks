@@ -51,7 +51,7 @@ class MDPair(common.Benchmark):
                             help='Neighbor list rebuild check delay.')
         return parser
 
-    def make_simulations(self):
+    def make_simulation(self):
         """Make the Simulation object."""
         path = make_hard_sphere_configuration(N=self.N,
                                               rho=self.rho,
@@ -75,4 +75,4 @@ class MDPair(common.Benchmark):
         sim.create_state_from_gsd(filename=str(path))
         sim.operations.integrator = integrator
 
-        return [sim]
+        return sim

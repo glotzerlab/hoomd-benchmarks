@@ -16,11 +16,11 @@ class EmptyAction(hoomd.custom.Action):
         return
 
 
-class MicrobenchmarkCustomUpdater(common.Benchmark):
+class MicrobenchmarkCustomUpdater(common.ComparativeBenchmark):
     """Measure the overhead of evaluating a custom updater.
 
     See Also:
-        `common.Benchmark`
+        `common.ComparativeBenchmark`
     """
 
     def make_simulations(self):
@@ -49,15 +49,7 @@ class MicrobenchmarkCustomUpdater(common.Benchmark):
             action=EmptyAction(), trigger=hoomd.trigger.Periodic(period=1))
         sim1.operations.updaters.append(custom_updater)
 
-        self.units = 'nanoseconds per step'
-
-        return [sim0, sim1]
-
-    def get_performance(self):
-        """Get the benchmark performance."""
-        t0 = 1 / self.simulations[0].tps / 1e-9
-        t1 = 1 / self.simulations[1].tps / 1e-9
-        return t1 - t0
+        return sim0, sim1
 
 
 if __name__ == '__main__':

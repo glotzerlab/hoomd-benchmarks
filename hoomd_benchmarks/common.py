@@ -52,21 +52,16 @@ class Benchmark:
 
         verbose (bool): Set to True to see detailed output.
 
-    Derived classes must initialize one or more Simulation objects in
-    ``make_simulations`` and return a list. Derived classes may also override
-    the default `get_performance`, `units`, and `make_argument_parser`.
-
-    Most benchmarks will run a single simulation. This class supports multiple
-    simulations for comparative benchmarks (e.g. measuring overhead).
+    Derived classes must initialize a Simulation object in ``make_simulation``
+    and return it. Derived classes may also override the default
+    `get_performance`, `units`, `make_argument_parser`, and `run`.
 
     Note:
         Derived classes may only add arguments to the argument parser created
         by `Benchmark`.
 
     Attributes:
-        simulations list[hoomd.Simulation]: Simulations to execute.
-
-        sim (hoomd.Simulation): First simulation in the list.
+        sim (hoomd.Simulation): Simulation to execute.
 
         units (str): Name of the units to report on the performance (only
           shown when verbose=True.
@@ -90,16 +85,19 @@ class Benchmark:
         self.repeat = repeat
         self.verbose = verbose
         self.units = 'time steps per second'
-        self.simulations = self.make_simulations()
-        self.sim = self.simulations[0]
+        self.sim = self.make_simulation()
 
-    def make_simulations(self):
+    def make_simulation(self):
         """Override this method to initialize the simulation."""
         pass
 
     def get_performance(self):
-        """Get the performance of the benchmark during the last ``sim.run``."""
+        """Get the performance of the benchmark during the last ``run``."""
         return self.sim.tps
+
+    def run(self, steps):
+        """Run the benchmark for the given number of steps."""
+        self.sim.run(steps)
 
     def execute(self):
         """Execute the benchmark and report the performance.
@@ -117,15 +115,13 @@ class Benchmark:
             if print_verbose_messages:
                 print('.. autotuning GPU kernel parameters for '
                       f'{self.warmup_steps} steps')
-            for sim in self.simulations:
-                sim.run(self.warmup_steps)
+            self.run(self.warmup_steps)
             # TODO: Run until autotuning is complete when the autotuning API is
             # implemented.
         else:
             if print_verbose_messages:
                 print(f'.. warming up for {self.warmup_steps} steps')
-            for sim in self.simulations:
-                sim.run(self.warmup_steps)
+            self.run(self.warmup_steps)
 
         if print_verbose_messages:
             print(f'.. running for {self.benchmark_steps} steps '
@@ -137,15 +133,13 @@ class Benchmark:
         if isinstance(self.device, hoomd.device.GPU):
             with self.device.enable_profiling():
                 for i in range(self.repeat):
-                    for sim in self.simulations:
-                        sim.run(self.benchmark_steps)
+                    self.run(self.benchmark_steps)
                     performance.append(self.get_performance())
                     if print_verbose_messages:
                         print(f'.. {performance[-1]} {self.units}')
         else:
             for i in range(self.repeat):
-                for sim in self.simulations:
-                    sim.run(self.benchmark_steps)
+                self.run(self.benchmark_steps)
                 performance.append(self.get_performance())
                 if print_verbose_messages:
                     print(f'.. {performance[-1]} {self.units}')
@@ -203,3 +197,32 @@ class Benchmark:
 
         if args.device.communicator.rank == 0:
             print(f'{numpy.mean(performance)}')
+
+
+class ComparativeBenchmark(Benchmark):
+    """Base class for benchmarks that compare two simulation runs.
+
+    Derived classes should override `make_simulations` and return a pair of
+    simulations to compare.
+    """
+
+    def make_simulation(self):
+        """Call make_simulations and return the first simulation."""
+        self.units = 'nanoseconds per step'
+        self.reference_sim, self.compare_sim = self.make_simulations()
+        return self.reference_sim
+
+    def run(self, steps):
+        """Run the benchmark for the given number of steps."""
+        self.reference_sim.run(steps)
+        self.compare_sim.run(steps)
+
+    def make_simulations(self):
+        """Override this method to initialize the simulations."""
+        pass
+
+    def get_performance(self):
+        """Get the benchmark performance."""
+        t0 = 1 / self.reference_sim.tps / 1e-9
+        t1 = 1 / self.compare_sim.tps / 1e-9
+        return t1 - t0

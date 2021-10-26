@@ -15,7 +15,7 @@ class HPMCSphere(common.Benchmark):
         `common.Benchmark`
     """
 
-    def make_simulations(self):
+    def make_simulation(self):
         """Make the Simulation object."""
         path = make_hard_sphere_configuration(N=self.N,
                                               rho=self.rho,
@@ -32,7 +32,7 @@ class HPMCSphere(common.Benchmark):
 
         self.units = 'trial moves per second per particle'
 
-        return [sim]
+        return sim
 
     def get_performance(self):
         """Get the benchmark performance."""

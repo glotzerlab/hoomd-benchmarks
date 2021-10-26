@@ -19,11 +19,11 @@ class NeverTrigger(hoomd.trigger.Trigger):
         return False
 
 
-class MicrobenchmarkCustomTrigger(common.Benchmark):
+class MicrobenchmarkCustomTrigger(common.ComparativeBenchmark):
     """Measure the overhead of evaluating a custom trigger.
 
     See Also:
-        `common.Benchmark`
+        `common.ComparativeBenchmark`
     """
 
     def make_simulations(self):
@@ -68,15 +68,7 @@ class MicrobenchmarkCustomTrigger(common.Benchmark):
                                              filter=hoomd.filter.All())
         sim1.operations.updaters.append(box_resize1)
 
-        self.units = 'nanoseconds per step'
-
-        return [sim0, sim1]
-
-    def get_performance(self):
-        """Get the benchmark performance."""
-        t0 = 1 / self.simulations[0].tps / 1e-9
-        t1 = 1 / self.simulations[1].tps / 1e-9
-        return t1 - t0
+        return sim0, sim1
 
 
 if __name__ == '__main__':
