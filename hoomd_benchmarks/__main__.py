@@ -11,6 +11,7 @@ from .md_pair_wca import MDPairWCA
 from .microbenchmark_empty_simulation import MicrobenchmarkEmptySimulation
 from .microbenchmark_custom_trigger import MicrobenchmarkCustomTrigger
 from .microbenchmark_custom_updater import MicrobenchmarkCustomUpdater
+from .microbenchmark_get_snapshot import MicrobenchmarkGetSnapshot
 
 benchmark_classes = [
     HPMCSphere,
@@ -19,6 +20,7 @@ benchmark_classes = [
     MicrobenchmarkEmptySimulation,
     MicrobenchmarkCustomTrigger,
     MicrobenchmarkCustomUpdater,
+    MicrobenchmarkGetSnapshot,
 ]
 
 parser = common.Benchmark.make_argument_parser()
