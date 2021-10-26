@@ -52,15 +52,19 @@ class Benchmark:
 
         verbose (bool): Set to True to see detailed output.
 
-    Derived classes must initialize a Simulation object in ``make_simulation``
-    and return it. Derived classes may also override the default
-    `get_performance`, `units`, and `make_argument_parser`.
+    Derived classes must initialize one or more Simulation objects in
+    ``make_simulations`` and return a list. Derived classes may also override
+    the default `get_performance`, `units`, and `make_argument_parser`.
+
+    Most benchmarks will run a single simulation. This class supports multiple
+    simulations for comparative benchmarks (e.g. measuring overhead).
 
     Note:
-        Derived classes may only add arguments to the argument parser.
+        Derived classes may only add arguments to the argument parser created
+        by `Benchmark`.
 
     Attributes:
-        sim (hoomd.Simulation): Simulation to execute.
+        simulations (hoomd.Simulation): Simulations to execute.
 
         units (str): Name of the units to report on the performance (only
           shown when verbose=True.
@@ -84,15 +88,15 @@ class Benchmark:
         self.repeat = repeat
         self.verbose = verbose
         self.units = 'time steps per second'
-        self.sim = self.make_simulation()
+        self.simulations = self.make_simulations()
 
-    def make_simulation(self):
+    def make_simulations(self):
         """Override this method to initialize the simulation."""
         pass
 
     def get_performance(self):
         """Get the performance of the benchmark during the last ``sim.run``."""
-        return self.sim.tps
+        return self.simulations[0].tps
 
     def run(self):
         """Run the simulation and report the performance.
@@ -101,22 +105,24 @@ class Benchmark:
             list[float]: The performance measured at each benchmark stage.
         """
         print_verbose_messages = (self.verbose
-                                  and self.sim.device.communicator.rank == 0)
+                                  and self.device.communicator.rank == 0)
 
         if print_verbose_messages:
             print(f'Running {type(self).__name__} benchmark')
 
-        if isinstance(self.sim.device, hoomd.device.GPU):
+        if isinstance(self.device, hoomd.device.GPU):
             if print_verbose_messages:
                 print('.. autotuning GPU kernel parameters for '
                       f'{self.warmup_steps} steps')
-            self.sim.run(self.warmup_steps)
+            for sim in self.simulations:
+                sim.run(self.warmup_steps)
             # TODO: Run until autotuning is complete when the autotuning API is
             # implemented.
         else:
             if print_verbose_messages:
                 print(f'.. warming up for {self.warmup_steps} steps')
-            self.sim.run(self.warmup_steps)
+            for sim in self.simulations:
+                sim.run(self.warmup_steps)
 
         if print_verbose_messages:
             print(f'.. running for {self.benchmark_steps} steps '
@@ -125,16 +131,18 @@ class Benchmark:
         # benchmark
         performance = []
 
-        if isinstance(self.sim.device, hoomd.device.GPU):
-            with self.sim.device.enable_profiling():
+        if isinstance(self.device, hoomd.device.GPU):
+            with self.device.enable_profiling():
                 for i in range(self.repeat):
-                    self.sim.run(self.benchmark_steps)
+                    for sim in self.simulations:
+                        sim.run(self.benchmark_steps)
                     performance.append(self.get_performance())
                     if print_verbose_messages:
                         print(f'.. {performance[-1]} {self.units}')
         else:
             for i in range(self.repeat):
-                self.sim.run(self.benchmark_steps)
+                for sim in self.simulations:
+                    sim.run(self.benchmark_steps)
                 performance.append(self.get_performance())
                 if print_verbose_messages:
                     print(f'.. {performance[-1]} {self.units}')

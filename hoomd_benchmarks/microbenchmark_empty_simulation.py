@@ -8,8 +8,8 @@ from . import common
 from .configuration.hard_sphere import make_hard_sphere_configuration
 
 
-class HPMCSphere(common.Benchmark):
-    """Hard particle Monte Carlo sphere benchmark.
+class MicrobenchmarkEmptySimulation(common.Benchmark):
+    """Measure the time per step in an empty Simulation.
 
     See Also:
         `common.Benchmark`
@@ -23,25 +23,22 @@ class HPMCSphere(common.Benchmark):
                                               device=self.device,
                                               verbose=self.verbose)
 
-        mc = hoomd.hpmc.integrate.Sphere()
-        mc.shape['A'] = dict(diameter=1.0)
-
         sim = hoomd.Simulation(device=self.device, seed=100)
         sim.create_state_from_gsd(filename=str(path))
-        sim.operations.integrator = mc
+        sim.operations.updaters.clear()
+        sim.operations.computes.clear()
+        sim.operations.writers.clear()
+        sim.operations.tuners.clear()
 
-        self.units = 'trial moves per second per particle'
+        self.units = 'nanoseconds per step'
 
         return [sim]
 
     def get_performance(self):
         """Get the benchmark performance."""
         sim = self.simulations[0]
-
-        mc = sim.operations.integrator
-        return ((sum(mc.translate_moves) + sum(mc.rotate_moves)) / sim.walltime
-                / sim.state.N_particles)
+        return 1 / sim.tps / 1e-9
 
 
 if __name__ == '__main__':
-    HPMCSphere.main()
+    MicrobenchmarkEmptySimulation.main()
