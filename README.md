@@ -52,6 +52,7 @@ Microbenchmarks exercise a portion of the code and report performance with a met
 microbenchmark.
 
 * `microbenchmark_empty_simulation` - Measure the time per step with an empty Simulation object.
+* `microbenchmark_custom_trigger` - Measure the time taken per step to evaluate a custom trigger.
 
 ## Change log
 
