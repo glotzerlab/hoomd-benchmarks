@@ -32,5 +32,6 @@ class MicrobenchmarkEmptySimulation(common.Benchmark):
 
         return sim
 
+
 if __name__ == '__main__':
     MicrobenchmarkEmptySimulation.main()
