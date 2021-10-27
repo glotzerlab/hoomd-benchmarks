@@ -37,7 +37,7 @@ Run any of these benchmarks individually with: `python3 -m hoomd_benchmarks.<ben
 
 ### Simulation benchmarks
 
-Simulation benchmarks execute simulation runs with models represetnative of research use-cases and
+Simulation benchmarks execute simulation runs with models representative of research use-cases and
 report performance in time steps per second (MD) and trial moves per second per particle (HPMC).
 
 * `hpmc_sphere` - Hard particle Monte Carlo simulation of spheres (diameter=1.0, d=0.1).

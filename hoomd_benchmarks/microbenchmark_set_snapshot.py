@@ -16,7 +16,7 @@ class SetSnapshotAction(hoomd.custom.Action):
         self.snap = snapshot
 
     def act(self, timestep):
-        """Get the system snapshot."""
+        """Set the system snapshot."""
         self._state.set_snapshot(self.snap)
         return
 

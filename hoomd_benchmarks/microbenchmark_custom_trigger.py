@@ -45,12 +45,12 @@ class MicrobenchmarkCustomTrigger(common.ComparativeBenchmark):
 
         trigger0 = hoomd.trigger.Periodic(phase=1000000000, period=1000000000)
         box = sim0.state.box
-        box_resize1 = hoomd.update.BoxResize(trigger=trigger0,
+        box_resize0 = hoomd.update.BoxResize(trigger=trigger0,
                                              box1=box,
                                              box2=box,
                                              variant=variant,
                                              filter=hoomd.filter.All())
-        sim0.operations.updaters.append(box_resize1)
+        sim0.operations.updaters.append(box_resize0)
 
         sim1 = hoomd.Simulation(device=self.device, seed=100)
         sim1.create_state_from_gsd(filename=str(path))
