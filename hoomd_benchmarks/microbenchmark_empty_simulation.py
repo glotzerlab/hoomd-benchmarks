@@ -1,7 +1,7 @@
 # Copyright (c) 2021 The Regents of the University of Michigan
 # Part of HOOMD-blue, released under the BSD 3-Clause License.
 
-"""Hard sphere Monte Carlo benchmark."""
+"""Empty simulation benchmark."""
 
 import hoomd
 from . import common
@@ -30,14 +30,7 @@ class MicrobenchmarkEmptySimulation(common.Benchmark):
         sim.operations.writers.clear()
         sim.operations.tuners.clear()
 
-        self.units = 'nanoseconds per step'
-
         return sim
-
-    def get_performance(self):
-        """Get the benchmark performance."""
-        return 1 / self.sim.tps / 1e-9
-
 
 if __name__ == '__main__':
     MicrobenchmarkEmptySimulation.main()
