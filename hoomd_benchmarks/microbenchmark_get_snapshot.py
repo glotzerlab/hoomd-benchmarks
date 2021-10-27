@@ -31,8 +31,6 @@ class MicrobenchmarkGetSnapshot(common.ComparativeBenchmark):
 
     def make_simulations(self):
         """Make the Simulation objects."""
-        self.units = 'milliseconds per step'
-
         path = make_hard_sphere_configuration(N=self.N,
                                               rho=self.rho,
                                               dimensions=self.dimensions,
@@ -67,12 +65,6 @@ class MicrobenchmarkGetSnapshot(common.ComparativeBenchmark):
         sim1.operations.updaters.append(get_snapshot_updater)
 
         return sim0, sim1
-
-    def get_performance(self):
-        """Get the benchmark performance."""
-        t0 = 1 / self.reference_sim.tps / 1e-3
-        t1 = 1 / self.compare_sim.tps / 1e-3
-        return t1 - t0
 
 
 if __name__ == '__main__':

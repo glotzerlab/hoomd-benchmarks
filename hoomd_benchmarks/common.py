@@ -203,18 +203,33 @@ class ComparativeBenchmark(Benchmark):
     """Base class for benchmarks that compare two simulation runs.
 
     Derived classes should override `make_simulations` and return a pair of
-    simulations to compare.
+    simulations to compare. `get_performance` takes the difference
+    time difference between the reference and compare simulations and returns
+    the inverse. This is a measure of how many times the overhead in the compare
+    simulation can be called per second.
+
+    See Also:
+        `common.Benchmark`
     """
+
+    def __init__(self, skip_reference=False, **kwargs):
+        self.skip_reference = skip_reference
+        super().__init__(**kwargs)
 
     def make_simulation(self):
         """Call make_simulations and return the first simulation."""
-        self.units = 'nanoseconds per step'
+        if self.skip_reference:
+            self.units = 'time steps per second'
+        else:
+            self.units = 'calls per second'
+
         self.reference_sim, self.compare_sim = self.make_simulations()
         return self.reference_sim
 
     def run(self, steps):
         """Run the benchmark for the given number of steps."""
-        self.reference_sim.run(steps)
+        if not self.skip_reference:
+            self.reference_sim.run(steps)
         self.compare_sim.run(steps)
 
     def make_simulations(self):
@@ -223,9 +238,18 @@ class ComparativeBenchmark(Benchmark):
 
     def get_performance(self):
         """Get the benchmark performance."""
-        t0 = 1 / self.reference_sim.tps / 1e-9
-        t1 = 1 / self.compare_sim.tps / 1e-9
-        return t1 - t0
+        if self.skip_reference:
+            return self.compare_sim.tps
 
-    # TODO: add disable-comparison command line option to work with profiling
-    # tools
+        t0 = 1 / self.reference_sim.tps
+        t1 = 1 / self.compare_sim.tps
+        return 1 / (t1 - t0)
+
+    @staticmethod
+    def make_argument_parser():
+        """Make an ArgumentParser instance for comparative benchmark options."""
+        parser = Benchmark.make_argument_parser()
+        parser.add_argument('--skip-reference',
+                            action='store_true',
+                            help='Skip the reference simulation run.')
+        return parser
