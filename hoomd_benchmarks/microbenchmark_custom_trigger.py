@@ -43,7 +43,8 @@ class MicrobenchmarkCustomTrigger(common.ComparativeBenchmark):
         sim0.operations.writers.clear()
         sim0.operations.tuners.clear()
 
-        trigger0 = hoomd.trigger.Periodic(phase=1000000000, period=1000000000)
+        trigger0 = hoomd.trigger.Periodic(phase=1_000_000_000,
+                                          period=1_000_000_000)
         box = sim0.state.box
         box_resize0 = hoomd.update.BoxResize(trigger=trigger0,
                                              box1=box,
