@@ -4,6 +4,8 @@
 """Command line entrypoint for the package."""
 
 from . import common
+import copy
+import fnmatch
 import numpy
 from .hpmc_sphere import HPMCSphere
 from .md_pair_lj import MDPairLJ
@@ -26,13 +28,31 @@ benchmark_classes = [
 ]
 
 parser = common.Benchmark.make_argument_parser()
+parser.add_argument('--benchmarks',
+                    type=str,
+                    default='*',
+                    help='Select the benchmarks to run by class name using '
+                         '`fnmatch` syntax')
+parser.add_argument('-o', '--output',
+                    type=str,
+                    help='Add row of benchmark results to or create the output '
+                         'CSV file.')
+parser.add_argument('--name',
+                    type=str,
+                    help='Name identifying this benchmark run.')
 args = parser.parse_args()
-args.device = common.make_hoomd_device(args)
+
+benchmark_args = copy.deepcopy(vars(args))
+del benchmark_args['benchmarks']
+del benchmark_args['output']
+del benchmark_args['name']
+benchmark_args['device'] = common.make_hoomd_device(args)
 
 for benchmark_class in benchmark_classes:
-    benchmark = benchmark_class(**vars(args))
     name = benchmark_class.__name__
-    performance = benchmark.execute()
+    if fnmatch.fnmatch(name, args.benchmarks):
+        benchmark = benchmark_class(**benchmark_args)
+        performance = benchmark.execute()
 
-    if args.device.communicator.rank == 0:
-        print(f'{name}: {numpy.mean(performance)}')
+        if benchmark_args['device'].communicator.rank == 0:
+            print(f'{name}: {numpy.mean(performance)}')

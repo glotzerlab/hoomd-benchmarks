@@ -14,15 +14,13 @@ simulation performance between different versions, build configurations, or syst
   * `mpirun -n 2 python3 -m hoomd_benchmarks.md_pair_wca --device GPU -N 1000000 -v`
   * `mpirun -n 4 python3 -m hoomd_benchmarks.hpmc_sphere --device CPU -N 4000 --repeat 10`
 3. Run the full benchmarks suite:
+  * `python3 -m hoomd_benchmarks --device CPU`
   * `mpirun -n 8 python3 -m hoomd_benchmarks --device CPU`
-4. See the available command line options:
-  * `python3 -m hoomd_benchmarks.md_pair_lj --help`
 
 The first execution will take some time as the benchmark generates the requested input
-configuration. Subsequent runs with the same paramters will start up faster as the system
-configuration will be read from `initial_configuration_cache/` if it exists. Activate the verbose
-`-v` command line option to see status messages during the initial configuration generation and the
-benchmark execution.
+configuration. Subsequent runs with the same paramters will read input configurations from
+`initial_configuration_cache/` if it exists. Activate the verbose `-v` command line option to see
+status messages during the initial configuration generation and the benchmark execution.
 
 ## Scripting
 
@@ -31,9 +29,37 @@ Use this in conjunction with scripts to execute a number of benchmarks and compa
 Python scripts can import the `hoomd_benchmarks` module and call the `Benchmark` classes directly.
 See their docstrings for details.
 
+## Common options
+
+The following command line options are available for both the full test suite and individual
+tests:
+
+* `--device`: Set what device to execute the benchmark on. Either `CPU` or `GPU`.
+* `-N`: Number of particles.
+* `--rho`: Number density.
+* `--dimensions`: Number of dimensions. Either `2` or `3`.
+* `--warmup_steps`: Number of timesteps to run before timing.
+* `--benchmark_steps`: Number of timesteps to run in the benchmark.
+* `--repeat`: Number of times to repeat the run.
+* `--verbose`: Enable verbose output.
+
+When using the Python API, pass these options to the benchmark's constructor.
+
+## The benchmark suite
+
+Run the full suite with `python3 -m hoomd_benchmarks <options>`.
+
+The full suite accepts the following command line options in addition to the common options:
+
+* `--benchmarks`: Select the benchmarks to run by class name using `fnmatch` syntax.
+* `--output`: Add row of benchmark results to or create the output CSV file.
+* `--name`: Name identifying this benchmark run.
+
 ## Benchmarks
 
-Run any of these benchmarks individually with: `python3 -m hoomd_benchmarks.<benchmark_name>`:
+Run any benchmark individually with `python3 -m hoomd_benchmarks.<benchmark_name> <options>`.
+Some benchmarks have additional command line options, find these with
+`python3 -m hoomd_benchmarks.<benchmark_name> --help`.
 
 ### Simulation benchmarks
 
