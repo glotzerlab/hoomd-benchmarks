@@ -4,6 +4,12 @@ This repository contains performance benchmarks for [HOOMD-blue][hoomd]. Use the
 your HOOMD-blue installation, check the performance of simulations on your hardware, or compare
 simulation performance between different versions, build configurations, or systems.
 
+## Requirements
+
+* HOOMD-blue v3.0-beta
+* numpy
+* pandas
+
 ## Usage
 
 1. Clone this repository:
@@ -52,7 +58,7 @@ Run the full suite with `python3 -m hoomd_benchmarks <options>`.
 The full suite accepts the following command line options in addition to the common options:
 
 * `--benchmarks`: Select the benchmarks to run by class name using `fnmatch` syntax.
-* `--output`: Add row of benchmark results to or create the output CSV file.
+* `--output`: Add column of benchmark results to or create the output CSV file.
 * `--name`: Name identifying this benchmark run.
 
 ## Benchmarks
