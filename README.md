@@ -35,11 +35,27 @@ See their docstrings for details.
 
 Run any of these benchmarks individually with: `python3 -m hoomd_benchmarks.<benchmark_name>`:
 
-* `hpmc_sphere` - Hard particle Monte Carlo simulation of spheres (diameter=1.0, d=0.1)
+### Simulation benchmarks
+
+Simulation benchmarks execute simulation runs with models representative of research use-cases and
+report performance in time steps per second (MD) and trial moves per second per particle (HPMC).
+
+* `hpmc_sphere` - Hard particle Monte Carlo simulation of spheres (diameter=1.0, d=0.1).
 * `md_pair_lj` - Molecular dynamics simulation with the Lennard-Jones pair potential with the NVT
   integration method (epsilon=1, sigma=1, r_cut=2.5, kT=1.2, tau=0.5).
 * `md_pair_wca` - Molecular dynamics simulation with the WCA pair potential with the NVT
   integration method (epsilon=1, sigma=1, r_cut=2**(1/6), kT=1.2, tau=0.5).
+
+### Microbenchmarks
+
+Microbenchmarks exercise a portion of the code and report performance with a metric specific to each
+microbenchmark.
+
+* `microbenchmark_empty_simulation` - Measure the time per step with an empty Simulation object.
+* `microbenchmark_custom_trigger` - Measure the time taken per step to evaluate a custom trigger.
+* `microbenchmark_custom_updater` - Measure the time taken per step to call a custom updater.
+* `microbenchmark_get_snapshot` - Measure the time taken to call State.get_snapshot.
+* `microbenchmark_set_snapshot` - Measure the time taken to call State.set_snapshot.
 
 ## Change log
 
