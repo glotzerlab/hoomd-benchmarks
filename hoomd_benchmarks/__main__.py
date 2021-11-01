@@ -68,7 +68,7 @@ if args.output is not None and benchmark_args['device'].communicator.rank == 0:
     df = pandas.DataFrame.from_dict(performance,
                                     orient='index',
                                     columns=[args.name])
-    # append to the existing data file if the file exists
+
     if os.path.isfile(args.output):
         df_old = pandas.read_csv(args.output, index_col=0)
         df = df_old.join(df)
