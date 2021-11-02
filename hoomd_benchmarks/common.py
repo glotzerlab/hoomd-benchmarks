@@ -171,7 +171,7 @@ class Benchmark:
         parser.add_argument('--warmup_steps',
                             type=int,
                             default=DEFAULT_WARMUP_STEPS,
-                            help='Number of timesteps to run to warm up stage.')
+                            help='Number of timesteps to run before timing.')
         parser.add_argument('--benchmark_steps',
                             type=int,
                             default=DEFAULT_BENCHMARK_STEPS,

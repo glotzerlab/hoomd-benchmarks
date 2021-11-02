@@ -3,8 +3,13 @@
 
 """Command line entrypoint for the package."""
 
-from . import common
+import copy
+import fnmatch
 import numpy
+import os
+import pandas
+
+from . import common
 from .hpmc_sphere import HPMCSphere
 from .md_pair_lj import MDPairLJ
 from .md_pair_wca import MDPairWCA
@@ -26,13 +31,50 @@ benchmark_classes = [
 ]
 
 parser = common.Benchmark.make_argument_parser()
+parser.add_argument('--benchmarks',
+                    type=str,
+                    default='*',
+                    help='Select the benchmarks to run by class name using '
+                    '`fnmatch` syntax')
+parser.add_argument('-o',
+                    '--output',
+                    type=str,
+                    help='Add row of benchmark results to or create the output '
+                    'CSV file.')
+parser.add_argument('--name',
+                    type=str,
+                    help='Name identifying this benchmark run.')
 args = parser.parse_args()
-args.device = common.make_hoomd_device(args)
+
+benchmark_args = copy.deepcopy(vars(args))
+del benchmark_args['benchmarks']
+del benchmark_args['output']
+del benchmark_args['name']
+benchmark_args['device'] = common.make_hoomd_device(args)
+
+performance = {}
 
 for benchmark_class in benchmark_classes:
-    benchmark = benchmark_class(**vars(args))
     name = benchmark_class.__name__
-    performance = benchmark.execute()
+    if fnmatch.fnmatch(name, args.benchmarks):
+        benchmark = benchmark_class(**benchmark_args)
+        performance[name] = benchmark.execute()
 
-    if args.device.communicator.rank == 0:
-        print(f'{name}: {numpy.mean(performance)}')
+        if (args.output is None
+                and benchmark_args['device'].communicator.rank == 0):
+            print(f'{name}: {numpy.mean(performance[name])}')
+
+if args.output is not None and benchmark_args['device'].communicator.rank == 0:
+    df = pandas.DataFrame.from_dict(performance,
+                                    orient='index',
+                                    columns=[args.name])
+
+    if os.path.isfile(args.output):
+        df_old = pandas.read_csv(args.output, index_col=0)
+        df = df_old.join(df)
+
+    with open(args.output, 'w') as f:
+        f.write(df.to_csv())
+
+    if args.verbose:
+        print(df)
