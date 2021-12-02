@@ -65,7 +65,11 @@ for benchmark_class in benchmark_classes:
             print(f'{name}: {numpy.mean(performance[name])}')
 
 if args.output is not None and benchmark_args['device'].communicator.rank == 0:
-    df = pandas.DataFrame.from_dict(performance,
+    performance_mean = {}
+    for name, performance_list in performance.items():
+        performance_mean[name] = numpy.mean(performance_list)
+
+    df = pandas.DataFrame.from_dict(performance_mean,
                                     orient='index',
                                     columns=[args.name])
 
