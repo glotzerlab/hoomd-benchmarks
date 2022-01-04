@@ -60,9 +60,8 @@ class MDPair(common.Benchmark):
                                               verbose=self.verbose)
 
         integrator = hoomd.md.Integrator(dt=0.005)
-        cell = hoomd.md.nlist.Cell()
+        cell = hoomd.md.nlist.Cell(buffer=self.buffer)
         cell.rebuild_check_delay = self.rebuild_check_delay
-        cell.buffer = self.buffer
 
         pair = self.pair_class(nlist=cell)
         pair.params[('A', 'A')] = self.pair_params
