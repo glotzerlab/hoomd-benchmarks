@@ -4,8 +4,15 @@
 """Custom Force benchmark."""
 
 import hoomd
+import numpy as np
 from . import common
 from .configuration.hard_sphere import make_hard_sphere_configuration
+
+try:
+    import cupy as cp
+    CUPY_IMPORTED = True
+except ImportError:
+    CUPY_IMPORTED = False
 
 
 class EmptyForce(hoomd.md.force.Custom):
@@ -19,11 +26,45 @@ class EmptyForce(hoomd.md.force.Custom):
         pass
 
 
+class ConstantForce(hoomd.md.force.Custom):
+    """Custom force which implements the force of gravity."""
+
+    def __init__(self, magnitude, device):
+        super().__init__()
+        self._mag = magnitude
+        self._device = device
+        device_str = device.__class__.__name__.lower()
+        self._local_force_str = device_str + "_local_force_arrays"
+        self._local_snapshot_str = device_str + "_local_snapshot"
+
+    def _to_array(self, list_data):
+        if isinstance(self._device, hoomd.device.CPU):
+            return np.array(list_data)
+        else:
+            return cp.array(list_data)
+
+    def set_forces(self, timestep):
+        """Set the forces."""
+        with getattr(self, self._local_force_str) as arrays, getattr(
+                self._state, self._local_snapshot_str) as snap:
+            arrays.force[:] = self._to_array([0, 0, -self._mag])
+            arrays.potential_energy[:] = cp.array(
+                snap.particles.position[:, 2]) * self._mag
+
+
 class MicrobenchmarkCustomForce(common.ComparativeBenchmark):
-    """Measure the overhead of using a custom force.
+    """Measure the overhead of a constant custom force.
 
     This benchmark performs an
     """
+
+    def run(self, steps):
+        """Override run so this benchmark is skipped without cupy installed."""
+        if isinstance(self.device, hoomd.device.CPU) or CUPY_IMPORTED:
+            super().run(steps)
+        else:
+            print("Skipping microbenchmark_custom_force on GPU device because "
+                  "cupy is not available.")
 
     def make_simulations(self):
         """Make the simulation objects."""
@@ -42,6 +83,9 @@ class MicrobenchmarkCustomForce(common.ComparativeBenchmark):
         sim0.operations.integrator = hoomd.md.Integrator(
             dt=0.001, methods=[hoomd.md.methods.NVE(filter=hoomd.filter.All())])
 
+        empty_custom_force = EmptyForce()
+        sim0.operations.integrator.forces.append(empty_custom_force)
+
         sim1 = hoomd.Simulation(device=self.device, seed=100)
         sim1.create_state_from_gsd(filename=str(path))
         sim1.operations.updaters.clear()
@@ -51,8 +95,8 @@ class MicrobenchmarkCustomForce(common.ComparativeBenchmark):
         sim1.operations.integrator = hoomd.md.Integrator(
             dt=0.001, methods=[hoomd.md.methods.NVE(filter=hoomd.filter.All())])
 
-        empty_custom_force = EmptyForce()
-        sim1.operations.integrator.forces.append(empty_custom_force)
+        constant_custom_force = ConstantForce(5, sim1.device)
+        sim1.operations.integrator.forces.append(constant_custom_force)
 
         return sim0, sim1
 
