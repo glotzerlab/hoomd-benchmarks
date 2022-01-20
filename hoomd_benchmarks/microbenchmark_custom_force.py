@@ -48,7 +48,7 @@ class ConstantForce(hoomd.md.force.Custom):
         with getattr(self, self._local_force_str) as arrays, getattr(
                 self._state, self._local_snapshot_str) as snap:
             arrays.force[:] = self._to_array([0, 0, -self._mag])
-            arrays.potential_energy[:] = cp.array(
+            arrays.potential_energy[:] = self._to_array(
                 snap.particles.position[:, 2]) * self._mag
 
 
