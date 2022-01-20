@@ -48,7 +48,7 @@ class MicrobenchmarkCustomForce(common.ComparativeBenchmark):
         sim1.operations.integrator = hoomd.md.Integrator(
             dt=0.001, methods=[hoomd.md.methods.NVE(filter=hoomd.filter.All())])
 
-        empty_custom_force = EmptyCustomForce()
+        empty_custom_force = EmptyForce()
         sim1.operations.integrator.forces.append(empty_custom_force)
 
         return sim0, sim1
