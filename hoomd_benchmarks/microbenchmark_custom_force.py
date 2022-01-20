@@ -1,3 +1,6 @@
+# Copyright (c) 2021-2022 The Regents of the University of Michigan
+# Part of HOOMD-blue, released under the BSD 3-Clause License.
+
 import hoomd
 from . import common
 from .configuration.hard_sphere import make_hard_sphere_configuration
