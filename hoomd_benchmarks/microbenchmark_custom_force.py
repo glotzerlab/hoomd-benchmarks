@@ -15,17 +15,6 @@ except ImportError:
     CUPY_IMPORTED = False
 
 
-class EmptyForce(hoomd.md.force.Custom):
-    """Custom force which calls an empty set_forces method."""
-
-    def __init__(self):
-        super().__init__()
-
-    def set_forces(self, timestep):
-        """Set the forces."""
-        pass
-
-
 class ConstantForce(hoomd.md.force.Custom):
     """Custom force which implements the force of gravity."""
 
@@ -82,9 +71,6 @@ class MicrobenchmarkCustomForce(common.ComparativeBenchmark):
         sim0.operations.tuners.clear()
         sim0.operations.integrator = hoomd.md.Integrator(
             dt=0.001, methods=[hoomd.md.methods.NVE(filter=hoomd.filter.All())])
-
-        empty_custom_force = EmptyForce()
-        sim0.operations.integrator.forces.append(empty_custom_force)
 
         sim1 = hoomd.Simulation(device=self.device, seed=100)
         sim1.create_state_from_gsd(filename=str(path))
