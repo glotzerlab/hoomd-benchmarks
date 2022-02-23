@@ -16,6 +16,7 @@ from .md_pair_wca import MDPairWCA
 from .microbenchmark_empty_simulation import MicrobenchmarkEmptySimulation
 from .microbenchmark_custom_trigger import MicrobenchmarkCustomTrigger
 from .microbenchmark_custom_updater import MicrobenchmarkCustomUpdater
+from .microbenchmark_custom_force import MicrobenchmarkCustomForce
 from .microbenchmark_get_snapshot import MicrobenchmarkGetSnapshot
 from .microbenchmark_set_snapshot import MicrobenchmarkSetSnapshot
 
@@ -26,6 +27,7 @@ benchmark_classes = [
     MicrobenchmarkEmptySimulation,
     MicrobenchmarkCustomTrigger,
     MicrobenchmarkCustomUpdater,
+    MicrobenchmarkCustomForce,
     MicrobenchmarkGetSnapshot,
     MicrobenchmarkSetSnapshot,
 ]
