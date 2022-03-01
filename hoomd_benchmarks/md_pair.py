@@ -9,6 +9,7 @@ from .configuration.hard_sphere import make_hard_sphere_configuration
 
 DEFAULT_BUFFER = 0.4
 DEFAULT_REBUILD_CHECK_DELAY = 1
+DEFAULT_TAIL_CORRECTION = False
 
 
 class MDPair(common.Benchmark):
@@ -32,9 +33,11 @@ class MDPair(common.Benchmark):
     def __init__(self,
                  buffer=DEFAULT_BUFFER,
                  rebuild_check_delay=DEFAULT_REBUILD_CHECK_DELAY,
+                 tail_correction=DEFAULT_TAIL_CORRECTION,
                  **kwargs):
         self.buffer = buffer
         self.rebuild_check_delay = rebuild_check_delay
+        self.tail_correction = tail_correction
         super().__init__(**kwargs)
 
     @staticmethod
@@ -49,6 +52,9 @@ class MDPair(common.Benchmark):
                             type=int,
                             default=DEFAULT_REBUILD_CHECK_DELAY,
                             help='Neighbor list rebuild check delay.')
+        parser.add_argument('--tail_correction',
+                            action='store_true',
+                            help='Enable integrated isotropic tail correction.')
         return parser
 
     def make_simulation(self):
@@ -63,7 +69,7 @@ class MDPair(common.Benchmark):
         cell = hoomd.md.nlist.Cell(buffer=self.buffer)
         cell.rebuild_check_delay = self.rebuild_check_delay
 
-        pair = self.pair_class(nlist=cell)
+        pair = self.pair_class(nlist=cell, tail_correction=self.tail_correction)
         pair.params[('A', 'A')] = self.pair_params
         pair.r_cut[('A', 'A')] = self.r_cut
         integrator.forces.append(pair)
