@@ -32,7 +32,7 @@ jobs:
         --warmup_steps 1000
         --benchmark_steps 1000
     steps:
-    - uses: actions/checkout@v2.4.0
+    - uses: actions/checkout@v3
     - name: List benchmarks
       run: ls **/*.py
     - name: Cache configurations
