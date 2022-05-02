@@ -22,7 +22,7 @@ jobs:
     name: Execute benchmarks
     runs-on: ubuntu-latest
     container:
-      image: glotzerlab/software:beta-nompi
+      image: glotzerlab/software:nompi
       options: -u 0
     env:
       benchmark_options: >
