@@ -22,7 +22,7 @@ class MicrobenchmarkCustomUpdater(common.ComparativeBenchmark):
     See Also:
         `common.ComparativeBenchmark`
     """
-    SUITE_STEP_SCALE=100
+    SUITE_STEP_SCALE = 100
 
     def make_simulations(self):
         """Make the Simulation objects."""

@@ -28,7 +28,7 @@ class MicrobenchmarkGetSnapshot(common.ComparativeBenchmark):
     See Also:
         `common.ComparativeBenchmark`
     """
-    SUITE_STEP_SCALE=0.01
+    SUITE_STEP_SCALE = 0.01
 
     def make_simulations(self):
         """Make the Simulation objects."""

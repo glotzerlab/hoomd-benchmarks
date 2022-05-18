@@ -48,7 +48,7 @@ parser.add_argument('--name',
                     type=str,
                     default=None,
                     help='Name identifying this benchmark run'
-                         ' (leave unset to use the HOOMD-blue version).')
+                    ' (leave unset to use the HOOMD-blue version).')
 args = parser.parse_args()
 
 benchmark_args_ref = copy.deepcopy(vars(args))
