@@ -59,7 +59,7 @@ The full suite accepts the following command line options in addition to the com
 
 * `--benchmarks`: Select the benchmarks to run by class name using `fnmatch` syntax.
 * `--output`: Add column of benchmark results to or create the output CSV file.
-* `--name`: Name identifying this benchmark run.
+* `--name`: Name identifying this benchmark run (leave unset to use the HOOMD-blue version).
 
 ## Benchmarks
 
