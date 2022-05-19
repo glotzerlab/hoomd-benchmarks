@@ -66,6 +66,7 @@ class Benchmark:
         units (str): Name of the units to report on the performance (only
           shown when verbose=True.
     """
+    SUITE_STEP_SCALE = 1
 
     def __init__(self,
                  device,

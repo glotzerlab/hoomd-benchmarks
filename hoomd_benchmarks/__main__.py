@@ -8,6 +8,7 @@ import fnmatch
 import numpy
 import os
 import pandas
+import hoomd
 
 from . import common
 from .hpmc_sphere import HPMCSphere
@@ -45,18 +46,25 @@ parser.add_argument('-o',
                     'CSV file.')
 parser.add_argument('--name',
                     type=str,
-                    help='Name identifying this benchmark run.')
+                    default=None,
+                    help='Name identifying this benchmark run'
+                    ' (leave unset to use the HOOMD-blue version).')
 args = parser.parse_args()
 
-benchmark_args = copy.deepcopy(vars(args))
-del benchmark_args['benchmarks']
-del benchmark_args['output']
-del benchmark_args['name']
-benchmark_args['device'] = common.make_hoomd_device(args)
+benchmark_args_ref = copy.deepcopy(vars(args))
+del benchmark_args_ref['benchmarks']
+del benchmark_args_ref['output']
+del benchmark_args_ref['name']
+benchmark_args_ref['device'] = common.make_hoomd_device(args)
 
 performance = {}
 
 for benchmark_class in benchmark_classes:
+    # scale the benchmark_steps by the class specific scale factor
+    benchmark_args = copy.copy(benchmark_args_ref)
+    benchmark_args['warmup_steps'] *= benchmark_class.SUITE_STEP_SCALE
+    benchmark_args['benchmark_steps'] *= benchmark_class.SUITE_STEP_SCALE
+
     name = benchmark_class.__name__
     if fnmatch.fnmatch(name, args.benchmarks):
         benchmark = benchmark_class(**benchmark_args)
@@ -71,9 +79,12 @@ if args.output is not None and benchmark_args['device'].communicator.rank == 0:
     for name, performance_list in performance.items():
         performance_mean[name] = numpy.mean(performance_list)
 
+    name = args.name
+    if name is None:
+        name = hoomd.version.version
     df = pandas.DataFrame.from_dict(performance_mean,
                                     orient='index',
-                                    columns=[args.name])
+                                    columns=[name])
 
     if os.path.isfile(args.output):
         df_old = pandas.read_csv(args.output, index_col=0)

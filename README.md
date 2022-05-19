@@ -51,6 +51,13 @@ tests:
 
 When using the Python API, pass these options to the benchmark's constructor.
 
+When running the full benchmark suite, `benchmark_steps` and `warmup_steps` set the number of steps
+for **typical** benchmarks. Some unusually fast or slow benchmarks may scale the given value to
+a larger or smaller number of actual steps.
+
+When running individual benchmarks, `benchmark_steps`, and `warmup_steps` set the exact number of
+steps to run with no scaling.
+
 ## The benchmark suite
 
 Run the full suite with `python3 -m hoomd_benchmarks <options>`.
@@ -59,7 +66,7 @@ The full suite accepts the following command line options in addition to the com
 
 * `--benchmarks`: Select the benchmarks to run by class name using `fnmatch` syntax.
 * `--output`: Add column of benchmark results to or create the output CSV file.
-* `--name`: Name identifying this benchmark run.
+* `--name`: Name identifying this benchmark run (leave unset to use the HOOMD-blue version).
 
 ## Benchmarks
 

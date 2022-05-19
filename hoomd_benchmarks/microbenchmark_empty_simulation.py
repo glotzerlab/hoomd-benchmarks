@@ -14,6 +14,7 @@ class MicrobenchmarkEmptySimulation(common.Benchmark):
     See Also:
         `common.Benchmark`
     """
+    SUITE_STEP_SCALE = 100
 
     def make_simulation(self):
         """Make the Simulation object."""
