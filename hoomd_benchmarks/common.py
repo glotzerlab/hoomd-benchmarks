@@ -242,6 +242,9 @@ class ComparativeBenchmark(Benchmark):
         if self.skip_reference:
             return self.compare_sim.tps
 
+        if self.reference_sim.tps == 0:
+            return 0
+
         t0 = 1 / self.reference_sim.tps
         t1 = 1 / self.compare_sim.tps
         return 1 / (t1 - t0)
