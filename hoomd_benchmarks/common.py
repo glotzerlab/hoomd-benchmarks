@@ -242,6 +242,7 @@ class ComparativeBenchmark(Benchmark):
         if self.skip_reference:
             return self.compare_sim.tps
 
+        # Avoid divide by zero errors when the simulation is not executed.
         if self.reference_sim.tps == 0:
             return 0
 
