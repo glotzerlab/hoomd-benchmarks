@@ -57,7 +57,6 @@ class MicrobenchmarkCustomForce(common.ComparativeBenchmark):
                           " - cupy is not available.")
             return [0]
 
-
     def make_simulations(self):
         """Make the simulation objects."""
         path = make_hard_sphere_configuration(N=self.N,

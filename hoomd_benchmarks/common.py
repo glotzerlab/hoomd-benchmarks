@@ -119,11 +119,12 @@ class Benchmark:
             print(f'.. warming up for {self.warmup_steps} steps')
         self.run(self.warmup_steps)
 
-        if (isinstance(self.device, hoomd.device.GPU) and hasattr(self.sim.operations, 'is_tuning_complete')):
+        if (isinstance(self.device, hoomd.device.GPU)
+                and hasattr(self.sim.operations, 'is_tuning_complete')):
             while not self.sim.operations.is_tuning_complete:
                 if print_verbose_messages:
                     print('.. autotuning GPU kernel parameters for '
-                        f'{self.warmup_steps} steps')
+                          f'{self.warmup_steps} steps')
                 self.run(self.warmup_steps)
 
         if print_verbose_messages:
