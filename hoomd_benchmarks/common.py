@@ -110,7 +110,7 @@ class Benchmark:
                                   and self.device.communicator.rank == 0)
 
         # Ensure that all ops are attached (needed for is_tuning_complete).
-        self.sim.run(0)
+        self.run(0)
 
         if print_verbose_messages:
             print(f'Running {type(self).__name__} benchmark')
