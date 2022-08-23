@@ -5,6 +5,7 @@
 
 import hoomd
 import numpy as np
+import warnings
 from . import common
 from .configuration.hard_sphere import make_hard_sphere_configuration
 
@@ -47,13 +48,14 @@ class MicrobenchmarkCustomForce(common.ComparativeBenchmark):
     This benchmark performs an
     """
 
-    def run(self, steps):
-        """Override run so this benchmark is skipped without cupy installed."""
+    def execute(self):
+        """Override execute to skip this benchamrk without cupy installed."""
         if isinstance(self.device, hoomd.device.CPU) or CUPY_IMPORTED:
-            super().run(steps)
+            return super().execute()
         else:
-            print("Skipping microbenchmark_custom_force on GPU device because "
-                  "cupy is not available.")
+            warnings.warn("Skipping microbenchmark_custom_force on GPU device "
+                          " - cupy is not available.")
+            return [0]
 
     def make_simulations(self):
         """Make the simulation objects."""

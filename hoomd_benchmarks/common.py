@@ -109,20 +109,23 @@ class Benchmark:
         print_verbose_messages = (self.verbose
                                   and self.device.communicator.rank == 0)
 
+        # Ensure that all ops are attached (needed for is_tuning_complete).
+        self.run(0)
+
         if print_verbose_messages:
             print(f'Running {type(self).__name__} benchmark')
 
-        if isinstance(self.device, hoomd.device.GPU):
-            if print_verbose_messages:
-                print('.. autotuning GPU kernel parameters for '
-                      f'{self.warmup_steps} steps')
-            self.run(self.warmup_steps)
-            # TODO: Run until autotuning is complete when the autotuning API is
-            # implemented.
-        else:
-            if print_verbose_messages:
-                print(f'.. warming up for {self.warmup_steps} steps')
-            self.run(self.warmup_steps)
+        if print_verbose_messages:
+            print(f'.. warming up for {self.warmup_steps} steps')
+        self.run(self.warmup_steps)
+
+        if (isinstance(self.device, hoomd.device.GPU)
+                and hasattr(self.sim.operations, 'is_tuning_complete')):
+            while not self.sim.operations.is_tuning_complete:
+                if print_verbose_messages:
+                    print('.. autotuning GPU kernel parameters for '
+                          f'{self.warmup_steps} steps')
+                self.run(self.warmup_steps)
 
         if print_verbose_messages:
             print(f'.. running for {self.benchmark_steps} steps '
