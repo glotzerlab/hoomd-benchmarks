@@ -10,6 +10,7 @@ from .configuration.hard_sphere import make_hard_sphere_configuration
 DEFAULT_BUFFER = 0.4
 DEFAULT_REBUILD_CHECK_DELAY = 1
 DEFAULT_TAIL_CORRECTION = False
+DEFAULT_N_TYPES = 1
 
 
 class MDPair(common.Benchmark):
@@ -34,10 +35,12 @@ class MDPair(common.Benchmark):
                  buffer=DEFAULT_BUFFER,
                  rebuild_check_delay=DEFAULT_REBUILD_CHECK_DELAY,
                  tail_correction=DEFAULT_TAIL_CORRECTION,
+                 n_types = DEFAULT_N_TYPES,
                  **kwargs):
         self.buffer = buffer
         self.rebuild_check_delay = rebuild_check_delay
         self.tail_correction = tail_correction
+        self.n_types = n_types
         super().__init__(**kwargs)
 
     @staticmethod
@@ -55,6 +58,10 @@ class MDPair(common.Benchmark):
         parser.add_argument('--tail_correction',
                             action='store_true',
                             help='Enable integrated isotropic tail correction.')
+        parser.add_argument('--n_types',
+                            type=int,
+                            default=DEFAULT_N_TYPES,
+                            help='Number of particle types.')
         return parser
 
     def make_simulation(self):
@@ -63,21 +70,24 @@ class MDPair(common.Benchmark):
                                               rho=self.rho,
                                               dimensions=self.dimensions,
                                               device=self.device,
-                                              verbose=self.verbose)
+                                              verbose=self.verbose,
+                                              n_types=self.n_types)
 
         integrator = hoomd.md.Integrator(dt=0.005)
         cell = hoomd.md.nlist.Cell(buffer=self.buffer)
         cell.rebuild_check_delay = self.rebuild_check_delay
 
+        sim = hoomd.Simulation(device=self.device)
+        sim.create_state_from_gsd(filename=str(path))
+
         pair = self.pair_class(nlist=cell, tail_correction=self.tail_correction)
-        pair.params[('A', 'A')] = self.pair_params
-        pair.r_cut[('A', 'A')] = self.r_cut
+        particle_types = sim.state.particle_types
+        pair.params[(particle_types, particle_types)] = self.pair_params
+        pair.r_cut[(particle_types, particle_types)] = self.r_cut
         integrator.forces.append(pair)
         nvt = hoomd.md.methods.NVT(kT=1.2, filter=hoomd.filter.All(), tau=0.5)
         integrator.methods.append(nvt)
 
-        sim = hoomd.Simulation(device=self.device)
-        sim.create_state_from_gsd(filename=str(path))
         sim.operations.integrator = integrator
 
         return sim

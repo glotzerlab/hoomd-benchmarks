@@ -3,6 +3,7 @@
 
 """Hard sphere initial configuration."""
 
+import gsd.hoomd
 import hoomd
 import pathlib
 import numpy
@@ -10,7 +11,7 @@ import math
 import itertools
 
 
-def make_hard_sphere_configuration(N, rho, dimensions, device, verbose):
+def make_hard_sphere_configuration(N, rho, dimensions, device, verbose, n_types=1):
     """Make an initial configuration of hard spheres, or find it in the cache.
 
     Args:
@@ -19,14 +20,40 @@ def make_hard_sphere_configuration(N, rho, dimensions, device, verbose):
         dimensions (int): Number of dimensions (2 or 3).
         device (hoomd.device.Device): Device object to execute on.
         verbose (bool): Set to True to provide details to stdout.
+        n_types (int): Number of particle types.
 
     Initialize a system of N randomly placed hard spheres at the given number
     density *phi* and diameter 1.0.
+
+    When ``n_types`` is 1, the particle type is 'A'. When ``n_types`` is greater
+    than 1, the types are assigned sequentially to particles and named
+    ``str(type_id)``.
     """
+    print_messages = verbose and device.communicator.rank == 0
+
+    if n_types > 1:
+        one_type_path = make_hard_sphere_configuration(N, rho, dimensions, device, verbose, 1)
+
+        filename = f'hard_sphere_{N}_{rho}_{dimensions}_{n_types}.gsd'
+        file_path = pathlib.Path('initial_configuration_cache') / filename
+
+        if print_messages:
+            print(f'.. adding types to {file_path}')
+
+        # add types to the file
+        if device.communicator.rank == 0:
+            with gsd.hoomd.open(one_type_path, mode='rb') as one_type_gsd:
+                snapshot = one_type_gsd[0]
+                snapshot.particles.types = [str(i) for i in range(0,n_types)]
+                snapshot.particles.typeid = [i % n_types for i in range(0,snapshot.particles.N)]
+
+                with gsd.hoomd.open(file_path, mode='wb') as n_types_gsd:
+                    n_types_gsd.append(snapshot)
+
+        return file_path
+
     filename = f'hard_sphere_{N}_{rho}_{dimensions}.gsd'
     file_path = pathlib.Path('initial_configuration_cache') / filename
-
-    print_messages = verbose and device.communicator.rank == 0
 
     if dimensions != 2 and dimensions != 3:
         raise ValueError('Invalid dimensions: must be 2 or 3')
