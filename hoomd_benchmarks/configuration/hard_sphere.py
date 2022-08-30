@@ -11,7 +11,12 @@ import math
 import itertools
 
 
-def make_hard_sphere_configuration(N, rho, dimensions, device, verbose, n_types=1):
+def make_hard_sphere_configuration(N,
+                                   rho,
+                                   dimensions,
+                                   device,
+                                   verbose,
+                                   n_types=1):
     """Make an initial configuration of hard spheres, or find it in the cache.
 
     Args:
@@ -32,7 +37,8 @@ def make_hard_sphere_configuration(N, rho, dimensions, device, verbose, n_types=
     print_messages = verbose and device.communicator.rank == 0
 
     if n_types > 1:
-        one_type_path = make_hard_sphere_configuration(N, rho, dimensions, device, verbose, 1)
+        one_type_path = make_hard_sphere_configuration(N, rho, dimensions,
+                                                       device, verbose, 1)
 
         filename = f'hard_sphere_{N}_{rho}_{dimensions}_{n_types}.gsd'
         file_path = pathlib.Path('initial_configuration_cache') / filename
@@ -44,8 +50,10 @@ def make_hard_sphere_configuration(N, rho, dimensions, device, verbose, n_types=
         if device.communicator.rank == 0:
             with gsd.hoomd.open(one_type_path, mode='rb') as one_type_gsd:
                 snapshot = one_type_gsd[0]
-                snapshot.particles.types = [str(i) for i in range(0,n_types)]
-                snapshot.particles.typeid = [i % n_types for i in range(0,snapshot.particles.N)]
+                snapshot.particles.types = [str(i) for i in range(0, n_types)]
+                snapshot.particles.typeid = [
+                    i % n_types for i in range(0, snapshot.particles.N)
+                ]
 
                 with gsd.hoomd.open(file_path, mode='wb') as n_types_gsd:
                     n_types_gsd.append(snapshot)

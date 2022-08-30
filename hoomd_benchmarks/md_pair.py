@@ -35,7 +35,7 @@ class MDPair(common.Benchmark):
                  buffer=DEFAULT_BUFFER,
                  rebuild_check_delay=DEFAULT_REBUILD_CHECK_DELAY,
                  tail_correction=DEFAULT_TAIL_CORRECTION,
-                 n_types = DEFAULT_N_TYPES,
+                 n_types=DEFAULT_N_TYPES,
                  **kwargs):
         self.buffer = buffer
         self.rebuild_check_delay = rebuild_check_delay
