@@ -81,7 +81,8 @@ class MDPair(common.Benchmark):
         sim.create_state_from_gsd(filename=str(path))
 
         if self.pair_class is hoomd.md.pair.LJ:
-            pair = self.pair_class(nlist=cell, tail_correction=self.tail_correction)
+            pair = self.pair_class(nlist=cell,
+                                   tail_correction=self.tail_correction)
         else:
             pair = self.pair_class(nlist=cell)
 
