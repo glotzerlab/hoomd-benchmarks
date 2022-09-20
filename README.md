@@ -82,6 +82,9 @@ report performance in time steps per second (MD) and trial moves per second per 
 * `hpmc_sphere` - Hard particle Monte Carlo simulation of spheres (diameter=1.0, d=0.1).
 * `md_pair_lj` - Molecular dynamics simulation with the Lennard-Jones pair potential with the NVT
   integration method (epsilon=1, sigma=1, r_cut=2.5, kT=1.2, tau=0.5).
+* `md_pair_table` - Molecular dynamics simulation with the Lennard-Jones pair potential with the NVT
+  integration method (epsilon=1, sigma=1, r_cut=2.5, kT=1.2, tau=0.5) - evaluated using
+  ``hoomd.md.pair.Table``.
 * `md_pair_wca` - Molecular dynamics simulation with the WCA pair potential with the NVT
   integration method (epsilon=1, sigma=1, r_cut=2**(1/6), kT=1.2, tau=0.5).
 
