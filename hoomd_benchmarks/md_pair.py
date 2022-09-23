@@ -80,7 +80,12 @@ class MDPair(common.Benchmark):
         sim = hoomd.Simulation(device=self.device)
         sim.create_state_from_gsd(filename=str(path))
 
-        pair = self.pair_class(nlist=cell, tail_correction=self.tail_correction)
+        if self.pair_class is hoomd.md.pair.LJ:
+            pair = self.pair_class(nlist=cell,
+                                   tail_correction=self.tail_correction)
+        else:
+            pair = self.pair_class(nlist=cell)
+
         particle_types = sim.state.particle_types
         pair.params[(particle_types, particle_types)] = self.pair_params
         pair.r_cut[(particle_types, particle_types)] = self.r_cut
