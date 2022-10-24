@@ -111,6 +111,14 @@ Contributions are welcome via [pull requests][pulls]. Please report bugs and sug
 enhancements via the [issue tracker][issues]. See [CONTRIBUTING.md](CONTRIBUTING.md) and
 [ARCHITECTURE.md](ARCHITECTURE.md) for more information.
 
+## Checking for performance regressions
+
+To check for performance regressions before each HOOMD-relase:
+
+1. Build the release candidate in `HOME/build/hoomd/releases/<release>`
+2. Run `job-gl-cpu.sh` and `job-gl-gpu.sh` on Great Lakes.
+3. Run `python report.py` to generate the report.
+
 ## License
 
 **HOOMD-blue** is available under the [3-clause BSD license](LICENSE).
