@@ -115,7 +115,7 @@ enhancements via the [issue tracker][issues]. See [CONTRIBUTING.md](CONTRIBUTING
 
 To check for performance regressions before each HOOMD-relase:
 
-1. Build the release candidate in `HOME/build/hoomd/releases/<release>`
+1. Build the release candidate in `$HOME/build/hoomd/releases/<release>`
 2. Run `job-gl-cpu.sh` and `job-gl-gpu.sh` on Great Lakes.
 3. Run `python report.py` to generate the report.
 
