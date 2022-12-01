@@ -99,7 +99,8 @@ class MDPair(common.Benchmark):
         particle_types = sim.state.particle_types
         pair.params[(particle_types, particle_types)] = self.pair_params
         pair.r_cut[(particle_types, particle_types)] = self.r_cut
-        pair.r_on[(particle_types, particle_types)] = self.r_cut * 0.9
+        if hasattr(pair, 'r_on'):
+            pair.r_on[(particle_types, particle_types)] = self.r_cut * 0.9
         pair.mode = self.mode
         integrator.forces.append(pair)
         nvt = hoomd.md.methods.NVT(kT=1.2, filter=hoomd.filter.All(), tau=0.5)
