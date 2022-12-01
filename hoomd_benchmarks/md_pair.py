@@ -70,9 +70,7 @@ class MDPair(common.Benchmark):
         parser.add_argument('--always_compute_pressure',
                             action='store_true',
                             help='Always compute pressure.')
-        parser.add_argument('--mode',
-                            default=DEFAULT_MODE,
-                            help='Shift mode.')
+        parser.add_argument('--mode', default=DEFAULT_MODE, help='Shift mode.')
         return parser
 
     def make_simulation(self):
