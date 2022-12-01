@@ -13,6 +13,7 @@ import hoomd
 from . import common
 from .hpmc_sphere import HPMCSphere
 from .md_pair_lj import MDPairLJ
+from .md_pair_opp import MDPairOPP
 from .md_pair_table import MDPairTable
 from .md_pair_wca import MDPairWCA
 from .microbenchmark_empty_simulation import MicrobenchmarkEmptySimulation
@@ -25,6 +26,7 @@ from .microbenchmark_set_snapshot import MicrobenchmarkSetSnapshot
 benchmark_classes = [
     HPMCSphere,
     MDPairLJ,
+    MDPairOPP,
     MDPairTable,
     MDPairWCA,
     MicrobenchmarkEmptySimulation,
