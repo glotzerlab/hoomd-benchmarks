@@ -96,6 +96,7 @@ report performance in time steps per second (MD) and trial moves per second per 
 Microbenchmarks exercise a portion of the code and report performance with a metric specific to each
 microbenchmark.
 
+* `microbenchmark_box_reisze` - Measure the time steps per second of a sim with only box resize.
 * `microbenchmark_empty_simulation` - Measure the time per step with an empty Simulation object.
 * `microbenchmark_custom_trigger` - Measure the time taken per step to evaluate a custom trigger.
 * `microbenchmark_custom_updater` - Measure the time taken per step to call a custom updater.

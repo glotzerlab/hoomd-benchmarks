@@ -16,6 +16,7 @@ from .md_pair_lj import MDPairLJ
 from .md_pair_opp import MDPairOPP
 from .md_pair_table import MDPairTable
 from .md_pair_wca import MDPairWCA
+from .microbenchmark_box_resize import MicrobenchmarkBoxResize
 from .microbenchmark_empty_simulation import MicrobenchmarkEmptySimulation
 from .microbenchmark_custom_trigger import MicrobenchmarkCustomTrigger
 from .microbenchmark_custom_updater import MicrobenchmarkCustomUpdater
@@ -29,6 +30,7 @@ benchmark_classes = [
     MDPairOPP,
     MDPairTable,
     MDPairWCA,
+    MicrobenchmarkBoxResize,
     MicrobenchmarkEmptySimulation,
     MicrobenchmarkCustomTrigger,
     MicrobenchmarkCustomUpdater,
