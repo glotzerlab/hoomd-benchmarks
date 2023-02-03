@@ -103,7 +103,9 @@ class MDPair(common.Benchmark):
             pair.r_on[(particle_types, particle_types)] = self.r_cut * 0.9
         pair.mode = self.mode
         integrator.forces.append(pair)
-        nvt = hoomd.md.methods.NVT(kT=1.2, filter=hoomd.filter.All(), tau=0.5)
+        nvt = hoomd.md.methods.ConstantVolume(
+            filter=hoomd.filter.All(),
+            thermostat=hoomd.md.methods.thermostats.MTTK(kT=1.2, tau=0.5))
         integrator.methods.append(nvt)
 
         sim.operations.integrator = integrator

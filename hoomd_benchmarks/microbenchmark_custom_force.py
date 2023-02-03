@@ -72,7 +72,10 @@ class MicrobenchmarkCustomForce(common.ComparativeBenchmark):
         sim0.operations.writers.clear()
         sim0.operations.tuners.clear()
         sim0.operations.integrator = hoomd.md.Integrator(
-            dt=0.001, methods=[hoomd.md.methods.NVE(filter=hoomd.filter.All())])
+            dt=0.001,
+            methods=[
+                hoomd.md.methods.ConstantVolume(filter=hoomd.filter.All())
+            ])
 
         sim1 = hoomd.Simulation(device=self.device, seed=100)
         sim1.create_state_from_gsd(filename=str(path))
@@ -81,7 +84,10 @@ class MicrobenchmarkCustomForce(common.ComparativeBenchmark):
         sim1.operations.writers.clear()
         sim1.operations.tuners.clear()
         sim1.operations.integrator = hoomd.md.Integrator(
-            dt=0.001, methods=[hoomd.md.methods.NVE(filter=hoomd.filter.All())])
+            dt=0.001,
+            methods=[
+                hoomd.md.methods.ConstantVolume(filter=hoomd.filter.All())
+            ])
 
         constant_custom_force = ConstantForce(5, sim1.device)
         sim1.operations.integrator.forces.append(constant_custom_force)
