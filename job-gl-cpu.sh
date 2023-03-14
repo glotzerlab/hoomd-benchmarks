@@ -8,10 +8,11 @@
 #SBATCH --ntasks-per-node=36
 #SBATCH --mem-per-cpu=4000m
 #SBATCH --time=6:00:00
-#SBATCH --account=sglotzer0
+#SBATCH --account=sglotzer1
 #SBATCH --partition=standard
 
 cd $HOME/devel/hoomd-benchmarks
+source $HOME/hoomd-dev-env.sh
 
 rm cpu.csv
 
