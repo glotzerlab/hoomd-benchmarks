@@ -32,11 +32,11 @@ jobs:
         --warmup_steps 1000
         --benchmark_steps 1000
     steps:
-    - uses: actions/checkout@v3.3.0
+    - uses: actions/checkout@v3.5.0
     - name: List benchmarks
       run: ls **/*.py
     - name: Cache configurations
-      uses: actions/cache@v3.2.4
+      uses: actions/cache@v3.3.1
       with:
         path: initial_configuration_cache
         key: ${{ env.benchmark_options }}
