@@ -53,11 +53,11 @@ class GSD(common.Benchmark):
     def make_write_gsd(self):
         """Make the GSD writer object for benchmarking."""
         writer = hoomd.write.GSD(trigger=hoomd.trigger.Periodic(1),
-                               filename='write_gsd.gsd',
-                               mode='wb')
+                                 filename='write_gsd.gsd',
+                                 mode='wb')
 
         try:
-            writer.dynamic=['particles/position']
+            writer.dynamic = ['particles/position']
         except hoomd.error.TypeConversionError:
             pass
 
