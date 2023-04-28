@@ -32,10 +32,10 @@ class GSD(common.Benchmark):
         self.bandwidth = bandwidth
         self.maximum_write_buffer_size = maximum_write_buffer_size
 
+        super().__init__(**kwargs)
+
         if bandwidth:
             self.units = 'MiB/s'
-
-        super().__init__(**kwargs)
 
     @staticmethod
     def make_argument_parser():
