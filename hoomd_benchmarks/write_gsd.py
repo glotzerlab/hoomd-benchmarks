@@ -24,7 +24,6 @@ class GSD(common.Benchmark):
     See Also:
         `common.Benchmark`
     """
-    SUITE_STEP_SCALE = 0.01
 
     def __init__(self,
                  bandwidth=DEFAULT_BANDWIDTH,
