@@ -8,7 +8,7 @@ import time
 from . import common
 from .configuration.hard_sphere import make_hard_sphere_configuration
 
-DEFAULT_BANDWIDTH = 'false'
+DEFAULT_BANDWIDTH = False
 DEFAULT_MAXIMUM_WRITE_BUFFER_SIZE = 64 * 1024 * 1024
 
 
