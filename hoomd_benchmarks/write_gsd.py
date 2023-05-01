@@ -37,6 +37,8 @@ class GSD(common.Benchmark):
         if bandwidth:
             self.units = 'MiB/s'
 
+        self.bytes_per_step = self.N * 4 * 3 / 1024**2
+
     @staticmethod
     def make_argument_parser():
         """Make an ArgumentParser instance for benchmark options."""
@@ -94,7 +96,7 @@ class GSD(common.Benchmark):
     def get_performance(self):
         """Get the performance of the benchmark during the last ``run``."""
         if self.bandwidth:
-            return self.N * 4 * 3 / 1024**2 * self.tps
+            return self.bytes_per_step * self.tps
         else:
             return self.tps
 

@@ -20,6 +20,8 @@ class GSDLog(write_gsd.GSD):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
 
+        self.bytes_per_step = 28 / 1024**2
+
     def make_write_gsd(self):
         """Make the GSD writer object for benchmarking."""
         logger = hoomd.logging.Logger(categories=['scalar', 'string'])
