@@ -6,7 +6,7 @@ simulation performance between different versions, build configurations, or syst
 
 ## Requirements
 
-* HOOMD-blue v3.0-beta
+* HOOMD-blue >=3.0
 * numpy
 * pandas
 
@@ -103,6 +103,10 @@ microbenchmark.
 * `microbenchmark_custom_force` - Measure the time taken per step to use a constant custom force.
 * `microbenchmark_get_snapshot` - Measure the time taken to call State.get_snapshot.
 * `microbenchmark_set_snapshot` - Measure the time taken to call State.set_snapshot.
+* `write_gsd` - Measure how many GSD frames (containing particle positions) can be written per
+  second.
+* `write_gsd_log` - Measure how many GSD frames (containing 1 logged value) can be written per
+  second.
 
 ## Change log
 
