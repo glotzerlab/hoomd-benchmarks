@@ -20,6 +20,7 @@ class GSDLog(write_gsd.GSD):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
 
+        # 24 bytes of index + 4 bytes of logged data
         self.bytes_per_step = 28 / 1024**2
 
     def make_write_gsd(self):
