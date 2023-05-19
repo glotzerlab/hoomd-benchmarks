@@ -105,8 +105,9 @@ def make_hard_sphere_configuration(N,
 
     for i in range(10):
         sim.run(100)
+        tps = sim.tps
         if print_messages:
-            print(f'.. step {sim.timestep} at {sim.tps:0.4g} TPS')
+            print(f'.. step {sim.timestep} at {tps:0.4g} TPS')
 
     # compress to the target density
     initial_box = sim.state.box
@@ -127,8 +128,9 @@ def make_hard_sphere_configuration(N,
         print('.. compressing')
     while not compress.complete and sim.timestep < 1e5:
         sim.run(100)
+        tps = sim.tps
         if print_messages:
-            print(f'.. step {sim.timestep} at {sim.tps:0.4g} TPS')
+            print(f'.. step {sim.timestep} at {tps:0.4g} TPS')
 
     if not compress.complete:
         raise RuntimeError('Compression failed to complete')
