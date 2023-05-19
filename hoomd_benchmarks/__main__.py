@@ -23,6 +23,8 @@ from .microbenchmark_custom_updater import MicrobenchmarkCustomUpdater
 from .microbenchmark_custom_force import MicrobenchmarkCustomForce
 from .microbenchmark_get_snapshot import MicrobenchmarkGetSnapshot
 from .microbenchmark_set_snapshot import MicrobenchmarkSetSnapshot
+from .write_gsd import GSD
+from .write_gsd_log import GSDLog
 
 benchmark_classes = [
     HPMCSphere,
@@ -37,6 +39,8 @@ benchmark_classes = [
     MicrobenchmarkCustomForce,
     MicrobenchmarkGetSnapshot,
     MicrobenchmarkSetSnapshot,
+    GSD,
+    GSDLog,
 ]
 
 parser = common.Benchmark.make_argument_parser()
