@@ -9,7 +9,7 @@
 #SBATCH --ntasks-per-node=1
 #SBATCH --mem-per-cpu=4000m
 #SBATCH --time=60:00
-#SBATCH --account=sglotzer1
+#SBATCH --account=sglotzer9
 #SBATCH --partition=gpu
 
 cd $HOME/devel/hoomd-benchmarks
