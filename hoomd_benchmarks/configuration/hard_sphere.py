@@ -129,8 +129,12 @@ def make_hard_sphere_configuration(N,
     while not compress.complete and sim.timestep < 1e5:
         sim.run(100)
         tps = sim.tps
+        box = sim.state.box
         if print_messages:
-            print(f'.. step {sim.timestep} at {tps:0.4g} TPS')
+            progress = (math.fabs(initial_box.volume - box.volume)
+                        / math.fabs(initial_box.volume - final_box.volume))
+            print(f'.. step {sim.timestep} at {tps:0.4g} TPS: '
+                  f'progress {progress:0.3g}')
 
     if not compress.complete:
         raise RuntimeError('Compression failed to complete')
