@@ -134,7 +134,7 @@ def make_hard_sphere_configuration(N,
             progress = (math.fabs(initial_box.volume - box.volume)
                         / math.fabs(initial_box.volume - final_box.volume))
             print(f'.. step {sim.timestep} at {tps:0.4g} TPS: '
-                  f'progress {progress:0.3g}')
+                  f'progress {progress*100:0.4g}%')
 
     if not compress.complete:
         raise RuntimeError('Compression failed to complete')
