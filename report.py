@@ -20,14 +20,14 @@ print()
 
 df_gpu = pandas.read_csv('gpu.csv', index_col=0)
 
-print("V100 GPU:")
+print("A100 GPU:")
 print('```')
 print(df_gpu)
 print('```')
 
 df_cpu = pandas.read_csv('cpu.csv', index_col=0)
 
-print("2x Intel Xeon Gold 6154 CPU (36 cores)")
+print("AMD EPYC 7763 (16 cores used)")
 print('```')
 print(df_cpu)
 print('```')
