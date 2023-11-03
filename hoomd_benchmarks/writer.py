@@ -24,9 +24,7 @@ class Writer(common.Benchmark):
         `common.Benchmark`
     """
 
-    def __init__(self,
-                 bandwidth=DEFAULT_BANDWIDTH,
-                 **kwargs):
+    def __init__(self, bandwidth=DEFAULT_BANDWIDTH, **kwargs):
         self.bandwidth = bandwidth
 
         super().__init__(**kwargs)
@@ -82,7 +80,3 @@ class Writer(common.Benchmark):
             return self.bytes_per_step * self.tps
         else:
             return self.tps
-
-
-if __name__ == '__main__':
-    GSD.main()

@@ -4,10 +4,7 @@
 """Benchmark GSD writes."""
 
 import hoomd
-import time
-from . import common
 from . import writer
-from .configuration.hard_sphere import make_hard_sphere_configuration
 
 DEFAULT_MAXIMUM_WRITE_BUFFER_SIZE = 64 * 1024 * 1024
 
