@@ -4,10 +4,10 @@
 """Benchmark GSD writes."""
 
 import hoomd
-from . import write_gsd
+from . import writer
 
 
-class GSDLog(write_gsd.GSD):
+class GSDLog(writer.Writer):
     """Log-only GSD benchmark.
 
     Args:
@@ -20,19 +20,18 @@ class GSDLog(write_gsd.GSD):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
 
-        # 24 bytes of index + 4 bytes of logged data
+        # 8 bytes of data. Unknown amount of overhead.
         self.bytes_per_step = 28 / 1024**2
 
     def make_writer(self):
         """Make the GSD writer object for benchmarking."""
-        logger = hoomd.logging.Logger(categories=['scalar', 'string'])
+        logger = hoomd.logging.Logger(categories=['scalar'])
         logger[('value')] = (lambda: 42, 'scalar')
 
-        return hoomd.write.GSD(trigger=hoomd.trigger.Periodic(1),
-                               filename='write_gsd_log.gsd',
-                               mode='wb',
-                               filter=hoomd.filter.Null(),
-                               logger=logger)
+        return hoomd.write.HDF5Log(trigger=hoomd.trigger.Periodic(1),
+                                   filename='write_hdf5_log.h5',
+                                   mode='w',
+                                   logger=logger)
 
 
 if __name__ == '__main__':
