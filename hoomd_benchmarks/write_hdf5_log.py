@@ -7,11 +7,11 @@ import hoomd
 from . import writer
 
 
-class GSDLog(writer.Writer):
-    """Log-only GSD benchmark.
+class HDF5Log(writer.Writer):
+    """HDF5Log benchmark.
 
     Args:
-        kwargs: Keyword arguments accepted by ``GSD.__init__``
+        kwargs: Keyword arguments accepted by ``Writer.__init__``
 
     See Also:
         `write_gsd.GSD`
@@ -35,4 +35,4 @@ class GSDLog(writer.Writer):
 
 
 if __name__ == '__main__':
-    GSDLog.main()
+    HDF5Log.main()

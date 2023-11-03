@@ -25,6 +25,7 @@ from .microbenchmark_get_snapshot import MicrobenchmarkGetSnapshot
 from .microbenchmark_set_snapshot import MicrobenchmarkSetSnapshot
 from .write_gsd import GSD
 from .write_gsd_log import GSDLog
+from .write_hdf5_log import HDF5Log
 
 benchmark_classes = [
     HPMCSphere,
@@ -41,6 +42,7 @@ benchmark_classes = [
     MicrobenchmarkSetSnapshot,
     GSD,
     GSDLog,
+    HDF5Log,
 ]
 
 parser = common.Benchmark.make_argument_parser()
