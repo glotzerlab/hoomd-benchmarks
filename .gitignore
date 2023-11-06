@@ -6,3 +6,4 @@ __pycache__
 *.out
 *.gsd
 *.csv
+*.h5
