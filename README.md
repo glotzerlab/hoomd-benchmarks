@@ -107,6 +107,8 @@ microbenchmark.
   second.
 * `write_gsd_log` - Measure how many GSD frames (containing 1 logged value) can be written per
   second.
+* `write_hdf5_log` - Measure how many HDF5 frames (containing 1 logged value) can be written per
+  second.
 
 ## Change log
 
