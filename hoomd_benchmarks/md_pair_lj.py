@@ -4,6 +4,7 @@
 """Lennard-Jones pair potential benchmark."""
 
 import hoomd
+
 from . import md_pair
 
 

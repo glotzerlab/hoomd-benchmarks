@@ -3,8 +3,9 @@
 
 """Common code used in all benchmarks."""
 
-import hoomd
 import argparse
+
+import hoomd
 import numpy
 
 DEFAULT_WARMUP_STEPS = 1000

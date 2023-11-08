@@ -4,6 +4,7 @@
 """Benchmark GSD writes."""
 
 import hoomd
+
 from . import writer
 
 

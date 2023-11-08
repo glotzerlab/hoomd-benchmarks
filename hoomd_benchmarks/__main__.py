@@ -5,10 +5,11 @@
 
 import copy
 import fnmatch
-import numpy
 import os
-import pandas
+
 import hoomd
+import numpy
+import pandas
 
 from . import common
 from .hpmc_sphere import HPMCSphere
@@ -17,10 +18,10 @@ from .md_pair_opp import MDPairOPP
 from .md_pair_table import MDPairTable
 from .md_pair_wca import MDPairWCA
 from .microbenchmark_box_resize import MicrobenchmarkBoxResize
-from .microbenchmark_empty_simulation import MicrobenchmarkEmptySimulation
+from .microbenchmark_custom_force import MicrobenchmarkCustomForce
 from .microbenchmark_custom_trigger import MicrobenchmarkCustomTrigger
 from .microbenchmark_custom_updater import MicrobenchmarkCustomUpdater
-from .microbenchmark_custom_force import MicrobenchmarkCustomForce
+from .microbenchmark_empty_simulation import MicrobenchmarkEmptySimulation
 from .microbenchmark_get_snapshot import MicrobenchmarkGetSnapshot
 from .microbenchmark_set_snapshot import MicrobenchmarkSetSnapshot
 from .write_gsd import GSD

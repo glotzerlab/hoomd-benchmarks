@@ -4,9 +4,9 @@
 """Table pair potential benchmark."""
 
 import hoomd
-from . import md_pair
-
 import numpy
+
+from . import md_pair
 
 EVAL_POINTS = 200
 R_MIN = 0.5

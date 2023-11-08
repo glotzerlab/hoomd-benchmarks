@@ -4,6 +4,7 @@
 """Custom trigger benchmark."""
 
 import hoomd
+
 from . import common
 from .configuration.hard_sphere import make_hard_sphere_configuration
 

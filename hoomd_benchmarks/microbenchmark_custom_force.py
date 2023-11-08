@@ -3,9 +3,11 @@
 
 """Custom Force benchmark."""
 
+import warnings
+
 import hoomd
 import numpy as np
-import warnings
+
 from . import common
 from .configuration.hard_sphere import make_hard_sphere_configuration
 

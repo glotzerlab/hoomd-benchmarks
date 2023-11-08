@@ -4,6 +4,7 @@
 """Benchmark GSD writes."""
 
 import hoomd
+
 from . import writer
 
 DEFAULT_MAXIMUM_WRITE_BUFFER_SIZE = 64 * 1024 * 1024

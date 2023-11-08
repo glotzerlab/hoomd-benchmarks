@@ -4,6 +4,7 @@
 """set_snapshot benchmark."""
 
 import hoomd
+
 from . import common
 from .configuration.hard_sphere import make_hard_sphere_configuration
 from .microbenchmark_custom_updater import EmptyAction
@@ -18,7 +19,6 @@ class SetSnapshotAction(hoomd.custom.Action):
     def act(self, timestep):
         """Set the system snapshot."""
         self._state.set_snapshot(self.snap)
-        return
 
 
 class MicrobenchmarkSetSnapshot(common.ComparativeBenchmark):

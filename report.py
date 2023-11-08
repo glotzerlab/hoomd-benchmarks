@@ -7,8 +7,9 @@ Use to report CPU and GPU benchmark performance in the issue for each
 HOOMD-blue release.
 """
 
-import pandas
 import subprocess
+
+import pandas
 
 git_sha = subprocess.run(['git', 'show', '-s', '--format=%H'],
                          capture_output=True,

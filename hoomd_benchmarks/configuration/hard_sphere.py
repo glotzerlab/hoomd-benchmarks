@@ -3,12 +3,13 @@
 
 """Hard sphere initial configuration."""
 
+import itertools
+import math
+import pathlib
+
 import gsd.hoomd
 import hoomd
-import pathlib
 import numpy
-import math
-import itertools
 
 
 def make_hard_sphere_configuration(N,
