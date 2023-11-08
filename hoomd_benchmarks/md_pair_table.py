@@ -15,7 +15,7 @@ DEFAULT_R_CUT = 2.5
 
 def lj_energy(r):
     """Compute LJ energy."""
-    return 4 * ((1 / r)**12 - (1 / r)**6)
+    return 4 * ((1 / r) ** 12 - (1 / r) ** 6)
 
 
 def lj_force(r):
@@ -29,6 +29,7 @@ class MDPairTable(md_pair.MDPair):
     See Also:
         `md_pair.MDPair`
     """
+
     pair_class = hoomd.md.pair.Table
 
     r = numpy.linspace(R_MIN, DEFAULT_R_CUT, EVAL_POINTS, endpoint=False)

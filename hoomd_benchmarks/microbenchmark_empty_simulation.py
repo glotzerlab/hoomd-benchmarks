@@ -15,15 +15,18 @@ class MicrobenchmarkEmptySimulation(common.Benchmark):
     See Also:
         `common.Benchmark`
     """
+
     SUITE_STEP_SCALE = 100
 
     def make_simulation(self):
         """Make the Simulation object."""
-        path = make_hard_sphere_configuration(N=self.N,
-                                              rho=self.rho,
-                                              dimensions=self.dimensions,
-                                              device=self.device,
-                                              verbose=self.verbose)
+        path = make_hard_sphere_configuration(
+            N=self.N,
+            rho=self.rho,
+            dimensions=self.dimensions,
+            device=self.device,
+            verbose=self.verbose,
+        )
 
         sim = hoomd.Simulation(device=self.device, seed=100)
         sim.create_state_from_gsd(filename=str(path))

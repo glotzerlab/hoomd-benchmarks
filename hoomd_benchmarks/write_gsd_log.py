@@ -29,11 +29,13 @@ class GSDLog(write_gsd.GSD):
         logger = hoomd.logging.Logger(categories=['scalar', 'string'])
         logger[('value')] = (lambda: 42, 'scalar')
 
-        return hoomd.write.GSD(trigger=hoomd.trigger.Periodic(1),
-                               filename='write_gsd_log.gsd',
-                               mode='wb',
-                               filter=hoomd.filter.Null(),
-                               logger=logger)
+        return hoomd.write.GSD(
+            trigger=hoomd.trigger.Periodic(1),
+            filename='write_gsd_log.gsd',
+            mode='wb',
+            filter=hoomd.filter.Null(),
+            logger=logger,
+        )
 
 
 if __name__ == '__main__':

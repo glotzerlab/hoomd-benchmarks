@@ -33,14 +33,16 @@ class MDPair(common.Benchmark):
         `common.Benchmark`
     """
 
-    def __init__(self,
-                 buffer=DEFAULT_BUFFER,
-                 rebuild_check_delay=DEFAULT_REBUILD_CHECK_DELAY,
-                 tail_correction=DEFAULT_TAIL_CORRECTION,
-                 n_types=DEFAULT_N_TYPES,
-                 always_compute_pressure=False,
-                 mode=DEFAULT_MODE,
-                 **kwargs):
+    def __init__(
+        self,
+        buffer=DEFAULT_BUFFER,
+        rebuild_check_delay=DEFAULT_REBUILD_CHECK_DELAY,
+        tail_correction=DEFAULT_TAIL_CORRECTION,
+        n_types=DEFAULT_N_TYPES,
+        always_compute_pressure=False,
+        mode=DEFAULT_MODE,
+        **kwargs,
+    ):
         self.buffer = buffer
         self.rebuild_check_delay = rebuild_check_delay
         self.tail_correction = tail_correction
@@ -53,35 +55,44 @@ class MDPair(common.Benchmark):
     def make_argument_parser():
         """Make an ArgumentParser instance for benchmark options."""
         parser = common.Benchmark.make_argument_parser()
-        parser.add_argument('--buffer',
-                            type=float,
-                            default=DEFAULT_BUFFER,
-                            help='Neighbor list buffer.')
-        parser.add_argument('--rebuild_check_delay',
-                            type=int,
-                            default=DEFAULT_REBUILD_CHECK_DELAY,
-                            help='Neighbor list rebuild check delay.')
-        parser.add_argument('--tail_correction',
-                            action='store_true',
-                            help='Enable integrated isotropic tail correction.')
-        parser.add_argument('--n_types',
-                            type=int,
-                            default=DEFAULT_N_TYPES,
-                            help='Number of particle types.')
-        parser.add_argument('--always_compute_pressure',
-                            action='store_true',
-                            help='Always compute pressure.')
+        parser.add_argument(
+            '--buffer', type=float, default=DEFAULT_BUFFER, help='Neighbor list buffer.'
+        )
+        parser.add_argument(
+            '--rebuild_check_delay',
+            type=int,
+            default=DEFAULT_REBUILD_CHECK_DELAY,
+            help='Neighbor list rebuild check delay.',
+        )
+        parser.add_argument(
+            '--tail_correction',
+            action='store_true',
+            help='Enable integrated isotropic tail correction.',
+        )
+        parser.add_argument(
+            '--n_types',
+            type=int,
+            default=DEFAULT_N_TYPES,
+            help='Number of particle types.',
+        )
+        parser.add_argument(
+            '--always_compute_pressure',
+            action='store_true',
+            help='Always compute pressure.',
+        )
         parser.add_argument('--mode', default=DEFAULT_MODE, help='Shift mode.')
         return parser
 
     def make_simulation(self):
         """Make the Simulation object."""
-        path = make_hard_sphere_configuration(N=self.N,
-                                              rho=self.rho,
-                                              dimensions=self.dimensions,
-                                              device=self.device,
-                                              verbose=self.verbose,
-                                              n_types=self.n_types)
+        path = make_hard_sphere_configuration(
+            N=self.N,
+            rho=self.rho,
+            dimensions=self.dimensions,
+            device=self.device,
+            verbose=self.verbose,
+            n_types=self.n_types,
+        )
 
         integrator = hoomd.md.Integrator(dt=0.005)
         cell = hoomd.md.nlist.Cell(buffer=self.buffer)
@@ -92,8 +103,7 @@ class MDPair(common.Benchmark):
         sim.always_compute_pressure = self.always_compute_pressure
 
         if self.pair_class is hoomd.md.pair.LJ:
-            pair = self.pair_class(nlist=cell,
-                                   tail_correction=self.tail_correction)
+            pair = self.pair_class(nlist=cell, tail_correction=self.tail_correction)
         else:
             pair = self.pair_class(nlist=cell)
 
@@ -106,7 +116,8 @@ class MDPair(common.Benchmark):
         integrator.forces.append(pair)
         nvt = hoomd.md.methods.ConstantVolume(
             filter=hoomd.filter.All(),
-            thermostat=hoomd.md.methods.thermostats.MTTK(kT=1.2, tau=0.5))
+            thermostat=hoomd.md.methods.thermostats.MTTK(kT=1.2, tau=0.5),
+        )
         integrator.methods.append(nvt)
 
         sim.operations.integrator = integrator

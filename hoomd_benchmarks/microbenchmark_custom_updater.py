@@ -23,15 +23,18 @@ class MicrobenchmarkCustomUpdater(common.ComparativeBenchmark):
     See Also:
         `common.ComparativeBenchmark`
     """
+
     SUITE_STEP_SCALE = 100
 
     def make_simulations(self):
         """Make the Simulation objects."""
-        path = make_hard_sphere_configuration(N=self.N,
-                                              rho=self.rho,
-                                              dimensions=self.dimensions,
-                                              device=self.device,
-                                              verbose=self.verbose)
+        path = make_hard_sphere_configuration(
+            N=self.N,
+            rho=self.rho,
+            dimensions=self.dimensions,
+            device=self.device,
+            verbose=self.verbose,
+        )
 
         sim0 = hoomd.Simulation(device=self.device, seed=100)
         sim0.create_state_from_gsd(filename=str(path))
@@ -48,7 +51,8 @@ class MicrobenchmarkCustomUpdater(common.ComparativeBenchmark):
         sim1.operations.tuners.clear()
 
         custom_updater = hoomd.update.CustomUpdater(
-            action=EmptyAction(), trigger=hoomd.trigger.Periodic(period=1))
+            action=EmptyAction(), trigger=hoomd.trigger.Periodic(period=1)
+        )
         sim1.operations.updaters.append(custom_updater)
 
         return sim0, sim1

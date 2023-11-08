@@ -18,11 +18,13 @@ class HPMCSphere(common.Benchmark):
 
     def make_simulation(self):
         """Make the Simulation object."""
-        path = make_hard_sphere_configuration(N=self.N,
-                                              rho=self.rho,
-                                              dimensions=self.dimensions,
-                                              device=self.device,
-                                              verbose=self.verbose)
+        path = make_hard_sphere_configuration(
+            N=self.N,
+            rho=self.rho,
+            dimensions=self.dimensions,
+            device=self.device,
+            verbose=self.verbose,
+        )
 
         mc = hoomd.hpmc.integrate.Sphere()
         mc.shape['A'] = dict(diameter=1.0)
@@ -38,8 +40,11 @@ class HPMCSphere(common.Benchmark):
     def get_performance(self):
         """Get the benchmark performance."""
         mc = self.sim.operations.integrator
-        return ((sum(mc.translate_moves) + sum(mc.rotate_moves))
-                / self.sim.walltime / self.sim.state.N_particles)
+        return (
+            (sum(mc.translate_moves) + sum(mc.rotate_moves))
+            / self.sim.walltime
+            / self.sim.state.N_particles
+        )
 
 
 if __name__ == '__main__':

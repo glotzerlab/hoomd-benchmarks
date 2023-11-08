@@ -18,11 +18,13 @@ class MicrobenchmarkBoxResize(common.Benchmark):
 
     def make_simulation(self):
         """Make the Simulation object."""
-        path = make_hard_sphere_configuration(N=self.N,
-                                              rho=self.rho,
-                                              dimensions=self.dimensions,
-                                              device=self.device,
-                                              verbose=self.verbose)
+        path = make_hard_sphere_configuration(
+            N=self.N,
+            rho=self.rho,
+            dimensions=self.dimensions,
+            device=self.device,
+            verbose=self.verbose,
+        )
 
         sim = hoomd.Simulation(device=self.device, seed=100)
         sim.create_state_from_gsd(filename=str(path))
@@ -36,15 +38,15 @@ class MicrobenchmarkBoxResize(common.Benchmark):
         final_box = hoomd.Box.from_box(initial_box)
         final_box.volume = initial_box.volume / 2
 
-        ramp = hoomd.variant.Ramp(A=0,
-                                  B=1,
-                                  t_start=sim.timestep,
-                                  t_ramp=self.warmup_steps * 10
-                                  + self.repeat * self.benchmark_steps)
-        box_resize = hoomd.update.BoxResize(box1=initial_box,
-                                            box2=final_box,
-                                            variant=ramp,
-                                            trigger=box_resize_trigger)
+        ramp = hoomd.variant.Ramp(
+            A=0,
+            B=1,
+            t_start=sim.timestep,
+            t_ramp=self.warmup_steps * 10 + self.repeat * self.benchmark_steps,
+        )
+        box_resize = hoomd.update.BoxResize(
+            box1=initial_box, box2=final_box, variant=ramp, trigger=box_resize_trigger
+        )
         sim.operations.updaters.append(box_resize)
 
         return sim

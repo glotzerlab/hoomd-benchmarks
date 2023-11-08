@@ -29,10 +29,12 @@ class HDF5Log(writer.Writer):
         logger = hoomd.logging.Logger(categories=['scalar'])
         logger[('value')] = (lambda: 42, 'scalar')
 
-        return hoomd.write.HDF5Log(trigger=hoomd.trigger.Periodic(1),
-                                   filename='write_hdf5_log.h5',
-                                   mode='w',
-                                   logger=logger)
+        return hoomd.write.HDF5Log(
+            trigger=hoomd.trigger.Periodic(1),
+            filename='write_hdf5_log.h5',
+            mode='w',
+            logger=logger,
+        )
 
 
 if __name__ == '__main__':

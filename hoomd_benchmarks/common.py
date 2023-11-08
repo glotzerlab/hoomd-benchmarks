@@ -67,17 +67,20 @@ class Benchmark:
         units (str): Name of the units to report on the performance (only
           shown when verbose=True.
     """
+
     SUITE_STEP_SCALE = 1
 
-    def __init__(self,
-                 device,
-                 N=DEFAULT_N,
-                 rho=DEFAULT_RHO,
-                 dimensions=DEFAULT_DIMENSIONS,
-                 warmup_steps=DEFAULT_WARMUP_STEPS,
-                 benchmark_steps=DEFAULT_BENCHMARK_STEPS,
-                 repeat=DEFAULT_REPEAT,
-                 verbose=False):
+    def __init__(
+        self,
+        device,
+        N=DEFAULT_N,
+        rho=DEFAULT_RHO,
+        dimensions=DEFAULT_DIMENSIONS,
+        warmup_steps=DEFAULT_WARMUP_STEPS,
+        benchmark_steps=DEFAULT_BENCHMARK_STEPS,
+        repeat=DEFAULT_REPEAT,
+        verbose=False,
+    ):
         self.device = device
         self.N = N
         self.rho = rho
@@ -107,8 +110,7 @@ class Benchmark:
         Returns:
             list[float]: The performance measured at each benchmark stage.
         """
-        print_verbose_messages = (self.verbose
-                                  and self.device.communicator.rank == 0)
+        print_verbose_messages = self.verbose and self.device.communicator.rank == 0
 
         # Ensure that all ops are attached (needed for is_tuning_complete).
         self.run(0)
@@ -120,17 +122,21 @@ class Benchmark:
             print(f'.. warming up for {self.warmup_steps} steps')
         self.run(self.warmup_steps)
 
-        if (isinstance(self.device, hoomd.device.GPU)
-                and hasattr(self.sim.operations, 'is_tuning_complete')):
+        if isinstance(self.device, hoomd.device.GPU) and hasattr(
+            self.sim.operations, 'is_tuning_complete'
+        ):
             while not self.sim.operations.is_tuning_complete:
                 if print_verbose_messages:
-                    print('.. autotuning GPU kernel parameters for '
-                          f'{self.warmup_steps} steps')
+                    print(
+                        '.. autotuning GPU kernel parameters for '
+                        f'{self.warmup_steps} steps'
+                    )
                 self.run(self.warmup_steps)
 
         if print_verbose_messages:
-            print(f'.. running for {self.benchmark_steps} steps '
-                  f'{self.repeat} time(s)')
+            print(
+                f'.. running for {self.benchmark_steps} steps ' f'{self.repeat} time(s)'
+            )
 
         # benchmark
         performance = []
@@ -155,40 +161,47 @@ class Benchmark:
     def make_argument_parser():
         """Make an ArgumentParser instance for benchmark options."""
         parser = argparse.ArgumentParser()
-        parser.add_argument('--device',
-                            type=str,
-                            choices=['CPU', 'GPU'],
-                            help='Execution device.',
-                            required=True)
-        parser.add_argument('-N',
-                            type=int,
-                            default=DEFAULT_N,
-                            help='Number of particles.')
-        parser.add_argument('--rho',
-                            type=float,
-                            default=DEFAULT_RHO,
-                            help='Number density.')
-        parser.add_argument('--dimensions',
-                            type=int,
-                            choices=[2, 3],
-                            help='Number of dimensions.',
-                            default=DEFAULT_DIMENSIONS)
-        parser.add_argument('--warmup_steps',
-                            type=int,
-                            default=DEFAULT_WARMUP_STEPS,
-                            help='Number of timesteps to run before timing.')
-        parser.add_argument('--benchmark_steps',
-                            type=int,
-                            default=DEFAULT_BENCHMARK_STEPS,
-                            help='Number of timesteps to run in the benchmark.')
-        parser.add_argument('--repeat',
-                            type=int,
-                            default=DEFAULT_REPEAT,
-                            help='Number of times to repeat the run.')
-        parser.add_argument('-v',
-                            '--verbose',
-                            action='store_true',
-                            help='Verbose output.')
+        parser.add_argument(
+            '--device',
+            type=str,
+            choices=['CPU', 'GPU'],
+            help='Execution device.',
+            required=True,
+        )
+        parser.add_argument(
+            '-N', type=int, default=DEFAULT_N, help='Number of particles.'
+        )
+        parser.add_argument(
+            '--rho', type=float, default=DEFAULT_RHO, help='Number density.'
+        )
+        parser.add_argument(
+            '--dimensions',
+            type=int,
+            choices=[2, 3],
+            help='Number of dimensions.',
+            default=DEFAULT_DIMENSIONS,
+        )
+        parser.add_argument(
+            '--warmup_steps',
+            type=int,
+            default=DEFAULT_WARMUP_STEPS,
+            help='Number of timesteps to run before timing.',
+        )
+        parser.add_argument(
+            '--benchmark_steps',
+            type=int,
+            default=DEFAULT_BENCHMARK_STEPS,
+            help='Number of timesteps to run in the benchmark.',
+        )
+        parser.add_argument(
+            '--repeat',
+            type=int,
+            default=DEFAULT_REPEAT,
+            help='Number of times to repeat the run.',
+        )
+        parser.add_argument(
+            '-v', '--verbose', action='store_true', help='Verbose output.'
+        )
         return parser
 
     @classmethod
@@ -258,7 +271,9 @@ class ComparativeBenchmark(Benchmark):
     def make_argument_parser():
         """Make an ArgumentParser instance for comparative benchmark options."""
         parser = Benchmark.make_argument_parser()
-        parser.add_argument('--skip-reference',
-                            action='store_true',
-                            help='Skip the reference simulation run.')
+        parser.add_argument(
+            '--skip-reference',
+            action='store_true',
+            help='Skip the reference simulation run.',
+        )
         return parser

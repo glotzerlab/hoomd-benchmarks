@@ -31,15 +31,18 @@ class MicrobenchmarkSetSnapshot(common.ComparativeBenchmark):
     See Also:
         `common.ComparativeBenchmark`
     """
+
     SUITE_STEP_SCALE = 0.01
 
     def make_simulations(self):
         """Make the Simulation objects."""
-        path = make_hard_sphere_configuration(N=self.N,
-                                              rho=self.rho,
-                                              dimensions=self.dimensions,
-                                              device=self.device,
-                                              verbose=self.verbose)
+        path = make_hard_sphere_configuration(
+            N=self.N,
+            rho=self.rho,
+            dimensions=self.dimensions,
+            device=self.device,
+            verbose=self.verbose,
+        )
 
         sim0 = hoomd.Simulation(device=self.device, seed=100)
         sim0.create_state_from_gsd(filename=str(path))
@@ -48,13 +51,12 @@ class MicrobenchmarkSetSnapshot(common.ComparativeBenchmark):
         sim0.operations.writers.clear()
         sim0.operations.tuners.clear()
         sim0.operations.integrator = hoomd.md.Integrator(
-            dt=0.0,
-            methods=[
-                hoomd.md.methods.ConstantVolume(filter=hoomd.filter.All())
-            ])
+            dt=0.0, methods=[hoomd.md.methods.ConstantVolume(filter=hoomd.filter.All())]
+        )
 
         empty_updater = hoomd.update.CustomUpdater(
-            action=EmptyAction(), trigger=hoomd.trigger.Periodic(period=1))
+            action=EmptyAction(), trigger=hoomd.trigger.Periodic(period=1)
+        )
         sim0.operations.updaters.append(empty_updater)
 
         sim1 = hoomd.Simulation(device=self.device, seed=100)
@@ -64,14 +66,13 @@ class MicrobenchmarkSetSnapshot(common.ComparativeBenchmark):
         sim1.operations.writers.clear()
         sim1.operations.tuners.clear()
         sim1.operations.integrator = hoomd.md.Integrator(
-            dt=0.0,
-            methods=[
-                hoomd.md.methods.ConstantVolume(filter=hoomd.filter.All())
-            ])
+            dt=0.0, methods=[hoomd.md.methods.ConstantVolume(filter=hoomd.filter.All())]
+        )
 
         set_snapshot_updater = hoomd.update.CustomUpdater(
             action=SetSnapshotAction(sim1.state.get_snapshot()),
-            trigger=hoomd.trigger.Periodic(period=1))
+            trigger=hoomd.trigger.Periodic(period=1),
+        )
         sim1.operations.updaters.append(set_snapshot_updater)
 
         return sim0, sim1
