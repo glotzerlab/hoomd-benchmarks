@@ -32,8 +32,8 @@ class ConstantForce(hoomd.md.force.Custom):
     def _to_array(self, list_data):
         if isinstance(self._device, hoomd.device.CPU):
             return np.array(list_data)
-        else:
-            return cp.array(list_data)
+
+        return cp.array(list_data)
 
     def set_forces(self, timestep):
         """Set the forces."""
@@ -54,10 +54,10 @@ class MicrobenchmarkCustomForce(common.ComparativeBenchmark):
         """Override execute to skip this benchamrk without cupy installed."""
         if isinstance(self.device, hoomd.device.CPU) or CUPY_IMPORTED:
             return super().execute()
-        else:
-            warnings.warn("Skipping microbenchmark_custom_force on GPU device "
-                          " - cupy is not available.")
-            return [0]
+
+        warnings.warn("Skipping microbenchmark_custom_force on GPU device "
+                        " - cupy is not available.", stacklevel=2)
+        return [0]
 
     def make_simulations(self):
         """Make the simulation objects."""

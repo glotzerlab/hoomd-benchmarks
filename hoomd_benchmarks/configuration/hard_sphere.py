@@ -81,7 +81,7 @@ def make_hard_sphere_configuration(N,
     L = K * spacing
 
     snapshot = hoomd.Snapshot(communicator=device.communicator)
-    if dimensions == 3:
+    if dimensions == 3:  # noqa PLR2004: 3 is not magic
         snapshot.configuration.box = [L, L, L, 0, 0, 0]
     else:
         snapshot.configuration.box = [L, L, 0, 0, 0, 0]
@@ -127,7 +127,9 @@ def make_hard_sphere_configuration(N,
 
     if print_messages:
         print('.. compressing')
-    while not compress.complete and sim.timestep < 1e5:
+
+    end_step = 1e5
+    while not compress.complete and sim.timestep < end_step:
         sim.run(100)
         tps = sim.tps
         box = sim.state.box

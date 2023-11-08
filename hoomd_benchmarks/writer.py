@@ -80,5 +80,5 @@ class Writer(common.Benchmark):
         """Get the performance of the benchmark during the last ``run``."""
         if self.bandwidth:
             return self.bytes_per_step * self.tps
-        else:
-            return self.tps
+
+        return self.tps
