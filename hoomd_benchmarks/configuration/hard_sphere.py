@@ -64,7 +64,7 @@ def make_hard_sphere_configuration(N,
     filename = f'hard_sphere_{N}_{rho}_{dimensions}.gsd'
     file_path = pathlib.Path('initial_configuration_cache') / filename
 
-    if dimensions != 2 and dimensions != 3:
+    if dimensions not in (2, 3):
         raise ValueError('Invalid dimensions: must be 2 or 3')
 
     if file_path.exists():
@@ -104,7 +104,7 @@ def make_hard_sphere_configuration(N,
     if print_messages:
         print('.. randomizing positions')
 
-    for i in range(10):
+    for _i in range(10):
         sim.run(100)
         tps = sim.tps
         if print_messages:

@@ -137,13 +137,13 @@ class Benchmark:
 
         if isinstance(self.device, hoomd.device.GPU):
             with self.device.enable_profiling():
-                for i in range(self.repeat):
+                for _i in range(self.repeat):
                     self.run(self.benchmark_steps)
                     performance.append(self.get_performance())
                     if print_verbose_messages:
                         print(f'.. {performance[-1]} {self.units}')
         else:
-            for i in range(self.repeat):
+            for _i in range(self.repeat):
                 self.run(self.benchmark_steps)
                 performance.append(self.get_performance())
                 if print_verbose_messages:
