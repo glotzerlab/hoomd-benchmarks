@@ -3,8 +3,10 @@
 
 """Benchmark GSD writes."""
 
-import hoomd
 import time
+
+import hoomd
+
 from . import common
 from .configuration.hard_sphere import make_hard_sphere_configuration
 
@@ -38,9 +40,9 @@ class Writer(common.Benchmark):
     def make_argument_parser():
         """Make an ArgumentParser instance for benchmark options."""
         parser = common.Benchmark.make_argument_parser()
-        parser.add_argument('--bandwidth',
-                            action='store_true',
-                            help='Report performance in bandwidth.')
+        parser.add_argument(
+            '--bandwidth', action='store_true', help='Report performance in bandwidth.'
+        )
         return parser
 
     def make_writer(self):
@@ -49,11 +51,13 @@ class Writer(common.Benchmark):
 
     def make_simulation(self):
         """Make the Simulation object."""
-        path = make_hard_sphere_configuration(N=self.N,
-                                              rho=self.rho,
-                                              dimensions=self.dimensions,
-                                              device=self.device,
-                                              verbose=self.verbose)
+        path = make_hard_sphere_configuration(
+            N=self.N,
+            rho=self.rho,
+            dimensions=self.dimensions,
+            device=self.device,
+            verbose=self.verbose,
+        )
 
         sim = hoomd.Simulation(device=self.device)
         sim.create_state_from_gsd(filename=str(path))
@@ -78,5 +82,5 @@ class Writer(common.Benchmark):
         """Get the performance of the benchmark during the last ``run``."""
         if self.bandwidth:
             return self.bytes_per_step * self.tps
-        else:
-            return self.tps
+
+        return self.tps

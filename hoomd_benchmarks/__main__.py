@@ -5,10 +5,11 @@
 
 import copy
 import fnmatch
-import numpy
 import os
-import pandas
+
 import hoomd
+import numpy
+import pandas
 
 from . import common
 from .hpmc_sphere import HPMCSphere
@@ -17,10 +18,10 @@ from .md_pair_opp import MDPairOPP
 from .md_pair_table import MDPairTable
 from .md_pair_wca import MDPairWCA
 from .microbenchmark_box_resize import MicrobenchmarkBoxResize
-from .microbenchmark_empty_simulation import MicrobenchmarkEmptySimulation
+from .microbenchmark_custom_force import MicrobenchmarkCustomForce
 from .microbenchmark_custom_trigger import MicrobenchmarkCustomTrigger
 from .microbenchmark_custom_updater import MicrobenchmarkCustomUpdater
-from .microbenchmark_custom_force import MicrobenchmarkCustomForce
+from .microbenchmark_empty_simulation import MicrobenchmarkEmptySimulation
 from .microbenchmark_get_snapshot import MicrobenchmarkGetSnapshot
 from .microbenchmark_set_snapshot import MicrobenchmarkSetSnapshot
 from .write_gsd import GSD
@@ -46,21 +47,25 @@ benchmark_classes = [
 ]
 
 parser = common.Benchmark.make_argument_parser()
-parser.add_argument('--benchmarks',
-                    type=str,
-                    default='*',
-                    help='Select the benchmarks to run by class name using '
-                    '`fnmatch` syntax')
-parser.add_argument('-o',
-                    '--output',
-                    type=str,
-                    help='Add row of benchmark results to or create the output '
-                    'CSV file.')
-parser.add_argument('--name',
-                    type=str,
-                    default=None,
-                    help='Name identifying this benchmark run'
-                    ' (leave unset to use the HOOMD-blue version).')
+parser.add_argument(
+    '--benchmarks',
+    type=str,
+    default='*',
+    help='Select the benchmarks to run by class name using ' '`fnmatch` syntax',
+)
+parser.add_argument(
+    '-o',
+    '--output',
+    type=str,
+    help='Add row of benchmark results to or create the output ' 'CSV file.',
+)
+parser.add_argument(
+    '--name',
+    type=str,
+    default=None,
+    help='Name identifying this benchmark run'
+    ' (leave unset to use the HOOMD-blue version).',
+)
 args = parser.parse_args()
 
 benchmark_args_ref = copy.deepcopy(vars(args))
@@ -82,8 +87,7 @@ for benchmark_class in benchmark_classes:
         benchmark = benchmark_class(**benchmark_args)
         performance[name] = benchmark.execute()
 
-        if (args.output is None
-                and benchmark_args['device'].communicator.rank == 0):
+        if args.output is None and benchmark_args['device'].communicator.rank == 0:
             print(f'{name}: {numpy.mean(performance[name])}')
 
 if args.output is not None and benchmark_args['device'].communicator.rank == 0:
@@ -94,9 +98,7 @@ if args.output is not None and benchmark_args['device'].communicator.rank == 0:
     name = args.name
     if name is None:
         name = hoomd.version.version
-    df = pandas.DataFrame.from_dict(performance_mean,
-                                    orient='index',
-                                    columns=[name])
+    df = pandas.DataFrame.from_dict(performance_mean, orient='index', columns=[name])
 
     if os.path.isfile(args.output):
         df_old = pandas.read_csv(args.output, index_col=0)

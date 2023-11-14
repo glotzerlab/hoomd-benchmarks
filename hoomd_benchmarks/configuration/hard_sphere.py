@@ -3,20 +3,16 @@
 
 """Hard sphere initial configuration."""
 
+import itertools
+import math
+import pathlib
+
 import gsd.hoomd
 import hoomd
-import pathlib
 import numpy
-import math
-import itertools
 
 
-def make_hard_sphere_configuration(N,
-                                   rho,
-                                   dimensions,
-                                   device,
-                                   verbose,
-                                   n_types=1):
+def make_hard_sphere_configuration(N, rho, dimensions, device, verbose, n_types=1):
     """Make an initial configuration of hard spheres, or find it in the cache.
 
     Args:
@@ -37,8 +33,9 @@ def make_hard_sphere_configuration(N,
     print_messages = verbose and device.communicator.rank == 0
 
     if n_types > 1:
-        one_type_path = make_hard_sphere_configuration(N, rho, dimensions,
-                                                       device, verbose, 1)
+        one_type_path = make_hard_sphere_configuration(
+            N, rho, dimensions, device, verbose, 1
+        )
 
         filename = f'hard_sphere_{N}_{rho}_{dimensions}_{n_types}.gsd'
         file_path = pathlib.Path('initial_configuration_cache') / filename
@@ -63,7 +60,7 @@ def make_hard_sphere_configuration(N,
     filename = f'hard_sphere_{N}_{rho}_{dimensions}.gsd'
     file_path = pathlib.Path('initial_configuration_cache') / filename
 
-    if dimensions != 2 and dimensions != 3:
+    if dimensions not in (2, 3):
         raise ValueError('Invalid dimensions: must be 2 or 3')
 
     if file_path.exists():
@@ -76,11 +73,11 @@ def make_hard_sphere_configuration(N,
 
     # initial configuration on a grid
     spacing = 1.5
-    K = math.ceil(N**(1 / dimensions))
+    K = math.ceil(N ** (1 / dimensions))
     L = K * spacing
 
     snapshot = hoomd.Snapshot(communicator=device.communicator)
-    if dimensions == 3:
+    if dimensions == 3:  # noqa PLR2004: 3 is not magic
         snapshot.configuration.box = [L, L, L, 0, 0, 0]
     else:
         snapshot.configuration.box = [L, L, 0, 0, 0, 0]
@@ -103,7 +100,7 @@ def make_hard_sphere_configuration(N,
     if print_messages:
         print('.. randomizing positions')
 
-    for i in range(10):
+    for _i in range(10):
         sim.run(100)
         tps = sim.tps
         if print_messages:
@@ -114,27 +111,30 @@ def make_hard_sphere_configuration(N,
     final_box = hoomd.Box.from_box(initial_box)
     final_box.volume = N / rho
     periodic = hoomd.trigger.Periodic(10)
-    compress = hoomd.hpmc.update.QuickCompress(trigger=periodic,
-                                               target_box=final_box)
+    compress = hoomd.hpmc.update.QuickCompress(trigger=periodic, target_box=final_box)
     sim.operations.updaters.append(compress)
 
-    tune = hoomd.hpmc.tune.MoveSize.scale_solver(moves=['d'],
-                                                 target=0.2,
-                                                 trigger=periodic,
-                                                 max_translation_move=0.2)
+    tune = hoomd.hpmc.tune.MoveSize.scale_solver(
+        moves=['d'], target=0.2, trigger=periodic, max_translation_move=0.2
+    )
     sim.operations.tuners.append(tune)
 
     if print_messages:
         print('.. compressing')
-    while not compress.complete and sim.timestep < 1e5:
+
+    end_step = 1e5
+    while not compress.complete and sim.timestep < end_step:
         sim.run(100)
         tps = sim.tps
         box = sim.state.box
         if print_messages:
-            progress = (math.fabs(initial_box.volume - box.volume)
-                        / math.fabs(initial_box.volume - final_box.volume))
-            print(f'.. step {sim.timestep} at {tps:0.4g} TPS: '
-                  f'progress {progress*100:0.4g}%')
+            progress = math.fabs(initial_box.volume - box.volume) / math.fabs(
+                initial_box.volume - final_box.volume
+            )
+            print(
+                f'.. step {sim.timestep} at {tps:0.4g} TPS: '
+                f'progress {progress*100:0.4g}%'
+            )
 
     if not compress.complete:
         raise RuntimeError('Compression failed to complete')

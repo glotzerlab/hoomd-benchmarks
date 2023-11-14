@@ -4,6 +4,7 @@
 """Custom trigger benchmark."""
 
 import hoomd
+
 from . import common
 from .configuration.hard_sphere import make_hard_sphere_configuration
 
@@ -25,15 +26,18 @@ class MicrobenchmarkCustomTrigger(common.ComparativeBenchmark):
     See Also:
         `common.ComparativeBenchmark`
     """
+
     SUITE_STEP_SCALE = 100
 
     def make_simulations(self):
         """Make the Simulation objects."""
-        path = make_hard_sphere_configuration(N=self.N,
-                                              rho=self.rho,
-                                              dimensions=self.dimensions,
-                                              device=self.device,
-                                              verbose=self.verbose)
+        path = make_hard_sphere_configuration(
+            N=self.N,
+            rho=self.rho,
+            dimensions=self.dimensions,
+            device=self.device,
+            verbose=self.verbose,
+        )
 
         variant = hoomd.variant.Ramp(A=0, B=1, t_start=0, t_ramp=100)
 
@@ -44,14 +48,15 @@ class MicrobenchmarkCustomTrigger(common.ComparativeBenchmark):
         sim0.operations.writers.clear()
         sim0.operations.tuners.clear()
 
-        trigger0 = hoomd.trigger.Periodic(phase=1_000_000_000,
-                                          period=1_000_000_000)
+        trigger0 = hoomd.trigger.Periodic(phase=1_000_000_000, period=1_000_000_000)
         box = sim0.state.box
-        box_resize0 = hoomd.update.BoxResize(trigger=trigger0,
-                                             box1=box,
-                                             box2=box,
-                                             variant=variant,
-                                             filter=hoomd.filter.All())
+        box_resize0 = hoomd.update.BoxResize(
+            trigger=trigger0,
+            box1=box,
+            box2=box,
+            variant=variant,
+            filter=hoomd.filter.All(),
+        )
         sim0.operations.updaters.append(box_resize0)
 
         sim1 = hoomd.Simulation(device=self.device, seed=100)
@@ -63,11 +68,13 @@ class MicrobenchmarkCustomTrigger(common.ComparativeBenchmark):
 
         trigger1 = NeverTrigger()
         box = sim1.state.box
-        box_resize1 = hoomd.update.BoxResize(trigger=trigger1,
-                                             box1=box,
-                                             box2=box,
-                                             variant=variant,
-                                             filter=hoomd.filter.All())
+        box_resize1 = hoomd.update.BoxResize(
+            trigger=trigger1,
+            box1=box,
+            box2=box,
+            variant=variant,
+            filter=hoomd.filter.All(),
+        )
         sim1.operations.updaters.append(box_resize1)
 
         return sim0, sim1
