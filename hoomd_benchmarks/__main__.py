@@ -24,6 +24,7 @@ from .microbenchmark_custom_updater import MicrobenchmarkCustomUpdater
 from .microbenchmark_empty_simulation import MicrobenchmarkEmptySimulation
 from .microbenchmark_get_snapshot import MicrobenchmarkGetSnapshot
 from .microbenchmark_set_snapshot import MicrobenchmarkSetSnapshot
+from .microbenchmark_force_array_access import MicrobenchmarkForceArrayAccess
 from .write_gsd import GSD
 from .write_gsd_log import GSDLog
 from .write_hdf5_log import HDF5Log
@@ -41,6 +42,7 @@ benchmark_classes = [
     MicrobenchmarkCustomForce,
     MicrobenchmarkGetSnapshot,
     MicrobenchmarkSetSnapshot,
+    MicrobenchmarkForceArrayAccess,
     GSD,
     GSDLog,
     HDF5Log,
