@@ -5,10 +5,9 @@
 
 import copy
 import fnmatch
-import os
-
 import hoomd
 import numpy
+import os
 import pandas
 
 from . import common
