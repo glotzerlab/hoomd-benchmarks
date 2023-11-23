@@ -3,10 +3,7 @@
 
 """Force array access benchmark."""
 
-import warnings
-
 import hoomd
-import numpy as np
 
 from . import common
 from .configuration.hard_sphere import make_hard_sphere_configuration
@@ -14,6 +11,8 @@ from .microbenchmark_custom_force import ConstantForce
 
 
 class AccessForceAction(hoomd.custom.Action):
+    """An action to access the per-particle force arrays."""
+
     def __init__(self, force=None):
         self._force = force
 
@@ -21,18 +20,19 @@ class AccessForceAction(hoomd.custom.Action):
         """Access the forces arrays but do nothing with them."""
         if self._force is None:
             return
-        forces = self._force.forces
-        energies = self._force.energies
-        torques = self._force.torques
-        virials = self._force.virials
+        forces = self._force.forces  # noqa: F841
+        energies = self._force.energies  # noqa: F841
+        torques = self._force.torques  # noqa: F841
+        virials = self._force.virials  # noqa: F841
+
 
 class MicrobenchmarkForceArrayAccess(common.ComparativeBenchmark):
     """Measure the overhead of accessing the force arrays.
 
     Add an AccessForceAction object to both simulations, but only populate one
     of them with a Force object. Then the only difference in the performance
-    between the two simulations will the caused by accessing the arrays 
-    associated with the Force object.
+    between the two simulations will caused by accessing the arrays associated
+    with the Force object.
     """
 
     def make_simulations(self):
@@ -75,7 +75,8 @@ class MicrobenchmarkForceArrayAccess(common.ComparativeBenchmark):
         sim1.operations.integrator.forces.append(constant_custom_force_sim1)
         # do add force to writer in sim1
         sim1.operations.add(
-            hoomd.write.CustomWriter(1, AccessForceAction(constant_custom_force_sim1)))
+            hoomd.write.CustomWriter(1, AccessForceAction(constant_custom_force_sim1))
+        )
 
         return sim0, sim1
 
