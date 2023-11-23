@@ -5,9 +5,10 @@
 
 import copy
 import fnmatch
+import os
+
 import hoomd
 import numpy
-import os
 import pandas
 
 from . import common
@@ -21,9 +22,9 @@ from .microbenchmark_custom_force import MicrobenchmarkCustomForce
 from .microbenchmark_custom_trigger import MicrobenchmarkCustomTrigger
 from .microbenchmark_custom_updater import MicrobenchmarkCustomUpdater
 from .microbenchmark_empty_simulation import MicrobenchmarkEmptySimulation
+from .microbenchmark_force_array_access import MicrobenchmarkForceArrayAccess
 from .microbenchmark_get_snapshot import MicrobenchmarkGetSnapshot
 from .microbenchmark_set_snapshot import MicrobenchmarkSetSnapshot
-from .microbenchmark_force_array_access import MicrobenchmarkForceArrayAccess
 from .write_gsd import GSD
 from .write_gsd_log import GSDLog
 from .write_hdf5_log import HDF5Log
