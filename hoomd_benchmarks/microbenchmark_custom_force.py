@@ -31,13 +31,17 @@ class ConstantForce(hoomd.md.force.Custom):
         self._local_snapshot_str = device_str + '_local_snapshot'
 
     def _to_array(self, list_data):
-        if isinstance(self._device, hoomd.device.CPU):
+        if isinstance(self._device, hoomd.device.CPU) or not CUPY_IMPORTED:
             return np.array(list_data)
 
         return cp.array(list_data)
 
     def set_forces(self, timestep):
         """Set the forces."""
+        # handle the case where cupy is not imported on the GPU
+        if not CUPY_IMPORTED and isinstance(self._device, hoomd.device.GPU):
+            return
+
         with getattr(self, self._local_force_str) as arrays, getattr(
             self._state, self._local_snapshot_str
         ) as snap:
