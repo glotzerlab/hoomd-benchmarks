@@ -35,6 +35,8 @@ class MicrobenchmarkForceArrayAccess(common.ComparativeBenchmark):
     with the Force object.
     """
 
+    SUITE_STEP_SCALE = 0.01
+
     def make_simulations(self):
         """Make the simulation objects."""
         path = make_hard_sphere_configuration(
