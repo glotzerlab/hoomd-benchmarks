@@ -5,15 +5,15 @@
 
 import hoomd
 
-from . import common
+from . import hpmc_base
 from .configuration.hard_sphere import make_hard_sphere_configuration
 
 
-class HPMCSphere(common.Benchmark):
+class HPMCSphere(hpmc_base.HPMCBenchmark):
     """Hard particle Monte Carlo sphere benchmark.
 
     See Also:
-        `common.Benchmark`
+        `hpmc_base.HPMCBenchmark`
     """
 
     def make_simulation(self):
