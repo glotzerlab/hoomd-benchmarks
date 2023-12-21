@@ -15,13 +15,13 @@ class HPMCPairLJ(hpmc_pair.HPMCPair):
         `hpmc_pair.HPMCPair`
     """
 
-    pair_class = getattr(hoomd.hpmc.pair, 'LennardJones', None)
-    pair_params = dict(epsilon=1, sigma=1, r_cut=2.5)
     r_cut = 2.5
+    pair_class = getattr(hoomd.hpmc.pair, 'LennardJones', None)
+    pair_params = dict(epsilon=1, sigma=1, r_cut=r_cut, mode='shift')
 
     code = """
             float rsq = dot(r_ij, r_ij);
-            float r_cut = 2.5;
+            float r_cut = {{ self.r_cut }};
             float r_cutsq = r_cut * r_cut;
 
             if (rsq >= r_cutsq)
