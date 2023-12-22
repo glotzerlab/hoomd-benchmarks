@@ -55,7 +55,7 @@ class HPMCPair(hpmc_base.HPMCBenchmark):
         integrator = hoomd.hpmc.integrate.Sphere(default_d=0.18)
         integrator.shape['A'] = dict(diameter=0)
 
-        sim = hoomd.Simulation(device=self.device)
+        sim = hoomd.Simulation(device=self.device, seed=10)
         sim.create_state_from_gsd(filename=str(path))
 
         if self.mode == 'compiled':
@@ -73,3 +73,16 @@ class HPMCPair(hpmc_base.HPMCBenchmark):
         sim.operations.integrator = integrator
 
         return sim
+
+    @classmethod
+    def runs_on_device(cls, device):
+        """Returns True when the benchmark can be run on the given device."""
+        if isinstance(device, hoomd.device.GPU):
+            return False
+
+        if cls.pair_class is None:
+            # Skip this benchmark on HOOMD releases that lack the needed pair
+            # potential.
+            return False
+
+        return True

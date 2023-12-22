@@ -205,6 +205,11 @@ class Benchmark:
         return parser
 
     @classmethod
+    def runs_on_device(cls, device):
+        """Returns True when the benchmark can be run on the given device."""
+        return True
+
+    @classmethod
     def main(cls):
         """Implement the command line entrypoint for benchmarks."""
         parser = cls.make_argument_parser()

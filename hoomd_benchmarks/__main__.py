@@ -13,6 +13,8 @@ import pandas
 
 from . import common
 from .hpmc_sphere import HPMCSphere
+from .hpmc_octahedron import HPMCOctahedron
+from .hpmc_pair_lj import HPMCPairLJ
 from .md_pair_lj import MDPairLJ
 from .md_pair_opp import MDPairOPP
 from .md_pair_table import MDPairTable
@@ -31,6 +33,8 @@ from .write_hdf5_log import HDF5Log
 
 benchmark_classes = [
     HPMCSphere,
+    HPMCOctahedron,
+    HPMCPairLJ,
     MDPairLJ,
     MDPairOPP,
     MDPairTable,
@@ -74,7 +78,9 @@ benchmark_args_ref = copy.deepcopy(vars(args))
 del benchmark_args_ref['benchmarks']
 del benchmark_args_ref['output']
 del benchmark_args_ref['name']
-benchmark_args_ref['device'] = common.make_hoomd_device(args)
+
+device = common.make_hoomd_device(args)
+benchmark_args_ref['device'] = device
 
 performance = {}
 
@@ -85,7 +91,7 @@ for benchmark_class in benchmark_classes:
     benchmark_args['benchmark_steps'] *= benchmark_class.SUITE_STEP_SCALE
 
     name = benchmark_class.__name__
-    if fnmatch.fnmatch(name, args.benchmarks):
+    if fnmatch.fnmatch(name, args.benchmarks) and benchmark_class.runs_on_device(device):
         benchmark = benchmark_class(**benchmark_args)
         performance[name] = benchmark.execute()
 
