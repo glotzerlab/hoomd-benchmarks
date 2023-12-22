@@ -115,5 +115,6 @@ class MicrobenchmarkCustomForce(common.ComparativeBenchmark):
 
         return True
 
+
 if __name__ == '__main__':
     MicrobenchmarkCustomForce.main()

@@ -44,5 +44,6 @@ class HPMCOctahedron(hpmc_base.HPMCBenchmark):
 
         return sim
 
+
 if __name__ == '__main__':
     HPMCOctahedron.main()

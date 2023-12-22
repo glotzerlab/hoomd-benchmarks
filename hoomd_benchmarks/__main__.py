@@ -12,9 +12,9 @@ import numpy
 import pandas
 
 from . import common
-from .hpmc_sphere import HPMCSphere
 from .hpmc_octahedron import HPMCOctahedron
 from .hpmc_pair_lj import HPMCPairLJ
+from .hpmc_sphere import HPMCSphere
 from .md_pair_lj import MDPairLJ
 from .md_pair_opp import MDPairOPP
 from .md_pair_table import MDPairTable
@@ -91,7 +91,9 @@ for benchmark_class in benchmark_classes:
     benchmark_args['benchmark_steps'] *= benchmark_class.SUITE_STEP_SCALE
 
     name = benchmark_class.__name__
-    if fnmatch.fnmatch(name, args.benchmarks) and benchmark_class.runs_on_device(device):
+    if fnmatch.fnmatch(name, args.benchmarks) and benchmark_class.runs_on_device(
+        device
+    ):
         benchmark = benchmark_class(**benchmark_args)
         performance[name] = benchmark.execute()
 
