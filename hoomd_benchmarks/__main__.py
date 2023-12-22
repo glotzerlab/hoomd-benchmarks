@@ -110,7 +110,7 @@ if args.output is not None and benchmark_args['device'].communicator.rank == 0:
 
     if os.path.isfile(args.output):
         df_old = pandas.read_csv(args.output, index_col=0)
-        df = df_old.join(df)
+        df = df_old.join(df, how='outer')
 
     with open(args.output, 'w') as f:
         f.write(df.to_csv())
