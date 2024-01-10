@@ -7,3 +7,5 @@ __pycache__
 *.gsd
 *.csv
 *.h5
+perf.data*
+.gdb_history

@@ -1,7 +1,7 @@
 # Copyright (c) 2021-2023 The Regents of the University of Michigan
 # Part of HOOMD-blue, released under the BSD 3-Clause License.
 
-"""Hard sphere Monte Carlo benchmark."""
+"""Hard octahedron Monte Carlo benchmark."""
 
 import hoomd
 
@@ -9,8 +9,8 @@ from . import hpmc_base
 from .configuration.hard_sphere import make_hard_sphere_configuration
 
 
-class HPMCSphere(hpmc_base.HPMCBenchmark):
-    """Hard particle Monte Carlo sphere benchmark.
+class HPMCOctahedron(hpmc_base.HPMCBenchmark):
+    """Hard particle Monte Carlo octahedron benchmark.
 
     See Also:
         `hpmc_base.HPMCBenchmark`
@@ -26,26 +26,24 @@ class HPMCSphere(hpmc_base.HPMCBenchmark):
             verbose=self.verbose,
         )
 
-        mc = hoomd.hpmc.integrate.Sphere()
-        mc.shape['A'] = dict(diameter=1.0)
+        mc = hoomd.hpmc.integrate.ConvexPolyhedron()
+        mc.shape['A'] = dict(
+            vertices=[
+                (-0.5, 0, 0),
+                (0.5, 0, 0),
+                (0, -0.5, 0),
+                (0, 0.5, 0),
+                (0, 0, -0.5),
+                (0, 0, 0.5),
+            ]
+        )
 
         sim = hoomd.Simulation(device=self.device, seed=100)
         sim.create_state_from_gsd(filename=str(path))
         sim.operations.integrator = mc
 
-        self.units = 'trial moves per second per particle'
-
         return sim
-
-    def get_performance(self):
-        """Get the benchmark performance."""
-        mc = self.sim.operations.integrator
-        return (
-            (sum(mc.translate_moves) + sum(mc.rotate_moves))
-            / self.sim.walltime
-            / self.sim.state.N_particles
-        )
 
 
 if __name__ == '__main__':
-    HPMCSphere.main()
+    HPMCOctahedron.main()

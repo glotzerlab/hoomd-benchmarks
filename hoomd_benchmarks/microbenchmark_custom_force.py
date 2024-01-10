@@ -106,6 +106,15 @@ class MicrobenchmarkCustomForce(common.ComparativeBenchmark):
 
         return sim0, sim1
 
+    @classmethod
+    def runs_on_device(cls, device):
+        """Returns True when the benchmark can be run on the given device."""
+        if isinstance(device, hoomd.device.GPU) and not CUPY_IMPORTED:
+            # cupy is required to run this device on the GPU
+            return False
+
+        return True
+
 
 if __name__ == '__main__':
     MicrobenchmarkCustomForce.main()
