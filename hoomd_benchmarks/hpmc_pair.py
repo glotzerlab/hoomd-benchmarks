@@ -27,6 +27,8 @@ class HPMCPair(hpmc_base.HPMCBenchmark):
         `common.Benchmark`
     """
 
+    pair_class_args = {}
+
     def __init__(
         self,
         mode=DEFAULT_MODE,
@@ -59,7 +61,7 @@ class HPMCPair(hpmc_base.HPMCBenchmark):
         sim.create_state_from_gsd(filename=str(path))
 
         if self.mode == 'compiled':
-            pair = self.pair_class()
+            pair = self.pair_class(**self.pair_class_args)
             pair.params[('A', 'A')] = self.pair_params
             integrator.pair_potentials = [pair]
         elif self.mode == 'code':

@@ -17,7 +17,8 @@ class HPMCPairLJ(hpmc_pair.HPMCPair):
 
     r_cut = 2.5
     pair_class = getattr(hoomd.hpmc.pair, 'LennardJones', None)
-    pair_params = dict(epsilon=1, sigma=1, r_cut=r_cut, mode='shift')
+    pair_class_args = {'mode': 'shift'}
+    pair_params = dict(epsilon=1, sigma=1, r_cut=r_cut)
 
     code = """
             float rsq = dot(r_ij, r_ij);
