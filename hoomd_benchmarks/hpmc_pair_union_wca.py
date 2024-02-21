@@ -6,7 +6,7 @@
 import hoomd
 import numpy
 
-from . import hpmc_base, common
+from . import common, hpmc_base
 from .configuration.hard_sphere import make_hard_sphere_configuration
 
 DEFAULT_MODE = 'compiled'
@@ -24,7 +24,6 @@ class HPMCPairUnionWCA(hpmc_base.HPMCBenchmark):
         grid=DEFAULT_GRID,
         **kwargs,
     ):
-
         self.mode = mode
         self.leaf_capacity = leaf_capacity
         self.grid = grid
@@ -35,8 +34,18 @@ class HPMCPairUnionWCA(hpmc_base.HPMCBenchmark):
         """Make an ArgumentParser instance for benchmark options."""
         parser = common.Benchmark.make_argument_parser()
         parser.add_argument('--mode', default=DEFAULT_MODE, help='Compute mode.')
-        parser.add_argument('--leaf-capacity', default=DEFAULT_LEAF_CAPACITY, help='Leaf capacity.', type=int)
-        parser.add_argument('--grid', default=DEFAULT_GRID, help='Number of grid points along an edge.', type=int)
+        parser.add_argument(
+            '--leaf-capacity',
+            default=DEFAULT_LEAF_CAPACITY,
+            help='Leaf capacity.',
+            type=int,
+        )
+        parser.add_argument(
+            '--grid',
+            default=DEFAULT_GRID,
+            help='Number of grid points along an edge.',
+            type=int,
+        )
         return parser
 
     @classmethod
@@ -70,7 +79,7 @@ class HPMCPairUnionWCA(hpmc_base.HPMCBenchmark):
         sim.create_state_from_gsd(filename=str(path))
 
         sigma = 0.1
-        r_cut = 2**(1/6) * sigma
+        r_cut = 2 ** (1 / 6) * sigma
         points = numpy.linspace(start=-0.5, stop=0.5, num=self.grid)
         positions = []
         positions.extend([(x, 0, 0) for x in points])
@@ -79,10 +88,14 @@ class HPMCPairUnionWCA(hpmc_base.HPMCBenchmark):
 
         if self.mode == 'compiled':
             lennard_jones = hoomd.hpmc.pair.LennardJones()
-            lennard_jones.params[("A", "A")] = dict(epsilon=1.0, sigma=sigma, r_cut=r_cut)
+            lennard_jones.params[('A', 'A')] = dict(
+                epsilon=1.0, sigma=sigma, r_cut=r_cut
+            )
             lennard_jones.mode = 'shift'
 
-            pair = hoomd.hpmc.pair.Union(constituent_potential=lennard_jones, leaf_capacity=self.leaf_capacity)
+            pair = hoomd.hpmc.pair.Union(
+                constituent_potential=lennard_jones, leaf_capacity=self.leaf_capacity
+            )
             pair.body['A'] = dict(positions=positions, types=['A'] * len(positions))
 
             integrator.pair_potentials = [pair]
@@ -112,10 +125,10 @@ class HPMCPairUnionWCA(hpmc_base.HPMCBenchmark):
                 param_array_isotropic=[],
             )
 
-            patch.leaf_capacity=min(self.leaf_capacity, 1)
+            patch.leaf_capacity = min(self.leaf_capacity, 1)
 
             patch.positions['A'] = positions
-            patch.orientations['A'] = [(1,0,0,0)] * len(positions)
+            patch.orientations['A'] = [(1, 0, 0, 0)] * len(positions)
             patch.charges['A'] = [0] * len(positions)
             patch.diameters['A'] = [0] * len(positions)
             patch.typeids['A'] = [0] * len(positions)
