@@ -14,6 +14,7 @@ import pandas
 from . import common
 from .hpmc_octahedron import HPMCOctahedron
 from .hpmc_pair_lj import HPMCPairLJ
+from .hpmc_pair_union_wca import HPMCPairUnionWCA
 from .hpmc_sphere import HPMCSphere
 from .md_pair_lj import MDPairLJ
 from .md_pair_opp import MDPairOPP
@@ -35,6 +36,7 @@ benchmark_classes = [
     HPMCSphere,
     HPMCOctahedron,
     HPMCPairLJ,
+    HPMCPairUnionWCA,
     MDPairLJ,
     MDPairOPP,
     MDPairTable,
