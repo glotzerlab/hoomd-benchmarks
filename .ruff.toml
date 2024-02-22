@@ -1,5 +1,7 @@
 target-version = "py38"
 
+[lint]
+
 extend-select = [
     "A",
     "B",
@@ -21,7 +23,7 @@ ignore = [
   "PLR09", # Allow "too many" statements/arguments/etc...
 ]
 
-[pydocstyle]
+[lint.pydocstyle]
 convention = "google"
 
 [format]
