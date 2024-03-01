@@ -15,12 +15,13 @@ class HPMCPairStep(hpmc_pair.HPMCPair):
         `hpmc_pair.HPMCPair`
     """
 
+    r_cut = 1.5
     pair_class = getattr(hoomd.hpmc.pair, 'Step', None)
-    pair_params = dict(epsilon=[-0.2], r=[1.5])
+    pair_params = dict(epsilon=[-0.2], r=[r_cut])
 
-    code = """
+    code = f"""
             float rsq = dot(r_ij, r_ij);
-            float r_cut = 1.5;
+            float r_cut = { r_cut };
             float r_cutsq = r_cut * r_cut;
 
             if (rsq >= r_cutsq)

@@ -20,9 +20,9 @@ class HPMCPairLJ(hpmc_pair.HPMCPair):
     pair_class_args = {'mode': 'shift'}
     pair_params = dict(epsilon=1, sigma=1, r_cut=r_cut)
 
-    code = """
+    code = f"""
             float rsq = dot(r_ij, r_ij);
-            float r_cut = {{ r_cut }};
+            float r_cut = { r_cut };
             float r_cutsq = r_cut * r_cut;
 
             if (rsq >= r_cutsq)
