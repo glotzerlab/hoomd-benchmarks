@@ -16,6 +16,7 @@ class HPMCPairStep(hpmc_pair.HPMCPair):
     """
 
     r_cut = 1.5
+    diameter = 1.0
     pair_class = getattr(hoomd.hpmc.pair, 'Step', None)
     pair_params = dict(epsilon=[-0.2], r=[r_cut])
 
