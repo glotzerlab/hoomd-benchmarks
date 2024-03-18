@@ -53,7 +53,7 @@ class HPMCPairKernFrenkel(hpmc_pair.HPMCPair):
             square_well.params[('A', 'A')] = dict(epsilon=[-0.2], r=[self.r_cut])
 
             pair = self.pair_class(isotropic_potential=square_well)
-            pair.patch['A'] = dict(directors=[(0, 0, 1)], deltas=[0.5])
+            pair.mask['A'] = dict(directors=[(0, 0, 1)], deltas=[0.5])
             integrator.pair_potentials = [pair]
         elif self.mode == 'code':
             patch = hoomd.hpmc.pair.user.CPPPotential(
