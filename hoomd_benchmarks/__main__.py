@@ -13,6 +13,7 @@ import pandas
 
 from . import common
 from .hpmc_octahedron import HPMCOctahedron
+from .hpmc_pair_kern_frenkel import HPMCPairKernFrenkel
 from .hpmc_pair_lj import HPMCPairLJ
 from .hpmc_pair_step import HPMCPairStep
 from .hpmc_pair_union_wca import HPMCPairUnionWCA
@@ -38,6 +39,7 @@ benchmark_classes = [
     HPMCOctahedron,
     HPMCPairLJ,
     HPMCPairStep,
+    HPMCPairKernFrenkel,
     HPMCPairUnionWCA,
     MDPairLJ,
     MDPairOPP,
