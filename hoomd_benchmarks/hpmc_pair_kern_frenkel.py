@@ -20,16 +20,23 @@ class HPMCPairKernFrenkel(hpmc_pair.HPMCPair):
     diameter = 1.0
     pair_class = getattr(hoomd.hpmc.pair, 'AngularStep', None)
 
-    # TODO: Update code.
     code = f"""
+            const vec3<float> director(1, 0, 0);
+            vec3<float> director_i = rotate(q_i, director);
+            vec3<float> director_j = rotate(q_j, director);
+
+            vec3<float> r_hat_ij = r_ij / sqrtf(dot(r_ij, r_ij));
+            bool patch_on_i_is_aligned = dot(director_i, r_hat_ij) >= cos(0.5);
+            bool patch_on_j_is_aligned = dot(director_j, -r_hat_ij) >= cos(0.5);
+
             float rsq = dot(r_ij, r_ij);
             float r_cut = { r_cut };
             float r_cutsq = r_cut * r_cut;
 
-            if (rsq >= r_cutsq)
-                return 0.0f;
+            if (patch_on_i_is_aligned && patch_on_j_is_aligned && rsq < r_cutsq)
+                return -0.2f;
 
-            return -0.2;
+            return 0.0f;
             """
 
     def make_simulation(self):
