@@ -55,7 +55,7 @@ class HPMCPair(hpmc_base.HPMCBenchmark):
         )
 
         integrator = hoomd.hpmc.integrate.Sphere(default_d=0.18)
-        integrator.shape['A'] = dict(diameter=0)
+        integrator.shape['A'] = dict(diameter=self.diameter)
 
         sim = hoomd.Simulation(device=self.device, seed=10)
         sim.create_state_from_gsd(filename=str(path))
