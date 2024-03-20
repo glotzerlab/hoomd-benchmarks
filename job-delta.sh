@@ -9,7 +9,7 @@
 #SBATCH --gpus-per-node=1
 #SBATCH --partition=gpuA100x4
 #SBATCH --mem-per-cpu=4000m
-#SBATCH --time=2:00:00
+#SBATCH --time=6:00:00
 #SBATCH --account=bbgw-delta-gpu
 #SBATCH --constraint="scratch"
 
