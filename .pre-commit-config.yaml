@@ -27,7 +27,7 @@ repos:
     - --add=Part of HOOMD-blue, released under the BSD 3-Clause License.
     - --keep-before=#!
 - repo: https://github.com/astral-sh/ruff-pre-commit
-  rev: v0.2.2
+  rev: v0.3.4
   hooks:
     - id: ruff-format
     - id: ruff
