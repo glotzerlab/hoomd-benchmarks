@@ -17,6 +17,8 @@ DEFAULT_GRID = 4
 class HPMCPairUnionWCA(hpmc_base.HPMCBenchmark):
     """Test performance of HPMC union potentials."""
 
+    SUITE_STEP_SCALE = 0.1
+
     def __init__(
         self,
         mode=DEFAULT_MODE,

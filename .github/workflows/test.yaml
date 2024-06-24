@@ -5,25 +5,18 @@ concurrency:
   cancel-in-progress: true
 
 on:
-  # Trigger on pull requests.
   pull_request:
 
-  # Trigger on pushes to the mainline branches. This prevents building commits twice when the pull
-  # request source branch is in the same repository.
   push:
     branches:
       - "trunk"
 
-  # Trigger on request.
   workflow_dispatch:
 
 jobs:
   execute_benchmarks:
     name: Execute benchmarks
-    runs-on: ubuntu-latest
-    container:
-      image: glotzerlab/software:nompi
-      options: -u 0
+    runs-on: ubuntu-24.04
     env:
       benchmark_options: >
         --device CPU
@@ -32,11 +25,23 @@ jobs:
         --warmup_steps 1000
         --benchmark_steps 1000
     steps:
-    - uses: actions/checkout@v4.1.6
+    - name: Checkout
+      uses: actions/checkout@a5ac7e51b41094c92402da3b24376905380afc29 # v4.1.6
+    - name: Create Python Environment
+      uses: mamba-org/setup-micromamba@f8b8a1e23a26f60a44c853292711bacfd3eac822 # v1.9.0
+      with:
+        micromamba-version: '1.5.8-0'
+        environment-name: test
+        environment-file: .github/workflows/environments/py312-conda-lock.yml
+        micromamba-root-path: ${{ github.workspace }}/micromamba
+
+    - name: Configure conda environment variables
+      run: |
+        echo "$MAMBA_ROOT_PREFIX/envs/test/bin" >> $GITHUB_PATH
     - name: List benchmarks
       run: ls **/*.py
     - name: Cache configurations
-      uses: actions/cache@v4.0.2
+      uses: actions/cache@0c45773b623bea8c8e75f6c82b208c3cf94ea4f9 # v4.0.2
       with:
         path: initial_configuration_cache
         key: ${{ env.benchmark_options }}

@@ -16,6 +16,8 @@ class HPMCPairKernFrenkel(hpmc_pair.HPMCPair):
         `hpmc_pair.HPMCPair`
     """
 
+    SUITE_STEP_SCALE = 0.1
+
     r_cut = 1.5
     diameter = 1.0
     pair_class = getattr(hoomd.hpmc.pair, 'AngularStep', None)
