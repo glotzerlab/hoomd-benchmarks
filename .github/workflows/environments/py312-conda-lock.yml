@@ -13,7 +13,7 @@
 version: 1
 metadata:
   content_hash:
-    linux-64: 4bb950b6c83697290174830582f5db1bbfeb1bdf196bb8a4c9ad1c44f0baecc8
+    linux-64: 56e380eaf9601a77a7ebd73d27f7acdd384e36b70c709604294f42cac0293e79
   channels:
   - url: conda-forge
     used_env_vars: []
@@ -392,6 +392,25 @@ package:
     sha256: 9691f8bd6394c5bb0b8d2f47cd1467b91bd5b1df923b69e6b517f54496ee4b50
   category: main
   optional: false
+- name: pandas
+  version: 2.2.2
+  manager: conda
+  platform: linux-64
+  dependencies:
+    libgcc-ng: '>=12'
+    libstdcxx-ng: '>=12'
+    numpy: '>=1.19,<3'
+    python: '>=3.12,<3.13.0a0'
+    python-dateutil: '>=2.8.1'
+    python-tzdata: '>=2022a'
+    python_abi: 3.12.*
+    pytz: '>=2020.1'
+  url: https://conda.anaconda.org/conda-forge/linux-64/pandas-2.2.2-py312h1d6d2e6_1.conda
+  hash:
+    md5: ae00b61f3000d2284d1f2584d4dfafa8
+    sha256: 80fd53b68aa89b929d03874b99621ec8cc6a12629bd8bfbdca87a95f8852af96
+  category: main
+  optional: false
 - name: pybind11-abi
   version: '4'
   manager: conda
@@ -430,6 +449,31 @@ package:
     sha256: 97a78631e6c928bf7ad78d52f7f070fcf3bd37619fa48dc4394c21cf3058cdee
   category: main
   optional: false
+- name: python-dateutil
+  version: 2.9.0
+  manager: conda
+  platform: linux-64
+  dependencies:
+    python: '>=3.7'
+    six: '>=1.5'
+  url: https://conda.anaconda.org/conda-forge/noarch/python-dateutil-2.9.0-pyhd8ed1ab_0.conda
+  hash:
+    md5: 2cf4264fffb9e6eff6031c5b6884d61c
+    sha256: f3ceef02ac164a8d3a080d0d32f8e2ebe10dd29e3a685d240e38b3599e146320
+  category: main
+  optional: false
+- name: python-tzdata
+  version: '2024.1'
+  manager: conda
+  platform: linux-64
+  dependencies:
+    python: '>=3.6'
+  url: https://conda.anaconda.org/conda-forge/noarch/python-tzdata-2024.1-pyhd8ed1ab_0.conda
+  hash:
+    md5: 98206ea9954216ee7540f0c773f2104d
+    sha256: 9da9a849d53705dee450b83507df1ca8ffea5f83bd21a215202221f1c492f8ad
+  category: main
+  optional: false
 - name: python_abi
   version: '3.12'
   manager: conda
@@ -439,6 +483,18 @@ package:
   hash:
     md5: dccc2d142812964fcc6abdc97b672dff
     sha256: 182a329de10a4165f6e8a3804caf751f918f6ea6176dd4e5abcdae1ed3095bf6
+  category: main
+  optional: false
+- name: pytz
+  version: '2024.1'
+  manager: conda
+  platform: linux-64
+  dependencies:
+    python: '>=3.7'
+  url: https://conda.anaconda.org/conda-forge/noarch/pytz-2024.1-pyhd8ed1ab_0.conda
+  hash:
+    md5: 3eeeeb9e4827ace8c0c1419c85d590ad
+    sha256: 1a7d6b233f7e6e3bbcbad054c8fd51e690a67b129a899a056a5e45dd9f00cb41
   category: main
   optional: false
 - name: readline
@@ -452,6 +508,18 @@ package:
   hash:
     md5: 47d31b792659ce70f470b5c82fdfb7a4
     sha256: 5435cf39d039387fbdc977b0a762357ea909a7694d9528ab40f005e9208744d7
+  category: main
+  optional: false
+- name: six
+  version: 1.16.0
+  manager: conda
+  platform: linux-64
+  dependencies:
+    python: ''
+  url: https://conda.anaconda.org/conda-forge/noarch/six-1.16.0-pyh6c4a22f_0.tar.bz2
+  hash:
+    md5: e5f25f8dbc060e9a8d912e432202afc2
+    sha256: a85c38227b446f42c5b90d9b642f2c0567880c15d72492d8da074a59c8f91dd6
   category: main
   optional: false
 - name: tbb
