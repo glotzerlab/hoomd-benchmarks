@@ -1,0 +1,5 @@
+channels:
+- conda-forge
+dependencies:
+- hoomd
+- python==3.12
