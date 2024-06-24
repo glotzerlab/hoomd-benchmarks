@@ -13,7 +13,7 @@
 version: 1
 metadata:
   content_hash:
-    linux-64: 56e380eaf9601a77a7ebd73d27f7acdd384e36b70c709604294f42cac0293e79
+    linux-64: e510592010d4e542400e1610f686613a68eefd06b80e91a891b29e9692eb5324
   channels:
   - url: conda-forge
     used_env_vars: []
@@ -67,6 +67,21 @@ package:
   hash:
     md5: 847c3c2905cc467cea52c24f9cfa8080
     sha256: 979af0932b2a5a26112044891a2d79e402e5ae8166f50fa48b8ebae47c0a2d65
+  category: main
+  optional: false
+- name: gsd
+  version: 3.3.0
+  manager: conda
+  platform: linux-64
+  dependencies:
+    libgcc-ng: '>=12'
+    numpy: '>=1.19,<3'
+    python: '>=3.12,<3.13.0a0'
+    python_abi: 3.12.*
+  url: https://conda.anaconda.org/conda-forge/linux-64/gsd-3.3.0-py312h085067d_0.conda
+  hash:
+    md5: 797d6a6c48a43ac92f8d2e7b302734d6
+    sha256: 6572d75e9239dd2b6d280b3f4c87e2ad1c0eb178b951fec0eef3036b3e6ab016
   category: main
   optional: false
 - name: hoomd

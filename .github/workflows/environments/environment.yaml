@@ -1,6 +1,7 @@
 channels:
 - conda-forge
 dependencies:
+- gsd
 - hoomd
 - pandas
 - python==3.12
