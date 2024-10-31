@@ -11,25 +11,14 @@
 #SBATCH --mem-per-cpu=4000m
 #SBATCH --time=6:00:00
 #SBATCH --account=bbgw-delta-gpu
-#SBATCH --constraint="scratch"
-
-export RELEASES_DIR=/scratch/bbgw/joshuaan/hoomd-releases
 
 cd $HOME/devel/hoomd-benchmarks
-source $HOME/hoomd-dev-env.sh
+module load openmpi/4.1.6 cuda/12.3.0
 
-rm gpu.csv
+source /projects/bbgw/software/micromamba-configuration.sh
+micromamba activate software
+export LD_PRELOAD=$MAMBA_ROOT_PREFIX/envs/software/lib/libstdc++.so
 
-for version in $(ls ${RELEASES_DIR})
-do
-    export PYTHONPATH=${RELEASES_DIR}/${version}
-    srun -n 1 python3 -u -m hoomd_benchmarks --device GPU --output gpu.csv --name "${version}" --repeat 20 -v
-done
-
-rm cpu.csv
-
-for version in $(ls ${RELEASES_DIR})
-do
-    export PYTHONPATH=${RELEASES_DIR}/${version}
-    srun -n 16 python3 -u -m hoomd_benchmarks --device CPU --output cpu.csv --name "${version}" --repeat 10 -v
-done
+version=$(python -c "import hoomd; print(hoomd.version.version)")
+srun -n 1 python3 -u -m hoomd_benchmarks --device GPU --output gpu.csv --name "${version}" --repeat 20 -v
+srun -n 16 python3 -u -m hoomd_benchmarks --device CPU --output cpu.csv --name "${version}" --repeat 10 -v
