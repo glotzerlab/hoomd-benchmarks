@@ -50,11 +50,10 @@ class MicrobenchmarkCustomTrigger(common.ComparativeBenchmark):
 
         trigger0 = hoomd.trigger.Periodic(phase=1_000_000_000, period=1_000_000_000)
         box = sim0.state.box
+        box_variant = hoomd.variant.box.Interpolate(box, box, variant)
         box_resize0 = hoomd.update.BoxResize(
             trigger=trigger0,
-            box1=box,
-            box2=box,
-            variant=variant,
+            box=box_variant,
             filter=hoomd.filter.All(),
         )
         sim0.operations.updaters.append(box_resize0)
