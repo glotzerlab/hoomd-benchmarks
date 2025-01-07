@@ -44,9 +44,8 @@ class MicrobenchmarkBoxResize(common.Benchmark):
             t_start=sim.timestep,
             t_ramp=self.warmup_steps * 10 + self.repeat * self.benchmark_steps,
         )
-        box_resize = hoomd.update.BoxResize(
-            box1=initial_box, box2=final_box, variant=ramp, trigger=box_resize_trigger
-        )
+        box_variant = hoomd.variant.box.Interpolate(initial_box, final_box, ramp)
+        box_resize = hoomd.update.BoxResize(box=box_variant, trigger=box_resize_trigger)
         sim.operations.updaters.append(box_resize)
 
         return sim

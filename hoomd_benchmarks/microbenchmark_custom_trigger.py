@@ -68,11 +68,10 @@ class MicrobenchmarkCustomTrigger(common.ComparativeBenchmark):
 
         trigger1 = NeverTrigger()
         box = sim1.state.box
+        box_variant = hoomd.variant.box.Interpolate(box, box, variant)
         box_resize1 = hoomd.update.BoxResize(
             trigger=trigger1,
-            box1=box,
-            box2=box,
-            variant=variant,
+            box=box_variant,
             filter=hoomd.filter.All(),
         )
         sim1.operations.updaters.append(box_resize1)
