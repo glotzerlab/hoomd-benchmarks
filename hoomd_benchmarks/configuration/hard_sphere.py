@@ -45,14 +45,14 @@ def make_hard_sphere_configuration(N, rho, dimensions, device, verbose, n_types=
 
         # add types to the file
         if device.communicator.rank == 0:
-            with gsd.hoomd.open(one_type_path, mode='rb') as one_type_gsd:
+            with gsd.hoomd.open(one_type_path, mode='r') as one_type_gsd:
                 snapshot = one_type_gsd[0]
                 snapshot.particles.types = [str(i) for i in range(0, n_types)]
                 snapshot.particles.typeid = [
                     i % n_types for i in range(0, snapshot.particles.N)
                 ]
 
-                with gsd.hoomd.open(file_path, mode='wb') as n_types_gsd:
+                with gsd.hoomd.open(file_path, mode='w') as n_types_gsd:
                     n_types_gsd.append(snapshot)
 
         return file_path
