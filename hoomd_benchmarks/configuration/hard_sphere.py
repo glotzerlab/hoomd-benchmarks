@@ -133,7 +133,7 @@ def make_hard_sphere_configuration(N, rho, dimensions, device, verbose, n_types=
             )
             print(
                 f'.. step {sim.timestep} at {tps:0.4g} TPS: '
-                f'progress {progress*100:0.4g}%'
+                f'progress {progress * 100:0.4g}%'
             )
 
     if not compress.complete:

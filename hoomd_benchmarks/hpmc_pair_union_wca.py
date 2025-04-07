@@ -104,13 +104,13 @@ class HPMCPairUnionWCA(hpmc_base.HPMCBenchmark):
         elif self.mode == 'code':
             code_wca = f"""
                     float rsq = dot(r_ij, r_ij);
-                    float r_cut = { r_cut };
+                    float r_cut = {r_cut};
                     float r_cutsq = r_cut * r_cut;
 
                     if (rsq >= r_cutsq)
                         return 0.0f;
 
-                    float sigma = { sigma };
+                    float sigma = {sigma};
                     float sigsq = sigma * sigma;
                     float rsqinv = sigsq / rsq;
                     float r6inv = rsqinv * rsqinv * rsqinv;

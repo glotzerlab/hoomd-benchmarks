@@ -22,7 +22,7 @@ class HPMCPairStep(hpmc_pair.HPMCPair):
 
     code = f"""
             float rsq = dot(r_ij, r_ij);
-            float r_cut = { r_cut };
+            float r_cut = {r_cut};
             float r_cutsq = r_cut * r_cut;
 
             if (rsq >= r_cutsq)
