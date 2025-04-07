@@ -134,9 +134,7 @@ class Benchmark:
                 self.run(self.warmup_steps)
 
         if print_verbose_messages:
-            print(
-                f'.. running for {self.benchmark_steps} steps ' f'{self.repeat} time(s)'
-            )
+            print(f'.. running for {self.benchmark_steps} steps {self.repeat} time(s)')
 
         # benchmark
         performance = []

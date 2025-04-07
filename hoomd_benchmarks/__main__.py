@@ -63,13 +63,13 @@ parser.add_argument(
     '--benchmarks',
     type=str,
     default='*',
-    help='Select the benchmarks to run by class name using ' '`fnmatch` syntax',
+    help='Select the benchmarks to run by class name using `fnmatch` syntax',
 )
 parser.add_argument(
     '-o',
     '--output',
     type=str,
-    help='Add row of benchmark results to or create the output ' 'CSV file.',
+    help='Add row of benchmark results to or create the output CSV file.',
 )
 parser.add_argument(
     '--name',

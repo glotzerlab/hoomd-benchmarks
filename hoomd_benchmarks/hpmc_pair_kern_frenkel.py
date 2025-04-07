@@ -32,7 +32,7 @@ class HPMCPairKernFrenkel(hpmc_pair.HPMCPair):
             bool patch_on_j_is_aligned = dot(director_j, -r_hat_ij) >= cos(0.5);
 
             float rsq = dot(r_ij, r_ij);
-            float r_cut = { r_cut };
+            float r_cut = {r_cut};
             float r_cutsq = r_cut * r_cut;
 
             if (patch_on_i_is_aligned && patch_on_j_is_aligned && rsq < r_cutsq)
