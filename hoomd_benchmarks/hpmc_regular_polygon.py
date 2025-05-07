@@ -3,13 +3,12 @@
 
 """Hard sphere Monte Carlo benchmark."""
 
+import math
+
 import hoomd
 
-from . import hpmc_base
-from . import common
+from . import common, hpmc_base
 from .configuration.hard_sphere import make_hard_sphere_configuration
-
-import math
 
 DEFAULT_N_VERTICES = 6
 

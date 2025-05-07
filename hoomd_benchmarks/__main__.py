@@ -17,6 +17,7 @@ from .hpmc_pair_kern_frenkel import HPMCPairKernFrenkel
 from .hpmc_pair_lj import HPMCPairLJ
 from .hpmc_pair_step import HPMCPairStep
 from .hpmc_pair_union_wca import HPMCPairUnionWCA
+from .hpmc_regular_polygon import HPMCRegularPolygon
 from .hpmc_sphere import HPMCSphere
 from .md_pair_lj import MDPairLJ
 from .md_pair_opp import MDPairOPP
@@ -41,6 +42,7 @@ benchmark_classes = [
     HPMCPairStep,
     HPMCPairKernFrenkel,
     HPMCPairUnionWCA,
+    HPMCRegularPolygon,
     MDPairLJ,
     MDPairOPP,
     MDPairTable,
