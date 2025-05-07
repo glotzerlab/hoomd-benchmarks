@@ -12,6 +12,7 @@ from .configuration.hard_sphere import make_hard_sphere_configuration
 
 DEFAULT_N_VERTICES = 6
 
+
 class HPMCRegularPolygon(hpmc_base.HPMCBenchmark):
     """Hard particle Monte Carlo regular polygon benchmark.
 
@@ -24,7 +25,7 @@ class HPMCRegularPolygon(hpmc_base.HPMCBenchmark):
 
     def __init__(
         self,
-        n_vertices = DEFAULT_N_VERTICES,
+        n_vertices=DEFAULT_N_VERTICES,
         **kwargs,
     ):
         self.n_vertices = n_vertices
@@ -59,7 +60,9 @@ class HPMCRegularPolygon(hpmc_base.HPMCBenchmark):
         vertices = []
         delta_theta = 2.0 * math.pi / self.n_vertices
         for i in range(self.n_vertices):
-            vertices.append((math.cos(delta_theta * i)/2, math.sin(delta_theta * i)/2))
+            vertices.append(
+                (math.cos(delta_theta * i) / 2, math.sin(delta_theta * i) / 2)
+            )
 
         mc.shape['A'] = dict(vertices=vertices)
 
