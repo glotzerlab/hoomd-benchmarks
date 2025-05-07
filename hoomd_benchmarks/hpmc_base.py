@@ -33,5 +33,9 @@ class HPMCBenchmark(common.Benchmark):
                 self.device.notice(f'.. rotate acceptance: {r[0] / sum(r)}')
 
             overlap_checks = self.sim.operations.integrator.counters.overlap_checks
+            self.device.notice(
+                '.. million overlap checks per second: '
+                f'{overlap_checks / self.sim.walltime / 1e6}'
+            )
             overlap_checks /= sum(t) + sum(r)
             self.device.notice(f'.. overlap checks per trial move: {overlap_checks}')
