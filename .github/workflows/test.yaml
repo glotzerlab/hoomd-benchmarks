@@ -35,9 +35,6 @@ jobs:
         environments: hoomd
         activate-environment: true
 
-    - name: Configure conda environment variables
-      run: |
-        echo "$MAMBA_ROOT_PREFIX/envs/test/bin" >> $GITHUB_PATH
     - name: List benchmarks
       run: ls **/*.py
     - name: Cache configurations
