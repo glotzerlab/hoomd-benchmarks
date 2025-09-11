@@ -9,3 +9,6 @@ __pycache__
 *.h5
 perf.data*
 .gdb_history
+# pixi environments
+.pixi/*
+!.pixi/config.toml

@@ -1,8 +1,0 @@
-channels:
-- conda-forge
-dependencies:
-- gsd
-- h5py
-- hoomd
-- pandas
-- python==3.12
