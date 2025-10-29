@@ -1,7 +1,7 @@
 # Copyright (c) 2021-2025 The Regents of the University of Michigan
 # Part of HOOMD-blue, released under the BSD 3-Clause License.
 
-import sys
+import argparse
 import json
 
 import hoomd
@@ -10,13 +10,28 @@ from hoomd_benchmarks.hpmc_octahedron import HPMCOctahedron
 
 PARTICLE_STEPS = 2**22
 
+parser = argparse.ArgumentParser()
+parser.add_argument(
+    '--device',
+    type=str,
+    choices=['CPU', 'GPU'],
+    help='Execution device.',
+    required=True,
+)
+parser.add_argument(
+    '--suffix',
+    type=str,
+    help='JSON filename suffix.',
+)
+args = parser.parse_args()
+
 n = 256
-if len(sys.argv) > 1 and sys.argv[1] == 'GPU':
+if args.device == 'GPU':
     device = hoomd.device.GPU()
-    suffix = 'gpu'
 else:
     device = hoomd.device.CPU()
-    suffix = 'cpu'
+
+suffix = args.suffix if args.suffix is not None else args.device.lower()
 
 n_list = []
 lj_performance_list = []
