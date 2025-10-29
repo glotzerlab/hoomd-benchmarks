@@ -9,6 +9,8 @@ __pycache__
 *.h5
 perf.data*
 .gdb_history
+lj-*.json
+octahedron-*.json
 # pixi environments
 .pixi/*
 !.pixi/config.toml
