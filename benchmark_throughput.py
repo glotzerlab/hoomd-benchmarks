@@ -8,7 +8,7 @@ import hoomd
 from hoomd_benchmarks.md_pair_lj import MDPairLJ
 from hoomd_benchmarks.hpmc_octahedron import HPMCOctahedron
 
-PARTICLE_STEPS = 2**22
+PARTICLE_STEPS = 2**24
 
 parser = argparse.ArgumentParser()
 parser.add_argument(
@@ -37,17 +37,22 @@ n_list = []
 lj_performance_list = []
 octahedron_performance_list = []
 
-while n <= 2**12:
+while n <= 2**20:
     n_list.append(n)
     
-    steps = max(PARTICLE_STEPS // n, 16)
-    lj = MDPairLJ(N = n, rho=0.8442, warmup_steps = steps//4, benchmark_steps=steps,
+    steps = max(PARTICLE_STEPS // n, 32)
+    if args.device == 'GPU':
+        warmup_steps = 500
+    else:
+        warmup_steps = max(steps // 4, 32)
+    
+    lj = MDPairLJ(N = n, rho=0.8442, warmup_steps = warmup_steps, benchmark_steps=steps,
         verbose=True, device=device)
     lj_performance = (1 / lj.execute()[0]) * 1e9 / 3600
     lj_performance_list.append(lj_performance)
     
 
-    octahedron = HPMCOctahedron(N = n, rho=0.8442, warmup_steps = steps//4, benchmark_steps=steps,
+    octahedron = HPMCOctahedron(N = n, rho=0.8442, warmup_steps = warmup_steps, benchmark_steps=steps,
         verbose=True, device=device)
     octahedron_performance = (1 / octahedron.execute()[0]) * 1e9 / 3600
     octahedron_performance_list.append(octahedron_performance)
