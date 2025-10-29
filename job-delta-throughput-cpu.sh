@@ -7,7 +7,7 @@
 #SBATCH --ntasks-per-node=1
 #SBATCH --cpus-per-task=1
 #SBATCH --partition=cpu-interactive
-#SBATCH --mem-per-cpu=2000m
+#SBATCH --mem-per-cpu=4000m
 #SBATCH --time=1:00:00
 #SBATCH --account=bbgw-delta-cpu
 
