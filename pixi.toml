@@ -13,7 +13,7 @@ h5py = "*"
 pandas = "*"
 
 [feature.hoomd.dependencies]
-hoomd = "5.4.0.*"
+hoomd = "6.0.0.*"
 
 [environments]
 hoomd = ["hoomd"]
