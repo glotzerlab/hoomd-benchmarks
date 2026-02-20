@@ -124,7 +124,7 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/linux-64/gsd-4.2.0-h31e983c_0.conda
       - conda: https://conda.anaconda.org/conda-forge/linux-64/h5py-3.15.1-nompi_py314hc32fe06_101.conda
       - conda: https://conda.anaconda.org/conda-forge/linux-64/hdf5-1.14.6-nompi_h19486de_106.conda
-      - conda: https://conda.anaconda.org/conda-forge/linux-64/hoomd-6.1.0-cpu_py314_hce5b54f_0.conda
+      - conda: https://conda.anaconda.org/conda-forge/linux-64/hoomd-6.1.1-cpu_py314_hce5b54f_0.conda
       - conda: https://conda.anaconda.org/conda-forge/linux-64/icu-78.2-h33c6efd_0.conda
       - conda: https://conda.anaconda.org/conda-forge/linux-64/keyutils-1.6.3-hb9d3cd8_0.conda
       - conda: https://conda.anaconda.org/conda-forge/linux-64/krb5-1.22.2-ha1258a1_0.conda
@@ -178,7 +178,7 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/osx-arm64/gsd-4.2.0-h9bff6d5_0.conda
       - conda: https://conda.anaconda.org/conda-forge/osx-arm64/h5py-3.15.1-nompi_py314h1c8d760_101.conda
       - conda: https://conda.anaconda.org/conda-forge/osx-arm64/hdf5-1.14.6-nompi_had3affe_106.conda
-      - conda: https://conda.anaconda.org/conda-forge/osx-arm64/hoomd-6.1.0-cpu_py314_h6c40583_0.conda
+      - conda: https://conda.anaconda.org/conda-forge/osx-arm64/hoomd-6.1.1-cpu_py314_h6c40583_0.conda
       - conda: https://conda.anaconda.org/conda-forge/osx-arm64/icu-78.2-h38cb7af_0.conda
       - conda: https://conda.anaconda.org/conda-forge/osx-arm64/krb5-1.22.2-h385eeb1_0.conda
       - conda: https://conda.anaconda.org/conda-forge/osx-arm64/libaec-1.1.5-h8664d51_0.conda
@@ -417,36 +417,34 @@ packages:
   license_family: BSD
   size: 3299759
   timestamp: 1770390513189
-- conda: https://conda.anaconda.org/conda-forge/linux-64/hoomd-6.1.0-cpu_py314_hce5b54f_0.conda
-  sha256: 18c95694695accd40f021ba9399581ffe0fec404c509e493b5af03ce456c281a
-  md5: 285c42769cca3ee96d24d59aaff727d6
+- conda: https://conda.anaconda.org/conda-forge/linux-64/hoomd-6.1.1-cpu_py314_hce5b54f_0.conda
+  sha256: e459e9d69e1853106dc681fcdd31069023b2aa4a3da7a080726ec1d362afae68
+  md5: 9a36ce0d951a739e0f4d613af63370be
   depends:
   - python
-  - __glibc >=2.17,<3.0.a0
   - libstdcxx >=14
   - libgcc >=14
+  - __glibc >=2.17,<3.0.a0
   - pybind11-abi ==11
-  - numpy >=1.23,<3
   - python_abi 3.14.* *_cp314
+  - numpy >=1.23,<3
   license: BSD-3-Clause
-  license_family: BSD
-  size: 8182657
-  timestamp: 1770599296381
-- conda: https://conda.anaconda.org/conda-forge/osx-arm64/hoomd-6.1.0-cpu_py314_h6c40583_0.conda
-  sha256: a6fbe67ef354fe50523a20014601bd9a52bc75b60cf41a86c889c3a0a966c876
-  md5: 04169d4ea436ab4c65eedae094202cdc
+  size: 8259394
+  timestamp: 1771583439481
+- conda: https://conda.anaconda.org/conda-forge/osx-arm64/hoomd-6.1.1-cpu_py314_h6c40583_0.conda
+  sha256: 012fa86c554533066cd549dfd0d04313d035a51c876986f5b28af5bc69f8e876
+  md5: 2f4eb6f16a6cbf8872358a4f98518644
   depends:
   - python
-  - libcxx >=19
   - __osx >=11.0
   - python 3.14.* *_cp314
+  - libcxx >=19
   - numpy >=1.23,<3
   - pybind11-abi ==11
   - python_abi 3.14.* *_cp314
   license: BSD-3-Clause
-  license_family: BSD
-  size: 6178963
-  timestamp: 1770599521742
+  size: 6216367
+  timestamp: 1771583537505
 - conda: https://conda.anaconda.org/conda-forge/linux-64/icu-78.2-h33c6efd_0.conda
   sha256: 142a722072fa96cf16ff98eaaf641f54ab84744af81754c292cb81e0881c0329
   md5: 186a18e3ba246eccfc7cff00cd19a870
