@@ -3,10 +3,12 @@
 
 """Hard octahedron Monte Carlo benchmark."""
 
+import math
+
 import hoomd
 
 from . import hpmc_base
-from .configuration.hard_sphere import make_hard_sphere_configuration
+from .configuration.hard_shape import make_hard_shape_configuration
 
 
 class HPMCOctahedron(hpmc_base.HPMCBenchmark):
@@ -18,16 +20,7 @@ class HPMCOctahedron(hpmc_base.HPMCBenchmark):
 
     def make_simulation(self):
         """Make the Simulation object."""
-        path = make_hard_sphere_configuration(
-            N=self.N,
-            rho=1.0,
-            dimensions=self.dimensions,
-            device=self.device,
-            verbose=self.verbose,
-        )
-
-        mc = hoomd.hpmc.integrate.ConvexPolyhedron()
-        mc.shape['A'] = dict(
+        shape = dict(
             vertices=[
                 (-0.5, 0, 0),
                 (0.5, 0, 0),
@@ -37,6 +30,24 @@ class HPMCOctahedron(hpmc_base.HPMCBenchmark):
                 (0, 0, 0.5),
             ]
         )
+        mc = hoomd.hpmc.integrate.ConvexPolyhedron()
+        mc.shape['A'] = shape
+        a = math.sqrt(2.0) / 2.0;
+        octahedron_volume = 1.0 / 3.0 * math.sqrt(2.0) * a**3;
+
+        path = make_hard_shape_configuration(
+            name="octahedron",
+            N=self.N,
+            integrator=mc,
+            phi=0.55,
+            particle_volume=octahedron_volume,
+            dimensions=3,
+            device=self.device,
+            verbose=self.verbose,
+        )
+
+        mc = hoomd.hpmc.integrate.ConvexPolyhedron(default_d=0.03772381794743774, default_a=0.08336162106529289)
+        mc.shape['A'] = shape
 
         sim = hoomd.Simulation(device=self.device, seed=100)
         sim.create_state_from_gsd(filename=str(path))

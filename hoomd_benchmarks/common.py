@@ -38,8 +38,6 @@ class Benchmark:
 
         N (int): The number of particles.
 
-        rho (float): The number density.
-
         dimensions (int): The number of dimensions (2 or 3).
 
         warmup_steps (int): Number of time steps to execute before timing
@@ -73,7 +71,6 @@ class Benchmark:
         self,
         device,
         N=DEFAULT_N,
-        rho=DEFAULT_RHO,
         dimensions=DEFAULT_DIMENSIONS,
         warmup_steps=DEFAULT_WARMUP_STEPS,
         benchmark_steps=DEFAULT_BENCHMARK_STEPS,
