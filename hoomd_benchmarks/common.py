@@ -12,7 +12,6 @@ DEFAULT_WARMUP_STEPS = 1000
 DEFAULT_BENCHMARK_STEPS = 1000
 DEFAULT_REPEAT = 1
 DEFAULT_N = 64000
-DEFAULT_RHO = 1.0
 DEFAULT_DIMENSIONS = 3
 
 
@@ -83,7 +82,6 @@ class Benchmark:
     ):
         self.device = device
         self.N = N
-        self.rho = rho
         self.dimensions = dimensions
         self.warmup_steps = warmup_steps
         self.benchmark_steps = benchmark_steps
@@ -168,9 +166,6 @@ class Benchmark:
         )
         parser.add_argument(
             '-N', type=int, default=DEFAULT_N, help='Number of particles.'
-        )
-        parser.add_argument(
-            '--rho', type=float, default=DEFAULT_RHO, help='Number density.'
         )
         parser.add_argument(
             '--dimensions',

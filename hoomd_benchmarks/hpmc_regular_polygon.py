@@ -50,7 +50,7 @@ class HPMCRegularPolygon(hpmc_base.HPMCBenchmark):
 
         path = make_hard_sphere_configuration(
             N=self.N,
-            rho=self.rho,
+            rho=1.0,
             dimensions=2,
             device=self.device,
             verbose=self.verbose,
