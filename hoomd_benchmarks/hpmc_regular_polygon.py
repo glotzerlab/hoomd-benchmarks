@@ -8,7 +8,7 @@ import math
 import hoomd
 
 from . import common, hpmc_base
-from .configuration.hard_sphere import make_hard_sphere_configuration
+from .configuration.hard_shape import make_hard_shape_configuration
 
 DEFAULT_N_VERTICES = 6
 
@@ -47,22 +47,31 @@ class HPMCRegularPolygon(hpmc_base.HPMCBenchmark):
     def make_simulation(self):
         """Make the Simulation object."""
         # Regular polygons exist only in 2D - ignore the dimensions argument.
-
-        path = make_hard_sphere_configuration(
-            N=self.N,
-            rho=1.0,
-            dimensions=2,
-            device=self.device,
-            verbose=self.verbose,
-        )
-
-        mc = hoomd.hpmc.integrate.ConvexPolygon()
         vertices = []
         delta_theta = 2.0 * math.pi / self.n_vertices
         for i in range(self.n_vertices):
             vertices.append(
                 (math.cos(delta_theta * i) / 2, math.sin(delta_theta * i) / 2)
             )
+        polygon_area = 0.5**2 * self.n_vertices * math.sin(2.0 * math.pi / self.n_vertices) / 2
+        print(polygon_area)
+
+        mc = hoomd.hpmc.integrate.ConvexPolygon(default_d=0.06830480980423474, default_a=0.4916057020858567)
+
+        mc.shape['A'] = dict(vertices=vertices)
+
+        path = make_hard_shape_configuration(
+            name="hexagon",
+            N=self.N,
+            integrator=mc,
+            phi=0.8,
+            particle_volume=polygon_area,
+            dimensions=2,
+            device=self.device,
+            verbose=self.verbose,
+        )
+
+        mc = hoomd.hpmc.integrate.ConvexPolygon()
 
         mc.shape['A'] = dict(vertices=vertices)
 
@@ -70,19 +79,7 @@ class HPMCRegularPolygon(hpmc_base.HPMCBenchmark):
         sim.create_state_from_gsd(filename=str(path))
         sim.operations.integrator = mc
 
-        self.units = 'trial moves per second per particle'
-
         return sim
-
-    def get_performance(self):
-        """Get the benchmark performance."""
-        mc = self.sim.operations.integrator
-        return (
-            (sum(mc.translate_moves) + sum(mc.rotate_moves))
-            / self.sim.walltime
-            / self.sim.state.N_particles
-        )
-
 
 if __name__ == '__main__':
     HPMCRegularPolygon.main()
