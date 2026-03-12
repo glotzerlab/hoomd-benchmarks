@@ -36,8 +36,10 @@ for n in [1024, 2048, 4096, 8192, 16384, 32768, 65536]:
     }
 
     for (name, benchmark) in benchmarks.items():
-    
-        performance = numpy.mean(benchmark.execute())
+        try:    
+            performance = numpy.mean(benchmark.execute())
+        except:
+            continue
                 
         row = { 'benchmark': name,
                 'n': n,
@@ -50,7 +52,7 @@ for n in [1024, 2048, 4096, 8192, 16384, 32768, 65536]:
         results.loc[len(results)] = row
 
 if device.communicator.rank == 0:
-    filename = f"hoomd-blue-benchmark-results-{threads}.csv"
+    filename = f"hoomd-blue-anvil-{threads}.csv"
     with open(filename, 'w') as f:
         f.write(results.to_csv())
 
