@@ -60,7 +60,7 @@ class HPMCPair(hpmc_base.HPMCBenchmark):
             default_d = 0.16563964419865929
 
         path = make_hard_shape_configuration(
-            name="lennard_jones",
+            name='lennard_jones',
             N=self.N,
             integrator=mc,
             phi=0.50,

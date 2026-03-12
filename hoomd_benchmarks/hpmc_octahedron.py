@@ -32,11 +32,10 @@ class HPMCOctahedron(hpmc_base.HPMCBenchmark):
         )
         mc = hoomd.hpmc.integrate.ConvexPolyhedron()
         mc.shape['A'] = shape
-        a = math.sqrt(2.0) / 2.0;
-        octahedron_volume = 1.0 / 3.0 * math.sqrt(2.0) * a**3;
-
+        a = math.sqrt(2.0) / 2.0
+        octahedron_volume = 1.0 / 3.0 * math.sqrt(2.0) * a**3
         path = make_hard_shape_configuration(
-            name="octahedron",
+            name='octahedron',
             N=self.N,
             integrator=mc,
             phi=0.55,
@@ -46,7 +45,9 @@ class HPMCOctahedron(hpmc_base.HPMCBenchmark):
             verbose=self.verbose,
         )
 
-        mc = hoomd.hpmc.integrate.ConvexPolyhedron(default_d=0.03772381794743774, default_a=0.08336162106529289)
+        mc = hoomd.hpmc.integrate.ConvexPolyhedron(
+            default_d=0.03772381794743774, default_a=0.08336162106529289
+        )
         mc.shape['A'] = shape
 
         sim = hoomd.Simulation(device=self.device, seed=100)

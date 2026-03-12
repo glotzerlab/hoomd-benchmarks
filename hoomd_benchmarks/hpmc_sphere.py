@@ -30,9 +30,9 @@ class HPMCSphere(hpmc_base.HPMCBenchmark):
         if self.dimensions == 3:
             sphere_volume = 4.0 / 3.0 * math.pi * r**3
             default_d = 0.11295954044540771
-        
+
         path = make_hard_shape_configuration(
-            name="sphere",
+            name='sphere',
             N=self.N,
             integrator=mc,
             phi=0.50,
@@ -50,6 +50,7 @@ class HPMCSphere(hpmc_base.HPMCBenchmark):
         sim.operations.integrator = mc
 
         return sim
+
 
 if __name__ == '__main__':
     HPMCSphere.main()

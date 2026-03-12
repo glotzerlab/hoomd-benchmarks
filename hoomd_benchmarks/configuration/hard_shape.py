@@ -7,12 +7,13 @@ import itertools
 import math
 import pathlib
 
-import gsd.hoomd
 import hoomd
 import numpy
 
 
-def make_hard_shape_configuration(name, N, integrator, phi, particle_volume, dimensions, device, verbose, spacing=1.5):
+def make_hard_shape_configuration(
+    name, N, integrator, phi, particle_volume, dimensions, device, verbose, spacing=1.5
+):
     """Make an initial configuration of hard spheres, or find it in the cache.
 
     Args:
@@ -25,6 +26,7 @@ def make_hard_shape_configuration(name, N, integrator, phi, particle_volume, dim
         device (hoomd.device.Device): Device object to execute on.
         verbose (bool): Set to True to provide details to stdout.
         n_types (int): Number of particle types.
+        spacing: Distance between particles in the initial configuration.
 
     Initialize a system of N randomly placed hard shapes at the given packing
     fraction *phi*.

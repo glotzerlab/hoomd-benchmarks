@@ -8,9 +8,9 @@
 
 eval "$(pixi shell-hook --environment hoomd)"
 
-srun -n 1 python -m hoomd_benchmarks.hoomd-rs-compare
-srun -n 2 python -m hoomd_benchmarks.hoomd-rs-compare
-srun -n 8 python -m hoomd_benchmarks.hoomd-rs-compare
-srun -n 16 python -m hoomd_benchmarks.hoomd-rs-compare
-srun -n 32 python -m hoomd_benchmarks.hoomd-rs-compare
-srun -n 64 python -m hoomd_benchmarks.hoomd-rs-compare
+srun -n 1 python -m hoomd_benchmarks.hoomd_rs_compare
+srun -n 2 python -m hoomd_benchmarks.hoomd_rs_compare
+srun -n 8 python -m hoomd_benchmarks.hoomd_rs_compare
+srun -n 16 python -m hoomd_benchmarks.hoomd_rs_compare
+srun -n 32 python -m hoomd_benchmarks.hoomd_rs_compare
+srun -n 64 python -m hoomd_benchmarks.hoomd_rs_compare

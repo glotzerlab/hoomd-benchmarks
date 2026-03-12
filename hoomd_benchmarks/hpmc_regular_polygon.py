@@ -53,15 +53,19 @@ class HPMCRegularPolygon(hpmc_base.HPMCBenchmark):
             vertices.append(
                 (math.cos(delta_theta * i) / 2, math.sin(delta_theta * i) / 2)
             )
-        polygon_area = 0.5**2 * self.n_vertices * math.sin(2.0 * math.pi / self.n_vertices) / 2
+        polygon_area = (
+            0.5**2 * self.n_vertices * math.sin(2.0 * math.pi / self.n_vertices) / 2
+        )
         print(polygon_area)
 
-        mc = hoomd.hpmc.integrate.ConvexPolygon(default_d=0.06830480980423474, default_a=0.4916057020858567)
+        mc = hoomd.hpmc.integrate.ConvexPolygon(
+            default_d=0.06830480980423474, default_a=0.4916057020858567
+        )
 
         mc.shape['A'] = dict(vertices=vertices)
 
         path = make_hard_shape_configuration(
-            name="hexagon",
+            name='hexagon',
             N=self.N,
             integrator=mc,
             phi=0.8,
@@ -80,6 +84,7 @@ class HPMCRegularPolygon(hpmc_base.HPMCBenchmark):
         sim.operations.integrator = mc
 
         return sim
+
 
 if __name__ == '__main__':
     HPMCRegularPolygon.main()
