@@ -12,6 +12,7 @@ import numpy
 import pandas
 
 from . import common
+from .hpmc_ellipsoid import HPMCEllipsoid
 from .hpmc_octahedron import HPMCOctahedron
 from .hpmc_pair_kern_frenkel import HPMCPairKernFrenkel
 from .hpmc_pair_lj import HPMCPairLJ
@@ -36,6 +37,7 @@ from .write_gsd_log import GSDLog
 from .write_hdf5_log import HDF5Log
 
 benchmark_classes = [
+    HPMCEllipsoid,
     HPMCSphere,
     HPMCOctahedron,
     HPMCPairLJ,

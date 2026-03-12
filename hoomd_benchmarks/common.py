@@ -12,7 +12,6 @@ DEFAULT_WARMUP_STEPS = 1000
 DEFAULT_BENCHMARK_STEPS = 1000
 DEFAULT_REPEAT = 1
 DEFAULT_N = 64000
-DEFAULT_RHO = 1.0
 DEFAULT_DIMENSIONS = 3
 
 
@@ -38,8 +37,6 @@ class Benchmark:
         device (hoomd.device.Device): Device to execute on.
 
         N (int): The number of particles.
-
-        rho (float): The number density.
 
         dimensions (int): The number of dimensions (2 or 3).
 
@@ -74,7 +71,6 @@ class Benchmark:
         self,
         device,
         N=DEFAULT_N,
-        rho=DEFAULT_RHO,
         dimensions=DEFAULT_DIMENSIONS,
         warmup_steps=DEFAULT_WARMUP_STEPS,
         benchmark_steps=DEFAULT_BENCHMARK_STEPS,
@@ -83,7 +79,6 @@ class Benchmark:
     ):
         self.device = device
         self.N = N
-        self.rho = rho
         self.dimensions = dimensions
         self.warmup_steps = warmup_steps
         self.benchmark_steps = benchmark_steps
@@ -168,9 +163,6 @@ class Benchmark:
         )
         parser.add_argument(
             '-N', type=int, default=DEFAULT_N, help='Number of particles.'
-        )
-        parser.add_argument(
-            '--rho', type=float, default=DEFAULT_RHO, help='Number density.'
         )
         parser.add_argument(
             '--dimensions',

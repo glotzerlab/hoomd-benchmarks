@@ -22,7 +22,7 @@ class MicrobenchmarkEmptySimulation(common.Benchmark):
         """Make the Simulation object."""
         path = make_hard_sphere_configuration(
             N=self.N,
-            rho=self.rho,
+            rho=1.0,
             dimensions=self.dimensions,
             device=self.device,
             verbose=self.verbose,

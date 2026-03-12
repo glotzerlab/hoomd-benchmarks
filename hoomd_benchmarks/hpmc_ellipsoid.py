@@ -1,7 +1,7 @@
 # Copyright (c) 2021-2026 The Regents of the University of Michigan
 # Part of HOOMD-blue, released under the BSD 3-Clause License.
 
-"""Hard octahedron Monte Carlo benchmark."""
+"""Hard ellipsoid Monte Carlo benchmark."""
 
 import math
 
@@ -11,7 +11,7 @@ from . import hpmc_base
 from .configuration.hard_shape import make_hard_shape_configuration
 
 
-class HPMCOctahedron(hpmc_base.HPMCBenchmark):
+class HPMCEllipsoid(hpmc_base.HPMCBenchmark):
     """Hard particle Monte Carlo octahedron benchmark.
 
     See Also:
@@ -20,33 +20,25 @@ class HPMCOctahedron(hpmc_base.HPMCBenchmark):
 
     def make_simulation(self):
         """Make the Simulation object."""
-        shape = dict(
-            vertices=[
-                (-0.5, 0, 0),
-                (0.5, 0, 0),
-                (0, -0.5, 0),
-                (0, 0.5, 0),
-                (0, 0, -0.5),
-                (0, 0, 0.5),
-            ]
-        )
-        mc = hoomd.hpmc.integrate.ConvexPolyhedron()
+        shape = dict(a=2.5, b=0.5, c=0.5)
+        mc = hoomd.hpmc.integrate.Ellipsoid()
         mc.shape['A'] = shape
-        a = math.sqrt(2.0) / 2.0
-        octahedron_volume = 1.0 / 3.0 * math.sqrt(2.0) * a**3
+
+        ellipsoid_volume = 4.0 / 3.0 * math.pi * 2.5 * 0.5 * 0.5
         path = make_hard_shape_configuration(
-            name='octahedron',
+            name='ellipsoid',
             N=self.N,
             integrator=mc,
-            phi=0.55,
-            particle_volume=octahedron_volume,
+            phi=0.5,
+            particle_volume=ellipsoid_volume,
             dimensions=3,
             device=self.device,
             verbose=self.verbose,
+            spacing=6.0,
         )
 
-        mc = hoomd.hpmc.integrate.ConvexPolyhedron(
-            default_d=0.03772381794743774, default_a=0.08336162106529289
+        mc = hoomd.hpmc.integrate.Ellipsoid(
+            default_d=0.03662120237875685, default_a=0.019755985607527712
         )
         mc.shape['A'] = shape
 
@@ -58,4 +50,4 @@ class HPMCOctahedron(hpmc_base.HPMCBenchmark):
 
 
 if __name__ == '__main__':
-    HPMCOctahedron.main()
+    HPMCEllipsoid.main()

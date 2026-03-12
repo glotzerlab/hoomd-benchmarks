@@ -3,10 +3,12 @@
 
 """Methods common to HPMC pair potential benchmarks."""
 
+import math
+
 import hoomd
 
 from . import common, hpmc_base
-from .configuration.hard_sphere import make_hard_sphere_configuration
+from .configuration.hard_shape import make_hard_shape_configuration
 
 DEFAULT_MODE = 'compiled'
 
@@ -46,15 +48,29 @@ class HPMCPair(hpmc_base.HPMCBenchmark):
 
     def make_simulation(self):
         """Make the Simulation object."""
-        path = make_hard_sphere_configuration(
+        mc = hoomd.hpmc.integrate.Sphere()
+        mc.shape['A'] = dict(diameter=1.0)
+
+        r = 0.5
+        if self.dimensions == 2:
+            sphere_volume = math.pi * r**2
+            default_d = 0.6496513453255841
+        if self.dimensions == 3:
+            sphere_volume = 4.0 / 3.0 * math.pi * r**3
+            default_d = 0.16563964419865929
+
+        path = make_hard_shape_configuration(
+            name='lennard_jones',
             N=self.N,
-            rho=self.rho,
+            integrator=mc,
+            phi=0.50,
+            particle_volume=sphere_volume,
             dimensions=self.dimensions,
             device=self.device,
             verbose=self.verbose,
         )
 
-        integrator = hoomd.hpmc.integrate.Sphere(default_d=0.18)
+        integrator = hoomd.hpmc.integrate.Sphere(default_d=default_d)
         integrator.shape['A'] = dict(diameter=self.diameter)
 
         sim = hoomd.Simulation(device=self.device, seed=10)

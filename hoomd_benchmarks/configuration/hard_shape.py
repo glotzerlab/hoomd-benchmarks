@@ -1,0 +1,118 @@
+# Copyright (c) 2021-2026 The Regents of the University of Michigan
+# Part of HOOMD-blue, released under the BSD 3-Clause License.
+
+"""Hard shape initial configuration."""
+
+import itertools
+import math
+import pathlib
+
+import hoomd
+import numpy
+
+
+def make_hard_shape_configuration(
+    name, N, integrator, phi, particle_volume, dimensions, device, verbose, spacing=1.5
+):
+    """Make an initial configuration of hard spheres, or find it in the cache.
+
+    Args:
+        name (str): The shape's name.
+        N (int): Number of particles.
+        integrator: The HPMC integrator that provides the shape information.
+        phi (float): Packing fraction.
+        particle_volume (float): Volume of one particle.
+        dimensions (int): Number of dimensions (2 or 3).
+        device (hoomd.device.Device): Device object to execute on.
+        verbose (bool): Set to True to provide details to stdout.
+        n_types (int): Number of particle types.
+        spacing: Distance between particles in the initial configuration.
+
+    Initialize a system of N randomly placed hard shapes at the given packing
+    fraction *phi*.
+    """
+    print_messages = verbose and device.communicator.rank == 0
+
+    filename = f'mc_{dimensions}d_{name}_{N}_{phi}.gsd'
+    file_path = pathlib.Path('initial_configuration_cache') / filename
+
+    if dimensions not in (2, 3):
+        raise ValueError('Invalid dimensions: must be 2 or 3')
+
+    if file_path.exists():
+        if print_messages:
+            print(f'Using existing {file_path}')
+        return file_path
+
+    if print_messages:
+        print(f'Generating {file_path}')
+
+    # initial configuration on a grid
+    K = math.ceil(N ** (1 / dimensions))
+    L = K * spacing
+
+    snapshot = hoomd.Snapshot(communicator=device.communicator)
+    if dimensions == 3:
+        snapshot.configuration.box = [L, L, L, 0, 0, 0]
+    else:
+        snapshot.configuration.box = [L, L, 0, 0, 0, 0]
+
+    if snapshot.communicator.rank == 0:
+        snapshot.particles.types = ['A']
+        snapshot.particles.N = N
+        x = numpy.linspace(-L / 2, L / 2, K, endpoint=False)
+        position_grid = list(itertools.product(x, repeat=dimensions))
+        snapshot.particles.position[:, 0:dimensions] = position_grid[0:N]
+
+    # randomize the system
+    sim = hoomd.Simulation(device=device, seed=10)
+    sim.create_state_from_snapshot(snapshot)
+    sim.operations.integrator = integrator
+
+    if print_messages:
+        print('.. randomizing positions')
+
+    for _i in range(10):
+        sim.run(100)
+        tps = sim.tps
+        if print_messages:
+            print(f'.. step {sim.timestep} at {tps:0.4g} TPS')
+
+    # compress to the target density
+    initial_box = sim.state.box
+    final_box = hoomd.Box.from_box(initial_box)
+    final_box.volume = N * particle_volume / phi
+    periodic = hoomd.trigger.Periodic(10)
+    compress = hoomd.hpmc.update.QuickCompress(trigger=periodic, target_box=final_box)
+    sim.operations.updaters.append(compress)
+
+    tune = hoomd.hpmc.tune.MoveSize.scale_solver(
+        moves=['d'], target=0.2, trigger=periodic, max_translation_move=0.2
+    )
+    sim.operations.tuners.append(tune)
+
+    if print_messages:
+        print('.. compressing')
+
+    end_step = 1e5
+    while not compress.complete and sim.timestep < end_step:
+        sim.run(100)
+        tps = sim.tps
+        box = sim.state.box
+        if print_messages:
+            progress = math.fabs(initial_box.volume - box.volume) / math.fabs(
+                initial_box.volume - final_box.volume
+            )
+            print(
+                f'.. step {sim.timestep} at {tps:0.4g} TPS: '
+                f'progress {progress * 100:0.4g}%'
+            )
+
+    if not compress.complete:
+        raise RuntimeError('Compression failed to complete')
+
+    hoomd.write.GSD.write(state=sim.state, mode='xb', filename=str(file_path))
+
+    if print_messages:
+        print('.. done')
+    return file_path
