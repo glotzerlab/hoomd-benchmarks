@@ -54,10 +54,10 @@ class HPMCPair(hpmc_base.HPMCBenchmark):
         r = 0.5
         if self.dimensions == 2:
             sphere_volume = math.pi * r**2
-            default_d = 0.6496513453255841
+            default_d = 0.63
         if self.dimensions == 3:
             sphere_volume = 4.0 / 3.0 * math.pi * r**3
-            default_d = 0.16563964419865929
+            default_d = 0.19
 
         path = make_hard_shape_configuration(
             name='lennard_jones',
