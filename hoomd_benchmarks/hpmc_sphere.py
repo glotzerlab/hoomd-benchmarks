@@ -26,10 +26,10 @@ class HPMCSphere(hpmc_base.HPMCBenchmark):
         r = 0.5
         if self.dimensions == 2:
             sphere_volume = math.pi * r**2
-            default_d = 0.6887305181920008
+            default_d = 0.7
         if self.dimensions == 3:
             sphere_volume = 4.0 / 3.0 * math.pi * r**3
-            default_d = 0.11295954044540771
+            default_d = 0.13
 
         path = make_hard_shape_configuration(
             name='sphere',
