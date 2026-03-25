@@ -45,9 +45,7 @@ class HPMCOctahedron(hpmc_base.HPMCBenchmark):
             verbose=self.verbose,
         )
 
-        mc = hoomd.hpmc.integrate.ConvexPolyhedron(
-            default_d=0.081, default_a=0.20
-        )
+        mc = hoomd.hpmc.integrate.ConvexPolyhedron(default_d=0.081, default_a=0.20)
         mc.shape['A'] = shape
 
         sim = hoomd.Simulation(device=self.device, seed=100)

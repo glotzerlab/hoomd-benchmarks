@@ -72,7 +72,6 @@ class HPMCRegularPolygon(hpmc_base.HPMCBenchmark):
             verbose=self.verbose,
         )
 
-
         mc = hoomd.hpmc.integrate.ConvexPolygon(
             default_d=0.2, default_a=2.0 * math.pi / 6.0
         )
