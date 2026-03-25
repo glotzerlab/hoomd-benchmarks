@@ -38,7 +38,7 @@ class HPMCOctahedron(hpmc_base.HPMCBenchmark):
             name='octahedron',
             N=self.N,
             integrator=mc,
-            phi=0.55,
+            phi=0.44,
             particle_volume=octahedron_volume,
             dimensions=3,
             device=self.device,
@@ -46,7 +46,7 @@ class HPMCOctahedron(hpmc_base.HPMCBenchmark):
         )
 
         mc = hoomd.hpmc.integrate.ConvexPolyhedron(
-            default_d=0.03772381794743774, default_a=0.08336162106529289
+            default_d=0.081, default_a=0.20
         )
         mc.shape['A'] = shape
 
