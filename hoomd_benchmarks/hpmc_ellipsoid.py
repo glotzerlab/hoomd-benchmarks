@@ -29,7 +29,7 @@ class HPMCEllipsoid(hpmc_base.HPMCBenchmark):
             name='ellipsoid',
             N=self.N,
             integrator=mc,
-            phi=0.5,
+            phi=0.4,
             particle_volume=ellipsoid_volume,
             dimensions=3,
             device=self.device,
@@ -37,9 +37,7 @@ class HPMCEllipsoid(hpmc_base.HPMCBenchmark):
             spacing=6.0,
         )
 
-        mc = hoomd.hpmc.integrate.Ellipsoid(
-            default_d=0.03662120237875685, default_a=0.019755985607527712
-        )
+        mc = hoomd.hpmc.integrate.Ellipsoid(default_d=0.19, default_a=0.093)
         mc.shape['A'] = shape
 
         sim = hoomd.Simulation(device=self.device, seed=100)
