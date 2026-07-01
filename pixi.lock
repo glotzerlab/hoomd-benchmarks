@@ -1,7 +1,16 @@
 version: 7
 platforms:
 - name: linux-64
+  virtual-packages:
+  - __unix=0=0
+  - __linux=4.18
+  - __glibc=2.28
+  - __archspec=0=x86_64
 - name: osx-arm64
+  virtual-packages:
+  - __unix=0=0
+  - __osx=13.0
+  - __archspec=0=m1
 environments:
   default:
     channels:
@@ -145,7 +154,7 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/linux-64/gsd-5.0.1-h7c397b8_0.conda
       - conda: https://conda.anaconda.org/conda-forge/linux-64/h5py-3.16.0-nompi_py314hddf7a69_102.conda
       - conda: https://conda.anaconda.org/conda-forge/linux-64/hdf5-2.1.0-nompi_hd4fcb43_104.conda
-      - conda: https://conda.anaconda.org/conda-forge/linux-64/hoomd-7.0.1-cpu_py314_hb131266_0.conda
+      - conda: https://conda.anaconda.org/conda-forge/linux-64/hoomd-7.1.0-cpu_py314_hb131266_0.conda
       - conda: https://conda.anaconda.org/conda-forge/linux-64/icu-78.3-h33c6efd_0.conda
       - conda: https://conda.anaconda.org/conda-forge/linux-64/keyutils-1.6.3-hb9d3cd8_0.conda
       - conda: https://conda.anaconda.org/conda-forge/linux-64/krb5-1.22.2-ha1258a1_0.conda
@@ -220,7 +229,7 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/osx-arm64/gsd-5.0.1-h92ab4e6_0.conda
       - conda: https://conda.anaconda.org/conda-forge/osx-arm64/h5py-3.16.0-nompi_py314h658a3ac_102.conda
       - conda: https://conda.anaconda.org/conda-forge/osx-arm64/hdf5-2.1.0-nompi_hc95e3eb_104.conda
-      - conda: https://conda.anaconda.org/conda-forge/osx-arm64/hoomd-7.0.1-cpu_py314_h5d5f7d9_0.conda
+      - conda: https://conda.anaconda.org/conda-forge/osx-arm64/hoomd-7.1.0-cpu_py314_h89c9786_0.conda
       - conda: https://conda.anaconda.org/conda-forge/osx-arm64/krb5-1.22.2-h385eeb1_0.conda
       - conda: https://conda.anaconda.org/conda-forge/osx-arm64/libaec-1.1.5-h8664d51_0.conda
       - conda: https://conda.anaconda.org/conda-forge/osx-arm64/libblas-3.11.0-6_h51639a9_openblas.conda
@@ -452,21 +461,24 @@ packages:
   license_family: BSD
   size: 4138489
   timestamp: 1775243967708
-- conda: https://conda.anaconda.org/conda-forge/linux-64/hoomd-7.0.1-cpu_py314_hb131266_0.conda
-  sha256: 06f665f9dd587804fc7b6ead67acd71e8e160f1c5d14ff94ed8edc57d5e0f61e
-  md5: 5e88147d6dd81574f192cc5e6a470a99
+- conda: https://conda.anaconda.org/conda-forge/linux-64/hoomd-7.1.0-cpu_py314_hb131266_0.conda
+  sha256: 63e97abacc72cd65353c4e67c84ea3acc047448da6f3fce95cb85571054e770a
+  md5: 191da1a768cd53ed2b8c98cffc19e5aa
   depends:
   - python
   - __glibc >=2.17,<3.0.a0
   - libstdcxx >=14
   - libgcc >=14
-  - numpy >=1.23,<3
-  - python_abi 3.14.* *_cp314
   - pybind11-abi ==11
+  - python_abi 3.14.* *_cp314
+  - numpy >=1.25,<3
   license: BSD-3-Clause
   license_family: BSD
-  size: 8339768
-  timestamp: 1775736286107
+  run_exports:
+    weak:
+    - hoomd >=7.1.0,<7.1.1.0a0
+  size: 8370937
+  timestamp: 1782385375483
 - conda: https://conda.anaconda.org/conda-forge/linux-64/icu-78.3-h33c6efd_0.conda
   sha256: fbf86c4a59c2ed05bbffb2ba25c7ed94f6185ec30ecb691615d42342baa1a16a
   md5: c80d8a3b84358cb967fa81e7075fbc8a
@@ -1236,21 +1248,23 @@ packages:
   license_family: BSD
   size: 3418702
   timestamp: 1775244340092
-- conda: https://conda.anaconda.org/conda-forge/osx-arm64/hoomd-7.0.1-cpu_py314_h5d5f7d9_0.conda
-  sha256: 69c1108a0a43580e2e6a79ffebd8d49329276330658f7a70978f123672fa4db9
-  md5: baa34955f21cda322043a9934da603a8
+- conda: https://conda.anaconda.org/conda-forge/osx-arm64/hoomd-7.1.0-cpu_py314_h89c9786_0.conda
+  sha256: 862d5212dcd3e852798a6346ce0d7e8a983bb427f8844a57b6be69f789fd013f
+  md5: c04fdd37ccb3e1be4dc20f9479795e2b
   depends:
   - python
-  - libcxx >=19
   - __osx >=11.0
-  - python 3.14.* *_cp314
-  - numpy >=1.23,<3
-  - python_abi 3.14.* *_cp314
+  - libcxx >=19
   - pybind11-abi ==11
+  - python_abi 3.14.* *_cp314
+  - numpy >=1.25,<3
   license: BSD-3-Clause
   license_family: BSD
-  size: 6245815
-  timestamp: 1775736446794
+  run_exports:
+    weak:
+    - hoomd >=7.1.0,<7.1.1.0a0
+  size: 6244530
+  timestamp: 1782385455881
 - conda: https://conda.anaconda.org/conda-forge/osx-arm64/krb5-1.22.2-h385eeb1_0.conda
   sha256: c0a0bf028fe7f3defcdcaa464e536cf1b202d07451e18ad83fdd169d15bef6ed
   md5: e446e1822f4da8e5080a9de93474184d
