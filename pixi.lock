@@ -536,6 +536,7 @@ packages:
   - libgcc >=14
   - libstdcxx >=14
   license: MIT
+  license_family: MIT
   run_exports:
     weak:
     - icu >=78.3,<79.0a0
@@ -1483,6 +1484,7 @@ packages:
   depends:
   - __osx >=11.0
   license: MIT
+  license_family: MIT
   run_exports:
     weak:
     - icu >=78.3,<79.0a0
