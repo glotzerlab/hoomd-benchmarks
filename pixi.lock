@@ -158,7 +158,7 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/linux-64/gsd-5.0.1-h7c397b8_1.conda
       - conda: https://conda.anaconda.org/conda-forge/linux-64/h5py-3.16.0-nompi_py314hddf7a69_102.conda
       - conda: https://conda.anaconda.org/conda-forge/linux-64/hdf5-2.1.0-nompi_hc529623_111.conda
-      - conda: https://conda.anaconda.org/conda-forge/linux-64/hoomd-7.1.1-cpu_py314_hb131266_0.conda
+      - conda: https://conda.anaconda.org/conda-forge/linux-64/hoomd-7.1.2-cpu_py314_hb131266_0.conda
       - conda: https://conda.anaconda.org/conda-forge/linux-64/icu-78.3-h54a6638_2.conda
       - conda: https://conda.anaconda.org/conda-forge/linux-64/keyutils-1.6.3-hb9d3cd8_0.conda
       - conda: https://conda.anaconda.org/conda-forge/linux-64/krb5-1.22.2-hbde042b_1.conda
@@ -234,7 +234,7 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/osx-arm64/gsd-5.0.1-hfb0bdc6_1.conda
       - conda: https://conda.anaconda.org/conda-forge/osx-arm64/h5py-3.16.0-nompi_py314h658a3ac_102.conda
       - conda: https://conda.anaconda.org/conda-forge/osx-arm64/hdf5-2.1.0-nompi_h7eff4e6_111.conda
-      - conda: https://conda.anaconda.org/conda-forge/osx-arm64/hoomd-7.1.1-cpu_py314_h89c9786_0.conda
+      - conda: https://conda.anaconda.org/conda-forge/osx-arm64/hoomd-7.1.2-cpu_py314_h89c9786_0.conda
       - conda: https://conda.anaconda.org/conda-forge/osx-arm64/icu-78.3-hc7cc350_2.conda
       - conda: https://conda.anaconda.org/conda-forge/osx-arm64/krb5-1.22.2-hfd3d5f3_1.conda
       - conda: https://conda.anaconda.org/conda-forge/osx-arm64/libaec-1.1.5-h8664d51_0.conda
@@ -503,23 +503,24 @@ packages:
     - hdf5 >=2.1.0,<3.0a0
   size: 4271186
   timestamp: 1785701032488
-- conda: https://conda.anaconda.org/conda-forge/linux-64/hoomd-7.1.1-cpu_py314_hb131266_0.conda
-  sha256: b04480ccd848b4a81a38a696c67ca85d98f1e73b8b21c590cebd6cd4ccbfe790
-  md5: 60770c470acda2c4849657727b2fbc76
+- conda: https://conda.anaconda.org/conda-forge/linux-64/hoomd-7.1.2-cpu_py314_hb131266_0.conda
+  sha256: dc25a8ed74ed00c14ee666b6278baffa260c0572b2b11a2b7b9a67522f0efca0
+  md5: a88e52538e2f4fa16d6a67d423dce3b7
   depends:
   - python
-  - __glibc >=2.17,<3.0.a0
   - libstdcxx >=14
   - libgcc >=14
+  - __glibc >=2.17,<3.0.a0
+  - numpy >=1.25,<3
   - python_abi 3.14.* *_cp314
   - pybind11-abi ==11
-  - numpy >=1.25,<3
   license: BSD-3-Clause
+  license_family: BSD
   run_exports:
     weak:
-    - hoomd >=7.1.1,<7.1.2.0a0
-  size: 8384078
-  timestamp: 1785805419622
+    - hoomd >=7.1.2,<7.1.3.0a0
+  size: 8360788
+  timestamp: 1786538316939
 - conda: https://conda.anaconda.org/conda-forge/linux-64/icu-78.3-h54a6638_2.conda
   sha256: d7c260b7e1cf22ce04d6ba8a86eabf4e6c50bc96a5c27fe2ecb32298af3e88eb
   md5: 4ef4b977bb216a3001a3334696a80850
@@ -1440,22 +1441,23 @@ packages:
     - hdf5 >=2.1.0,<3.0a0
   size: 3382993
   timestamp: 1785701154474
-- conda: https://conda.anaconda.org/conda-forge/osx-arm64/hoomd-7.1.1-cpu_py314_h89c9786_0.conda
-  sha256: 50cf1057f702091a4c77607cfa3ec1315f1661f7881fb051a7c3cac4f5568ff4
-  md5: 7284c87b1c3a2750ebf28a581983af09
+- conda: https://conda.anaconda.org/conda-forge/osx-arm64/hoomd-7.1.2-cpu_py314_h89c9786_0.conda
+  sha256: d01d1d65d05335d52739ac9701226a086ffee3da9b609e2f1b694d981326db7d
+  md5: ec1e7a9ab31e09caaaadd215c6c6fe78
   depends:
   - python
   - libcxx >=19
   - __osx >=11.0
+  - python_abi 3.14.* *_cp314
   - pybind11-abi ==11
   - numpy >=1.25,<3
-  - python_abi 3.14.* *_cp314
   license: BSD-3-Clause
+  license_family: BSD
   run_exports:
     weak:
-    - hoomd >=7.1.1,<7.1.2.0a0
-  size: 6244587
-  timestamp: 1785805499467
+    - hoomd >=7.1.2,<7.1.3.0a0
+  size: 6232100
+  timestamp: 1786538421024
 - conda: https://conda.anaconda.org/conda-forge/osx-arm64/icu-78.3-hc7cc350_2.conda
   sha256: f0b22bc30e4cc29e29ba3234cb38497fe8def2c2aae4b775d42fe5b378a018c9
   md5: 6133ddbb17ba2b50700dd88e9303ce27
