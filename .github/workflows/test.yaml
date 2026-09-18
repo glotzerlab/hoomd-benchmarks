@@ -16,7 +16,7 @@ on:
 jobs:
   execute_benchmarks:
     name: Execute benchmarks
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-26.04
     env:
       benchmark_options: >
         --device CPU
