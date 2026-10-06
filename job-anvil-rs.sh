@@ -1,10 +1,9 @@
 #!/bin/bash
 #SBATCH --job-name=hoomd-blue
 #SBATCH --account=dmr140129
-#SBATCH --partition=wholenode
+#SBATCH --partition=shared
 #SBATCH --ntasks=64
-#SBATCH --cpus-per-task=2
-#SBATCH --time=120
+#SBATCH --time=6:00:00
 
 eval "$(pixi shell-hook --environment hoomd)"
 
