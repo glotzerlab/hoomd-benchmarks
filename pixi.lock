@@ -155,7 +155,7 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/linux-64/gsd-5.0.1-h7c397b8_1.conda
       - conda: https://conda.anaconda.org/conda-forge/linux-64/h5py-3.16.0-nompi_py315hf8c75a6_105.conda
       - conda: https://conda.anaconda.org/conda-forge/linux-64/hdf5-2.2.0-nompi_hdbb200c_101.conda
-      - conda: https://conda.anaconda.org/conda-forge/linux-64/hoomd-7.2.0-cpu_py315_h7e488be_0.conda
+      - conda: https://conda.anaconda.org/conda-forge/linux-64/hoomd-7.2.1-cpu_py315_h4baff99_0.conda
       - conda: https://conda.anaconda.org/conda-forge/linux-64/icu-78.3-py310h44b86e0_2.conda
       - conda: https://conda.anaconda.org/conda-forge/linux-64/keyutils-1.6.3-h7cc23a3_1.conda
       - conda: https://conda.anaconda.org/conda-forge/linux-64/krb5-1.22.2-hbc21106_2.conda
@@ -230,7 +230,7 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/osx-arm64/gsd-5.0.1-hfb0bdc6_1.conda
       - conda: https://conda.anaconda.org/conda-forge/osx-arm64/h5py-3.16.0-nompi_py315h70cefcc_105.conda
       - conda: https://conda.anaconda.org/conda-forge/osx-arm64/hdf5-2.2.0-nompi_h9376f17_101.conda
-      - conda: https://conda.anaconda.org/conda-forge/osx-arm64/hoomd-7.2.0-cpu_py315_hd07f69c_0.conda
+      - conda: https://conda.anaconda.org/conda-forge/osx-arm64/hoomd-7.2.1-cpu_py315_h57e82ce_0.conda
       - conda: https://conda.anaconda.org/conda-forge/osx-arm64/icu-78.3-py310h579977c_2.conda
       - conda: https://conda.anaconda.org/conda-forge/osx-arm64/krb5-1.22.2-h34f8a20_2.conda
       - conda: https://conda.anaconda.org/conda-forge/osx-arm64/libaec-1.1.5-h8664d51_0.conda
@@ -506,26 +506,25 @@ packages:
     - hdf5 >=2.2.0,<3.0a0
   size: 4301546
   timestamp: 1790973662814
-- conda: https://conda.anaconda.org/conda-forge/linux-64/hoomd-7.2.0-cpu_py315_h7e488be_0.conda
-  sha256: 90c923a376130f7511f7462d875cdebf38263d31ff4bd368ac8a7c9741da7e39
-  md5: 9636941c0aa21b9f99d3ef363fa6d0f6
+- conda: https://conda.anaconda.org/conda-forge/linux-64/hoomd-7.2.1-cpu_py315_h4baff99_0.conda
+  sha256: 58d892a00caee1692686d44b8ead1f4bad4f5191506b06eecb33b7ced6ec2fb1
+  md5: 04d4fafeb39ed3603ef512d417e16c3f
   depends:
   - libpython
   - python
-  - __glibc >=2.17,<3.0.a0
   - libstdcxx >=15
   - libgcc >=15
+  - __glibc >=2.17,<3.0.a0
   - pybind11-abi ==11
-  - libpython >=3.15.0rc2,<4.0a0
   - numpy >=1.25,<3
+  - libpython >=3.15,<4.0a0
   - python_abi 3.15.* *_cp315
   license: BSD-3-Clause
-  license_family: BSD
   run_exports:
     weak:
-    - hoomd >=7.2.0,<7.2.1.0a0
-  size: 8347642
-  timestamp: 1790093581899
+    - hoomd >=7.2.1,<7.2.2.0a0
+  size: 8346119
+  timestamp: 1793458435648
 - conda: https://conda.anaconda.org/conda-forge/linux-64/icu-78.3-py310h44b86e0_2.conda
   sha256: 9f07834f0c546ab14d885ce0366285f61f44e326c0edd1fc63b8294e113ae432
   md5: 72a381cbad04f24b1c2a43ef707f45b4
@@ -1449,25 +1448,24 @@ packages:
     - hdf5 >=2.2.0,<3.0a0
   size: 3576623
   timestamp: 1790973290607
-- conda: https://conda.anaconda.org/conda-forge/osx-arm64/hoomd-7.2.0-cpu_py315_hd07f69c_0.conda
-  sha256: 3f67d9f70ba79fb1b367baef5c5ed602e3a8c39843025fb484dac7db75fe6dc7
-  md5: 644e3125c97f3ba4d847ff8a9f454caa
+- conda: https://conda.anaconda.org/conda-forge/osx-arm64/hoomd-7.2.1-cpu_py315_h57e82ce_0.conda
+  sha256: 21ed4fc62563f9b696ee134f2db104018ead7356091fa401d02b32e5818e6edf
+  md5: 0209b178f1a195d41c7f56fa8d0c6479
   depends:
   - libpython
   - python
   - libcxx >=21
   - __osx >=11.0
-  - libpython >=3.15.0rc2,<4.0a0
-  - python_abi 3.15.* *_cp315
-  - numpy >=1.25,<3
   - pybind11-abi ==11
+  - numpy >=1.25,<3
+  - python_abi 3.15.* *_cp315
+  - libpython >=3.15,<4.0a0
   license: BSD-3-Clause
-  license_family: BSD
   run_exports:
     weak:
-    - hoomd >=7.2.0,<7.2.1.0a0
-  size: 6284912
-  timestamp: 1790093658308
+    - hoomd >=7.2.1,<7.2.2.0a0
+  size: 6283333
+  timestamp: 1793458454493
 - conda: https://conda.anaconda.org/conda-forge/osx-arm64/icu-78.3-py310h579977c_2.conda
   sha256: 6cdb5dee54c72e56ab189fb3ad33cb28533553d42590e7e831160248f4416a43
   md5: a5efc0b42bb8b42e97d0a29ae3e3c187
